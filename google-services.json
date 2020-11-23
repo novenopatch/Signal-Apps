@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "85489087904",
+    "firebase_url": "https://wtf-signals.firebaseio.com",
+    "project_id": "wtf-signals",
+    "storage_bucket": "wtf-signals.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85489087904:android:894394e47dc31dc0a1a0c5",
+        "android_client_info": {
+          "package_name": "jin.jerrykel.dev.signal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85489087904-k01c8ecqgg084tdove5t638a5o9n1mc8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbUFMRAgJ_QrSS7P_6ealk9O8Z4V4PsQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85489087904-k01c8ecqgg084tdove5t638a5o9n1mc8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

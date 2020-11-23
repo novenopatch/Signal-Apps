@@ -1,13 +1,14 @@
-package jin.jerrykel.dev.signal;
-
-import androidx.appcompat.app.AppCompatActivity;
+package jin.jerrykel.dev.signal.vue;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity {
+import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.AppsActivity;
+import jin.jerrykel.dev.signal.vue.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

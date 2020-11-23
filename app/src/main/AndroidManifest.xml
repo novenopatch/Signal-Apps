@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AppsActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".vue.LoginActivity"></activity>
+        <activity android:name=".vue.AppsActivity" />
+        <activity android:name=".vue.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

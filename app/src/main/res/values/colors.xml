@@ -3,4 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="loginScreenBackgroundColor">#126EA6</color>
+    <color name="loginConnectBackgroundColor">#126EC1</color>
+
 </resources>

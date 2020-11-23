@@ -5,27 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AppsActivity">
+    tools:context=".vue.AppsActivity"
+    android:padding="@dimen/LinearLayoutPadding">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/LinearLayoutPadding">
+        android:gravity="center_vertical"
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_baseline_account_circle_black_24" />
+       >
 
-        <TextView
-            android:id="@+id/textViewUserName"
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/img_profile"
+            android:layout_width="@dimen/toolbar_profile_width"
+            android:layout_height="@dimen/toolbar_profile_width"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_account_circle_black_48"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp" />
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/img_profile"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/textViewUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UserName"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="usereMail"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <LinearLayout
         android:id="@+id/linearLayoutImg"
@@ -48,16 +76,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+
         android:orientation="vertical"
-        android:padding="@dimen/LinearLayoutPadding">
+       >
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="premium" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,15 +99,6 @@
             android:id="@+id/saveRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutpublicité"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
     </LinearLayout>
 
 </LinearLayout>

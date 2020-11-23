@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/loginScreenBackgroundColor"
+    android:orientation="vertical"
+    android:padding="@dimen/LinearLayoutPadding"
+    tools:context=".vue.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_marginBottom="20sp"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="@string/email"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/editextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@android:color/white" />
+
+
+            <EditText
+                android:id="@+id/editextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@android:color/white" />
+
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="30sp"
+                android:background="@color/loginConnectBackgroundColor"
+                android:onClick="login"
+                android:text="@string/login"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/textViewSinscrire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/createNewAccountString"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:onClick="login"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
