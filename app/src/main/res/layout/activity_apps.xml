@@ -21,7 +21,8 @@
         android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:layout_weight="0.1"
-
+        app:tabIconTint="@android:color/black"
+        app:tabIndicatorColor="@android:color/white"
         app:tabMode="fixed"
         app:tabSelectedTextColor="#E0F8"
         app:tabTextColor="@color/colorAccent" />

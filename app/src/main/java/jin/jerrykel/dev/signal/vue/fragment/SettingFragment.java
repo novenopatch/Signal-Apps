@@ -10,17 +10,26 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentSnapshot;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
+import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.AppsActivity;
 
 /**
@@ -41,13 +50,20 @@ public class SettingFragment extends Fragment {
 
     private Controler controler;
     private  View rootView ;
-    private TextView textViewUserName;
-    private TextView textViewEmail;
-    private ImageView imageViewProfile;
+    //FOR DESIGN
+     ImageView imageViewProfile;
+     TextInputEditText textInputEditTextUsername;
+     TextView textViewEmail;
+     ProgressBar progressBar;
+     Button profileActivityButtonUpdate;
+     Button profileActivityButtonSignOut;
+     Button profileActivityButtonDelete;
+     CheckBox profileActivityCheckBoxIsMentor;
     //FOR DATA
     // 2 - Identify each Http Request
     private static final int SIGN_OUT_TASK = 10;
     private static final int DELETE_USER_TASK = 20;
+    private static final int UPDATE_USERNAME = 30;
 
 
 
@@ -88,50 +104,68 @@ public class SettingFragment extends Fragment {
         return rootView;
     }
     private void initView(View rootView){
-        textViewEmail = rootView.findViewById(R.id.textViewEmail);
-        textViewUserName = rootView.findViewById(R.id.textViewUserName);
         imageViewProfile = rootView.findViewById(R.id.img_profile);
+        textInputEditTextUsername  = rootView.findViewById(R.id.profile_activity_edit_text_username);
+        textViewEmail = rootView.findViewById(R.id.profile_activity_text_view_email);
+        progressBar = rootView.findViewById(R.id.profile_activity_progress_bar);
+        profileActivityButtonUpdate = rootView.findViewById(R.id.profileActivityButtonUpdate);
+        profileActivityButtonSignOut = rootView.findViewById(R.id.profileActivityButtonSignOut);
+        profileActivityButtonDelete = rootView.findViewById(R.id.profileActivityButtonDelete);
+        profileActivityCheckBoxIsMentor = rootView.findViewById(R.id.profileActivityCheckBoxIsMentor);
+
         updateUIWhenCreating();
+        addClickListener();
     }
-    private void  updateUIWhenCreating(){
-        if (controler.getCurrentUser() != null){
-
-            //Get picture URL from Firebase
-            if (controler.getCurrentUser().getPhotoUrl() != null) {
-                Glide.with(this).load(controler.getCurrentUser().getPhotoUrl()).apply(RequestOptions.circleCropTransform()).into(imageViewProfile);
-            }
-        //Get email & username from Firebase
-        String email = TextUtils.isEmpty(controler.getCurrentUser().getEmail()) ? getString(R.string.info_no_email_found) : controler.getCurrentUser().getEmail();
-        String username = TextUtils.isEmpty(controler.getCurrentUser().getDisplayName()) ? getString(R.string.info_no_username_found) : controler.getCurrentUser().getDisplayName();
-
-        //Update views with data
-        this.textViewUserName.setText(username);
-        this.textViewEmail.setText(email);
-
-        }
+    private void  addClickListener(){
+        profileActivityButtonUpdate.setOnClickListener(onClickUpdateButton);
+        profileActivityButtonSignOut.setOnClickListener(onClickSignOutButton);
+        profileActivityButtonDelete.setOnClickListener(onClickDeleteButton);
+        profileActivityCheckBoxIsMentor.setOnClickListener(onClickCheckBoxIsMentor);
     }
-
-
-
 
     // 4 - Adding requests to button listeners
+    private View.OnClickListener onClickUpdateButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            updateUsernameInFirebase();
+        }
 
-   // @OnClick(R.id.profile_activity_button_sign_out)
-    public void onClickSignOutButton(View view) { this.signOutUserFromFirebase(); }
 
-   // @OnClick(R.id.profile_activity_button_delete)
-    public void onClickDeleteButton(View view) {
-        new AlertDialog.Builder(rootView.getContext())
-                .setMessage(R.string.popup_message_confirmation_delete_account)
-                .setPositiveButton(R.string.popup_message_choice_yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        deleteUserFromFirebase();
-                    }
-                })
-                .setNegativeButton(R.string.popup_message_choice_no, null)
-                .show();
-    }
+    };
+    private View.OnClickListener onClickSignOutButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            signOutUserFromFirebase();
+        }
+
+
+    };
+
+    private View.OnClickListener onClickDeleteButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(rootView.getContext())
+                    .setMessage(R.string.popup_message_confirmation_delete_account)
+                    .setPositiveButton(R.string.popup_message_choice_yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteUserFromFirebase();
+                        }
+                    })
+                    .setNegativeButton(R.string.popup_message_choice_no, null)
+                    .show();
+        }
+
+
+    };
+    private View.OnClickListener onClickCheckBoxIsMentor = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            updateUserIsMentor();
+        }
+
+
+    };
 
     // --------------------
     // REST REQUESTS
@@ -153,12 +187,58 @@ public class SettingFragment extends Fragment {
         }
     }
 
-    // --------------------
-    // UI
-    // --------------------
+
+    // 3 - Update User Username
+    private void updateUsernameInFirebase(){
+
+        this.progressBar.setVisibility(View.VISIBLE);
+        String username = this.textInputEditTextUsername.getText().toString();
+
+        if (controler.getCurrentUser() != null){
+            if (!username.isEmpty() &&  !username.equals(getString(R.string.info_no_username_found))){
+                UserHelper.updateUsername(username, controler.getCurrentUser().getUid()).addOnFailureListener(controler.onFailureListener(rootView.getContext())).addOnSuccessListener(this.updateUIAfterRESTRequestsCompleted(UPDATE_USERNAME));
+            }
+        }
+    }
+
+    // 2 - Update User Mentor (is or not)
+    private void updateUserIsMentor(){
+        if (controler.getCurrentUser() != null) {
+            UserHelper.updateIsMentor(controler.getCurrentUser().getUid(), this.profileActivityCheckBoxIsMentor.isChecked()).addOnFailureListener(controler.onFailureListener(rootView.getContext()));
+        }
+    }
 
 
 
+
+
+    private void updateUIWhenCreating(){
+
+        if (controler.getCurrentUser() != null){
+
+            if (controler.getCurrentUser().getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(controler.getCurrentUser().getPhotoUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageViewProfile);
+            }
+
+            String email = TextUtils.isEmpty(controler.getCurrentUser().getEmail()) ? getString(R.string.info_no_email_found) : controler.getCurrentUser().getEmail();
+
+            this.textViewEmail.setText(email);
+
+            // 7 - Get additional data from Firestore (isMentor & Username)
+            UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User currentUser = documentSnapshot.toObject(User.class);
+                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
+                    profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                    textInputEditTextUsername.setText(username);
+                }
+            });
+        }
+    }
     // 3 - Create OnCompleteListener called after tasks ended
     private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
         return new OnSuccessListener<Void>() {
@@ -178,34 +258,6 @@ public class SettingFragment extends Fragment {
         };
     }
 
-    public void onClickUpdateButton(View view) { this.updateUsernameInFirebase(); }
-
-   // @OnClick(R.id.profile_activity_check_box_is_mentor)
-    public void onClickCheckBoxIsMentor(View view) { this.updateUserIsMentor(); }
-
-    // 3 - Update User Username
-    private void updateUsernameInFirebase(){
-
-        //this.progressBar.setVisibility(View.VISIBLE);
-        String username = this.textViewUserName.getText().toString();
-
-        if (controler.getCurrentUser() != null){
-            if (!username.isEmpty() &&  !username.equals(getString(R.string.info_no_username_found))){
-                //UserHelper.updateUsername(username, controler.getCurrentUser().getUid()).addOnFailureListener(controler.onFailureListener(rootView.getContext())).addOnSuccessListener(this.updateUIAfterRESTRequestsCompleted(UPDATE_USERNAME));
-            }
-        }
-    }
-
-    // 2 - Update User Mentor (is or not)
-    private void updateUserIsMentor(){
-        if (controler.getCurrentUser() != null) {
-            //UserHelper.updateIsMentor(controler.getCurrentUser().getUid(), this.checkBoxIsMentor.isChecked()).addOnFailureListener(controler.onFailureListener(rootView.getContext()));
-        }
-    }
-
-    // --------------------
-    // UI
-    // --------------------
 
 
 }

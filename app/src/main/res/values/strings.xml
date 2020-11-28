@@ -48,4 +48,8 @@
 
     <string name="chat_with_mentor">Discute avec un mentor</string>
     <string name="login_activity_description">description de l\'application</string>
+    <string name="error_authentication_canceled">cancel</string>
+    <string name="SUCCESS">SUCCESS</string>
+    <string name="error_no_internet">no connection</string>
+    <string name="connection_succeed">connection succed</string>
 </resources>

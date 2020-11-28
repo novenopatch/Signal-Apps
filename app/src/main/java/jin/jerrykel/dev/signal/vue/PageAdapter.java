@@ -20,10 +20,10 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     }
 
-    public void addFragmentAndFragmentTilte(Fragment fragment, String title){
+    public void addFragmentAndFragmentTilte(Fragment fragment){
         //Todo Add icone
         this.fragmentArrayList.add(fragment);
-        this.fragmentStringtitle.add(title);
+
     }
     @Override
     public int getCount() {
@@ -38,14 +38,7 @@ public class PageAdapter extends FragmentPagerAdapter {
         return fragmentArrayList.get(position);
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
 
-        return fragmentStringtitle.get(position);
-
-
-
-    }
 
 
 }

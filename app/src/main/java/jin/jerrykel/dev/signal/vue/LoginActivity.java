@@ -1,6 +1,7 @@
 package jin.jerrykel.dev.signal.vue;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
@@ -32,9 +34,10 @@ public class LoginActivity extends BaseActivity {
     //FOR DATA
     // 1 - Identifier for Sign-In Activity
     private static final int RC_SIGN_IN = 123;
-    private  @BindView(R.id.lineraLayoutLogin)LinearLayout linearLayout;
+    @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.buttonLogin) Button  buttonLogin;
     private Controler controler;
-    private @BindView(R.id.buttonLogin) Button  buttonLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,64 +45,30 @@ public class LoginActivity extends BaseActivity {
          setContentView(R.layout.activity_login);
          controler = Controler.getInstance();
          ButterKnife.bind(this);
-         startAppropriateActivity();
+
     }
 
     public void login(View v){
         if(v.getId() == R.id.buttonLogin) {
-            /*
-            final EditText editextEmail = findViewById(R.id.editextEmail);
-            final  EditText editextPassword = findViewById(R.id.editextPassword);
-            if(!editextEmail.getText().toString().isEmpty() && !editextPassword.getText().toString().isEmpty()){
-                Controler controler = Controler.getInstance();
-                if(controler.connnect(editextEmail.getText().toString(),editextPassword.getText().toString())){
-
-                    buttonLogin.setText("SUCCESS");
-                    buttonLogin.setBackgroundColor(Color.GREEN);
-                    Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Toast.makeText(this,"error TO DO",Toast.LENGTH_SHORT).show();
-                    buttonLogin.setText("ERROR");
-                    buttonLogin.setBackgroundColor(Color.RED);
-                    editextEmail.setTextColor(Color.RED);
-                    editextPassword.setTextColor(Color.RED);
-                    int times = 1000;
-                    new Handler().postDelayed(new Runnable() {
-                        @SuppressLint("ResourceAsColor")
-                        @Override
-                        public void run() {
-                            buttonLogin.setBackgroundColor(R.color.loginConnectBackgroundColor);
-                            buttonLogin.setText(R.string.login);
-                            editextEmail.setTextColor(Color.WHITE);
-                            editextPassword.setTextColor(Color.WHITE);
-                        }
-                    }, times);
-                }
-            }
-        }else if(v.getId() == R.id.textViewSinscrire){
-            // 3 - Launch Sign-In Activity when user clicked on Login Button
-            //this.startSignInActivity();
-        }
-
-             */
-        }else if(v.getId() == R.id.textViewSinscrire){
-                // 3 - Launch Sign-In Activity when user clicked on Login Button
+            if (controler.isCurrentUserLogged()){
+                this.startAppActivity();
+            } else {
                 this.startSignInActivity();
+            }
+        }else if(v.getId() == R.id.buttonChat){
+                // 3 - Launch Sign-In Activity when user clicked on Login Button
+            this.startAppropriateActivity();
             }
 
     }
-    // --------------------
-    // NAVIGATION
-    // --------------------
+
 
     // 2 - Launch Sign-In Activity
     private void startSignInActivity(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.EmailBuilder().build()
                 //new AuthUI.IdpConfig.PhoneBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build()
+                //new AuthUI.IdpConfig.GoogleBuilder().build()
                 //new AuthUI.IdpConfig.FacebookBuilder().build(),
                 //new AuthUI.IdpConfig.TwitterBuilder().build()
                 );
@@ -121,19 +90,11 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-
-    // --------------------
-    // UI
-    // --------------------
-
     // 2 - Show Snack Bar with a message
-    private void showSnackBar(LinearLayout linearLayout, String message){
-        Snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+    private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
-    // --------------------
-    // UTILS
-    // --------------------
 
     // 3 - Method that handles response after SignIn Activity close
     private void handleResponseAfterSignIn(int requestCode, int resultCode, Intent data){
@@ -142,21 +103,23 @@ public class LoginActivity extends BaseActivity {
 
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
-                showSnackBar(this.linearLayout, "SUCCESS");
+                // 2 - CREATE USER IN FIRESTORE
+                this.createUserInFirestore();
+                showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
                 Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
                 startActivity(intent);
                 finish();
             } else { // ERRORS
                 if (response == null) {
-                    //showSnackBar(this.linearLayout, getString(R.string.error_authentication_canceled));
-                    showSnackBar(this.linearLayout, "cancel");
+
+                    showSnackBar(this.coordinatorLayout, getString(R.string.error_authentication_canceled));
                 } else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    //showSnackBar(this.coordinatorLayout, getString(R.string.error_no_internet));
-                    showSnackBar(this.linearLayout, "no connection");
+
+                    showSnackBar(this.coordinatorLayout,  getString(R.string.error_no_internet));
 
                 } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-                    //showSnackBar(this.linearLayout, getString(R.string.error_unknown_error));
-                    showSnackBar(this.linearLayout, "error inconnue");
+
+                    showSnackBar(this.coordinatorLayout, getString(R.string.error_unknown_error));
 
                 }
             }
@@ -180,7 +143,12 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
-
+    // 3 - Launching Profile Activity
+    private void startAppActivity(){
+        Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     // 1 - Http request that create user in firestore
     private void createUserInFirestore(){
@@ -195,16 +163,13 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    // 3 - Launching Profile Activity
-    private void startAppActivity(){
-        Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
-        startActivity(intent);
-        finish();
-    }
     // 2 - Update UI when activity is resuming
     private void updateUIWhenResuming(){
         this.buttonLogin.setText(controler.isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
     }
+
+
+
 
 
 

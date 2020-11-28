@@ -29,8 +29,7 @@ public class Message {
 
     // --- GETTERS ---
     public String getMessage() { return message; }
-    @ServerTimestamp
-    public Date getDateCreated() { return dateCreated; }
+    @ServerTimestamp public Date getDateCreated() { return dateCreated; }
     public User getUserSender() { return userSender; }
     public String getUrlImage() { return urlImage; }
 

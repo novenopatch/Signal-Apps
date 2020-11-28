@@ -4,12 +4,16 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
+
+    </style>
+    <style name="AppThemeSuite" parent="AppTheme">
         <item name="colorControlNormal">@android:color/white</item>
         <item name="colorControlActivated">@android:color/white</item>
         <item name="colorControlHighlight">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
     </style>
     <!-- STYLE SIGN-IN ACTIVITY -->
     <style name="LoginTheme" parent="AppTheme">

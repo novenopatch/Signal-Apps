@@ -11,9 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
 
         >
-
+        <ProgressBar
+            android:id="@+id/profile_activity_progress_bar"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:visibility="invisible"
+            android:layout_margin="@dimen/default_large_margin"/>
 
         <ImageView
             android:id="@+id/img_profile"
@@ -24,6 +30,7 @@
             android:src="@drawable/ic_baseline_account_circle_black_48" />
 
         <LinearLayout
+            android:id="@+id/linearLayoutinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -31,59 +38,84 @@
             android:layout_toRightOf="@id/img_profile"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UserName"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewEmail"
+            <!-- PROFILE USERNAME -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_activity_edit_text_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="usereMail"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/text_input_username"
+                />
+            <!-- PROFILE EMAIL -->
+            <TextView
+                android:id="@+id/profile_activity_text_view_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/profileActivityCheckBoxIsMentor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/check_box_is_mentor" />
+
         </LinearLayout>
+
+
 
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom"
         android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CheckBox is mentor"
-            android:onClick="onClickCheckBoxIsMentor"/>
-
+        <!-- BUTTON UPDATE USERNAME -->
         <Button
-            android:id="@+id/buttondeconnect"
-            android:layout_width="wrap_content"
+            android:id="@+id/profileActivityButtonUpdate"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="button deconnecter"
-            android:onClick="onClickSignOutButton"/>
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/button_radius_primary_color"
+            android:padding="@dimen/default_margin"
+            android:text="@string/button_update_account"
+            android:textColor="#fff"
+            android:textSize="@dimen/default_text_size" />
 
+        <!-- BUTTON SIGN OUT -->
         <Button
-            android:id="@+id/buttondeletaccount"
-            android:layout_width="wrap_content"
+            android:id="@+id/profileActivityButtonSignOut"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button delete account"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/button_radius_accent_color"
+            android:padding="@dimen/default_margin"
+            android:text="@string/button_sign_out_account"
+            android:textColor="#fff"
+            android:textSize="@dimen/default_text_size"
+            />
 
-            android:onClick="onClickDeleteButton"/>
-
+        <!-- BUTTON DELETE ACCOUNT -->
         <Button
-            android:id="@+id/buttonupdate"
-            android:layout_width="wrap_content"
+            android:id="@+id/profileActivityButtonDelete"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button update"
-            android:onClick="onClickUpdateButton"/>
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/button_radius_error_color"
+            android:padding="@dimen/default_margin"
+            android:text="@string/button_delete_account"
+            android:textColor="#fff"
+            android:textSize="@dimen/default_text_size"
+            />
+
     </LinearLayout>
 
 

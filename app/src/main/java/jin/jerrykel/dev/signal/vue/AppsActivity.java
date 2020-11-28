@@ -3,6 +3,8 @@ package jin.jerrykel.dev.signal.vue;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -37,9 +39,9 @@ public class AppsActivity extends BaseActivity {
 
         //add fragment
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(),0);
-        pageAdapter.addFragmentAndFragmentTilte(homeFragment,"Home(TODO)");
-        pageAdapter.addFragmentAndFragmentTilte(addFragment,"add(TODO)");
-        pageAdapter.addFragmentAndFragmentTilte(settingFragment,"setting(Todo)");
+        pageAdapter.addFragmentAndFragmentTilte(homeFragment);
+        pageAdapter.addFragmentAndFragmentTilte(addFragment);
+        pageAdapter.addFragmentAndFragmentTilte(settingFragment);
 
         //Get ViewPager from layout
         pager = new ViewPager(this);
@@ -54,7 +56,11 @@ public class AppsActivity extends BaseActivity {
         // 3 - Design purpose. Tabs have the same width
         tabs.setTabMode(TabLayout.MODE_FIXED);//Mode_Fixed
 
-        tabs.getTabAt(0).setIcon(R.drawable.ic_baseline_account_circle_black_24);
+        tabs.getTabAt(0).setIcon(R.drawable.ic_round_home_black_48);
+        tabs.getTabAt(1).setIcon(R.drawable.ic_round_message_black_48);
+        tabs.getTabAt(2).setIcon(R.drawable.ic_round_settings_black_48);
+
+
         //BadgeDrawable badgeDrawable = tabs.getTabAt(1).getOrCreateBadge();
         //badgeDrawable.setVisible(true);
         // badgeDrawable.setNumber(0);
