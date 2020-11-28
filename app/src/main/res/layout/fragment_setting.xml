@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".vue.fragment.SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
 
-</FrameLayout>
+        >
+
+
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="@dimen/toolbar_profile_width"
+            android:layout_height="@dimen/toolbar_profile_width"
+
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_account_circle_black_48" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10sp"
+            android:layout_toRightOf="@id/img_profile"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UserName"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="usereMail"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CheckBox is mentor"
+            android:onClick="onClickCheckBoxIsMentor"/>
+
+        <Button
+            android:id="@+id/buttondeconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="button deconnecter"
+            android:onClick="onClickSignOutButton"/>
+
+        <Button
+            android:id="@+id/buttondeletaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button delete account"
+
+            android:onClick="onClickDeleteButton"/>
+
+        <Button
+            android:id="@+id/buttonupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button update"
+            android:onClick="onClickUpdateButton"/>
+    </LinearLayout>
+
+
+</LinearLayout>

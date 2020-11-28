@@ -14,14 +14,14 @@
         android:layout_weight="1"
         />
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_main_tabs"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:layout_weight="0.1"
-        android:background="@color/colorPrimary"
-        app:tabIndicatorColor="@android:color/black"
+
         app:tabMode="fixed"
         app:tabSelectedTextColor="#E0F8"
         app:tabTextColor="@color/colorAccent" />

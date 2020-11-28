@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.google.android.material.tabs.TabLayout;
-
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.vue.fragment.AddFragment;
@@ -27,6 +26,8 @@ public class AppsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apps);
+
+        configureViewPagerAndTabs();
     }
     @SuppressLint("ResourceType")
     private void configureViewPagerAndTabs(){
@@ -53,7 +54,7 @@ public class AppsActivity extends BaseActivity {
         // 3 - Design purpose. Tabs have the same width
         tabs.setTabMode(TabLayout.MODE_FIXED);//Mode_Fixed
 
-        //tabs.getTabAt(0).setIcon(R.drawable.ic_baseline_settings_blue_24);
+        tabs.getTabAt(0).setIcon(R.drawable.ic_baseline_account_circle_black_24);
         //BadgeDrawable badgeDrawable = tabs.getTabAt(1).getOrCreateBadge();
         //badgeDrawable.setVisible(true);
         // badgeDrawable.setNumber(0);

@@ -1,5 +1,7 @@
 package jin.jerrykel.dev.signal.model;
 
+import androidx.annotation.Nullable;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,34 +9,31 @@ import java.util.Objects;
  * Created by JerrykelDEV on 23/11/2020 13:42
  */
 public class User {
-    private String userMail;
-    private String userPassword;
+    private String uid;
     private String userName;
     private  boolean sexe;
     private  Date UserBirthDay;
+    private Boolean isMentor;
+    @Nullable
+    private String urlPicture;
 
-    public User(String userMail, String userPassword, String userName, boolean sexe, Date userBirthDay) {
-        this.userMail = userMail;
-        this.userPassword = userPassword;
+
+    public User() { }
+
+    public User( String uid,String userName, boolean sexe, Date userBirthDay, String urlPicture) {
+        this.uid = uid;
         this.userName = userName;
         this.sexe = sexe;
         UserBirthDay = userBirthDay;
+        this.urlPicture = urlPicture;
+        this.isMentor = false;
     }
 
-    public String getUserMail() {
-        return userMail;
-    }
-
-    public void setUserMail(String userMail) {
-        this.userMail = userMail;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public User(String uid, String username, String urlPicture) {
+        this.uid = uid;
+        this.userName = userName;
+        this.urlPicture = urlPicture;
+        this.isMentor = false;
     }
 
     public String getUserName() {
@@ -60,4 +59,13 @@ public class User {
     public void setUserBirthDay(Date userBirthDay) {
         UserBirthDay = userBirthDay;
     }
+    // --- GETTERS ---
+    public String getUid() { return uid; }
+    public String getUrlPicture() { return urlPicture; }
+    public Boolean getIsMentor() { return isMentor; }
+
+    // --- SETTERS ---
+    public void setUid(String uid) { this.uid = uid; }
+    public void setUrlPicture(String urlPicture) { this.urlPicture = urlPicture; }
+    public void setIsMentor(Boolean mentor) { isMentor = mentor; }
 }

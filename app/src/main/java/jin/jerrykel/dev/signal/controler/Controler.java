@@ -1,9 +1,18 @@
 package jin.jerrykel.dev.signal.controler;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Date;
 
+import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.model.User;
 
 /**
@@ -26,9 +35,7 @@ public class Controler {
         }
         return  Controler.instance;
     }
-    public User createUser(String email,String password,String  userName,boolean sexe, Date userBirthDay){
-        return  new User (email,password,userName,sexe,userBirthDay);
-    }
+
     public boolean connnect(String email,String password){
 
         if(email.equals("root")&& password.equals("root")){
@@ -37,5 +44,20 @@ public class Controler {
         return false;
 
     }
+    @Nullable
+    public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+
+    public Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
+
+    public OnFailureListener onFailureListener(final Context context){
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, context.getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+            }
+        };
+    }
+
+
 
 }

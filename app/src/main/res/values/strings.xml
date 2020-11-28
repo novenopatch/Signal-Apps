@@ -6,4 +6,46 @@
     <string name="createNewAccountString">No account yet ? Create one</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="button_login_text_logged">you are connected</string>
+    <string name="button_login_text_not_logged">you are not connected</string>
+
+    <string name="error_unknown_error">"error unknown "</string>
+
+
+
+
+
+
+
+
+
+    <!-- LOGIN ACTIVITY -->
+    <string name="toolbar_title_login_activity">Votre Profil</string>
+    <string name="text_input_username">Nom d\'utilisateur</string>
+    <string name="text_view_email">Adresse email :</string>
+    <string name="button_update_account">Mettre à jour le nom d\'utilisateur</string>
+    <string name="button_delete_account">Supprimer mon compte</string>
+    <string name="button_sign_out_account">Déconnexion</string>
+    <string name="info_no_email_found">email not found</string>
+    <string name="info_no_username_found">username not found</string>
+    <string name="popup_message_confirmation_delete_account">Es-tu sûr(e) de vouloir supprimer ton compte ?</string>
+    <string name="popup_message_choice_no">No</string>
+    <string name="popup_message_choice_yes">Yes</string>
+    <string name="check_box_is_mentor">Etes-vous un mentor ?</string>
+
+
+    <!-- MENTOR_CHAT ACTIVITY -->
+    <string name="toolbar_title_mentor_chat_activity">Chats de discussions</string>
+    <string name="text_input_title_mentor_chat_activity">Composer votre message</string>
+    <string name="button_title_mentor_chat_activity">ENVOYER</string>
+    <string name="text_view_mentor_chat_error">Ce fil de discussion ne contient pour le moment aucun message&#8230;</string>
+    <string name="popup_title_permission_files_access">Cette application a besoin de permission pour fonctionner.</string>
+    <string name="toast_title_no_image_chosen">Aucune image choisie&#8230;</string>
+
+
+
+
+    <string name="chat_with_mentor">Discute avec un mentor</string>
+    <string name="login_activity_description">description de l\'application</string>
 </resources>
