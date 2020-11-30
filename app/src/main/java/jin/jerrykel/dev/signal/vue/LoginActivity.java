@@ -96,35 +96,6 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    // 3 - Method that handles response after SignIn Activity close
-    private void handleResponseAfterSignIn(int requestCode, int resultCode, Intent data){
-
-        IdpResponse response = IdpResponse.fromResultIntent(data);
-
-        if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK) { // SUCCESS
-                // 2 - CREATE USER IN FIRESTORE
-                this.createUserInFirestore();
-                showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
-                Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
-                startActivity(intent);
-                finish();
-            } else { // ERRORS
-                if (response == null) {
-
-                    showSnackBar(this.coordinatorLayout, getString(R.string.error_authentication_canceled));
-                } else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-
-                    showSnackBar(this.coordinatorLayout,  getString(R.string.error_no_internet));
-
-                } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-
-                    showSnackBar(this.coordinatorLayout, getString(R.string.error_unknown_error));
-
-                }
-            }
-        }
-    }
 
     @Override
     protected void onResume() {
@@ -159,7 +130,10 @@ public class LoginActivity extends BaseActivity {
             String username = controler.getCurrentUser().getDisplayName();
             String uid = controler.getCurrentUser().getUid();
 
-            UserHelper.createUser(uid, username, urlPicture).addOnFailureListener(controler.onFailureListener(this));
+            UserHelper.createUser(uid, username, urlPicture)
+                    .addOnFailureListener(
+                            controler.onFailureListener(this)
+                    );
         }
     }
 
@@ -171,6 +145,33 @@ public class LoginActivity extends BaseActivity {
 
 
 
+    // 3 - Method that handles response after SignIn Activity close
+    private void handleResponseAfterSignIn(int requestCode, int resultCode, Intent data){
+
+        IdpResponse response = IdpResponse.fromResultIntent(data);
+
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) { // SUCCESS
+                // 2 - CREATE USER IN FIRESTORE
+                this.createUserInFirestore();
+                showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
+                startAppActivity();
+            } else { // ERRORS
+                if (response == null) {
+
+                    showSnackBar(this.coordinatorLayout, getString(R.string.error_authentication_canceled));
+                } else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+
+                    showSnackBar(this.coordinatorLayout,  getString(R.string.error_no_internet));
+
+                } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+
+                    showSnackBar(this.coordinatorLayout, getString(R.string.error_unknown_error));
+
+                }
+            }
+        }
+    }
 
 
 

@@ -1,6 +1,8 @@
 package jin.jerrykel.dev.signal.vue.fragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +33,7 @@ import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.AppsActivity;
+import jin.jerrykel.dev.signal.vue.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,8 +62,6 @@ public class SettingFragment extends Fragment {
      Button profileActivityButtonSignOut;
      Button profileActivityButtonDelete;
      CheckBox profileActivityCheckBoxIsMentor;
-    //FOR DATA
-    // 2 - Identify each Http Request
     private static final int SIGN_OUT_TASK = 10;
     private static final int DELETE_USER_TASK = 20;
     private static final int UPDATE_USERNAME = 30;
@@ -70,8 +71,6 @@ public class SettingFragment extends Fragment {
     public SettingFragment() {
         // Required empty public constructor
     }
-
-    // TODO: Rename and change types and number of parameters
     public static SettingFragment newInstance(String param1, String param2) {
         SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
@@ -179,11 +178,12 @@ public class SettingFragment extends Fragment {
 
     private void deleteUserFromFirebase(){
         if (controler.getCurrentUser() != null) {
+            //4 - We also delete user from firestore storage
+            UserHelper.deleteUser(controler.getCurrentUser().getUid()).addOnFailureListener(controler.onFailureListener(rootView.getContext()));
             AuthUI.getInstance()
                     .delete(rootView.getContext())
                     .addOnSuccessListener((AppsActivity)rootView.getContext(), this.updateUIAfterRESTRequestsCompleted(DELETE_USER_TASK));
-            //4 - We also delete user from firestore storage
-            UserHelper.deleteUser(controler.getCurrentUser().getUid()).addOnFailureListener(controler.onFailureListener(rootView.getContext()));
+
         }
     }
 
@@ -196,7 +196,11 @@ public class SettingFragment extends Fragment {
 
         if (controler.getCurrentUser() != null){
             if (!username.isEmpty() &&  !username.equals(getString(R.string.info_no_username_found))){
-                UserHelper.updateUsername(username, controler.getCurrentUser().getUid()).addOnFailureListener(controler.onFailureListener(rootView.getContext())).addOnSuccessListener(this.updateUIAfterRESTRequestsCompleted(UPDATE_USERNAME));
+                UserHelper.updateUsername(username,
+                        controler.getCurrentUser().getUid()
+                ).addOnFailureListener(
+                        controler.onFailureListener(rootView.getContext())
+                ).addOnSuccessListener(this.updateUIAfterRESTRequestsCompleted(UPDATE_USERNAME));
             }
         }
     }
@@ -223,7 +227,8 @@ public class SettingFragment extends Fragment {
                         .into(imageViewProfile);
             }
 
-            String email = TextUtils.isEmpty(controler.getCurrentUser().getEmail()) ? getString(R.string.info_no_email_found) : controler.getCurrentUser().getEmail();
+            String email = TextUtils.isEmpty(controler.getCurrentUser().getEmail())
+                    ? getString(R.string.info_no_email_found) : controler.getCurrentUser().getEmail();
 
             this.textViewEmail.setText(email);
 
@@ -239,6 +244,13 @@ public class SettingFragment extends Fragment {
             });
         }
     }
+    // 3 - Launching Profile Activity
+    private void startLoginActivity(){
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+
+    }
     // 3 - Create OnCompleteListener called after tasks ended
     private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
         return new OnSuccessListener<Void>() {
@@ -246,10 +258,12 @@ public class SettingFragment extends Fragment {
             public void onSuccess(Void aVoid) {
                 switch (origin){
                     case SIGN_OUT_TASK:
-                        ((AppsActivity)rootView.getContext()).finish();
+                        //((AppsActivity)rootView.getContext()).finish();
+                        startLoginActivity();
                         break;
                     case DELETE_USER_TASK:
-                        ((AppsActivity)rootView.getContext()).finish();
+                       // ((AppsActivity)rootView.getContext()).finish();
+                        startLoginActivity();
                         break;
                     default:
                         break;

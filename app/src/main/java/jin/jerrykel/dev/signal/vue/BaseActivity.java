@@ -1,5 +1,7 @@
 package jin.jerrykel.dev.signal.vue;
 
+import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 

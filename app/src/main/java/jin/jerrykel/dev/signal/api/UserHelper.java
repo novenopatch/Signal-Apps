@@ -42,6 +42,9 @@ public class UserHelper {
     public static Task<Void> updateIsMentor(String uid, Boolean isMentor) {
         return UserHelper.getUsersCollection().document(uid).update("isMentor", isMentor);
     }
+    public static Task<Void> updateIsMentor(String uid,Boolean isMentor, Boolean isRoot) {
+        return UserHelper.getUsersCollection().document(uid).update("isRoot",isRoot);
+    }
 
     // --- DELETE ---
 

@@ -13,13 +13,6 @@
     <string name="error_unknown_error">"error unknown "</string>
 
 
-
-
-
-
-
-
-
     <!-- LOGIN ACTIVITY -->
     <string name="toolbar_title_login_activity">Votre Profil</string>
     <string name="text_input_username">Nom d\'utilisateur</string>
@@ -44,12 +37,13 @@
     <string name="toast_title_no_image_chosen">Aucune image choisie&#8230;</string>
 
 
-
-
     <string name="chat_with_mentor">Discute avec un mentor</string>
     <string name="login_activity_description">description de l\'application</string>
     <string name="error_authentication_canceled">cancel</string>
     <string name="SUCCESS">SUCCESS</string>
     <string name="error_no_internet">no connection</string>
     <string name="connection_succeed">connection succed</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="notification_title">"Vous avez reçu une notification"</string>
+
 </resources>

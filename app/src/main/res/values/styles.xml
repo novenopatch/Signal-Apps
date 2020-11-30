@@ -32,5 +32,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:textColorHint">@android:color/white</item>
     </style>
+    
+    <style name="LightTheme" parent="@android:style/Theme.Light">
+    </style>
 
+    <style name="BlackTheme" parent="@android:style/Theme.Black">
+    </style>
 </resources>

@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.controler.Controler;
-import jin.jerrykel.dev.signal.vue.fragment.AddFragment;
+import jin.jerrykel.dev.signal.vue.fragment.MessageFragment;
 import jin.jerrykel.dev.signal.vue.fragment.HomeFragment;
 import jin.jerrykel.dev.signal.vue.fragment.SettingFragment;
 
@@ -19,7 +19,7 @@ public class AppsActivity extends BaseActivity {
 
     private FrameLayout frameLayoutContent;
     private HomeFragment homeFragment = HomeFragment.newInstance();
-    private AddFragment addFragment = AddFragment.newInstance();
+    private MessageFragment messageFragment = MessageFragment.newInstance();
     private SettingFragment settingFragment = SettingFragment.newInstance();
     private TabLayout tabs;
     private ViewPager pager;
@@ -40,7 +40,7 @@ public class AppsActivity extends BaseActivity {
         //add fragment
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(),0);
         pageAdapter.addFragmentAndFragmentTilte(homeFragment);
-        pageAdapter.addFragmentAndFragmentTilte(addFragment);
+        pageAdapter.addFragmentAndFragmentTilte(messageFragment);
         pageAdapter.addFragmentAndFragmentTilte(settingFragment);
 
         //Get ViewPager from layout
@@ -61,6 +61,24 @@ public class AppsActivity extends BaseActivity {
         tabs.getTabAt(2).setIcon(R.drawable.ic_round_settings_black_48);
 
 
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.parseColor("#039BE5"), PorterDuff.Mode.SRC_IN);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                //tab.getIcon().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         //BadgeDrawable badgeDrawable = tabs.getTabAt(1).getOrCreateBadge();
         //badgeDrawable.setVisible(true);
         // badgeDrawable.setNumber(0);
