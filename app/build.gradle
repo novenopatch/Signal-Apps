@@ -48,8 +48,7 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.jakewharton:butterknife:10.0.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
 
     implementation 'com.github.yalantis:ucrop:2.2.6'
 
@@ -64,5 +63,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
 
     implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation 'com.synnapps:carouselview:0.1.4'
+
 
 }

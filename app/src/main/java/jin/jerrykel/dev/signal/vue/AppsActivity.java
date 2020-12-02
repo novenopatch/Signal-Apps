@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.controler.Controler;
@@ -24,6 +25,9 @@ public class AppsActivity extends BaseActivity {
     private TabLayout tabs;
     private ViewPager pager;
     private Controler controler;
+    private BadgeDrawable badgeDrawableM;
+    private  BadgeDrawable badgeDrawableH;
+    private  BadgeDrawable badgeDrawableS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +80,51 @@ public class AppsActivity extends BaseActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.parseColor("#0288D1"), PorterDuff.Mode.SRC_IN);
 
             }
         });
-        //BadgeDrawable badgeDrawable = tabs.getTabAt(1).getOrCreateBadge();
-        //badgeDrawable.setVisible(true);
-        // badgeDrawable.setNumber(0);
+
+
+
+        updateNotificationBadge(1,40);
+
+    }
+    public void updateNotificationBadge( int tab,int nbr){
+        switch (tab){
+            case 0:
+                badgeDrawableH = tabs.getTabAt(0).getOrCreateBadge();
+                if(nbr<=0){
+                    badgeDrawableH.setVisible(false);
+                }else {
+                    badgeDrawableH.setVisible(true);
+                    badgeDrawableH.setNumber(nbr);
+                }
+                break;
+            case 1:
+                badgeDrawableM = tabs.getTabAt(1).getOrCreateBadge();
+                if(nbr<=0){
+                    badgeDrawableM.setVisible(false);
+                }else {
+                    badgeDrawableM.setVisible(true);
+                    badgeDrawableM.setNumber(nbr);
+                }
+                break;
+            case 2:
+                badgeDrawableS = tabs.getTabAt(2).getOrCreateBadge();
+                if(nbr<=0){
+                    badgeDrawableS.setVisible(false);
+                }else {
+                    badgeDrawableS.setVisible(true);
+                    badgeDrawableS.setNumber(nbr);
+                }
+                break;
+            default:
+                break;
+
+
+        }
+
 
     }
 }

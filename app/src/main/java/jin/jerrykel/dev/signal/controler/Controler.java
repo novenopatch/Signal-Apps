@@ -36,14 +36,7 @@ public class Controler {
         return  Controler.instance;
     }
 
-    public boolean connnect(String email,String password){
 
-        if(email.equals("root")&& password.equals("root")){
-            return true;
-        }
-        return false;
-
-    }
     @Nullable
     public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
 
@@ -54,6 +47,7 @@ public class Controler {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(context, context.getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+
             }
         };
     }

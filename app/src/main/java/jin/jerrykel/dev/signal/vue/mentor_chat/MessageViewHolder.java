@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.fragment;
+package jin.jerrykel.dev.signal.vue.mentor_chat;
 
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
@@ -96,7 +96,9 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
         // Update profile picture ImageView
         if (message.getUserSender().getUrlPicture() != null){
-            glide.load(message.getUserSender().getUrlPicture()).apply(RequestOptions.circleCropTransform()).into(imageViewProfile);
+            glide.load(message.getUserSender().getUrlPicture())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageViewProfile);
         }
 
         // Update image sent ImageView
@@ -110,7 +112,8 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         }
 
         //Update Message Bubble Color Background
-        ((GradientDrawable) textMessageContainer.getBackground()).setColor(isCurrentUser ? colorCurrentUser : colorRemoteUser);
+        ((GradientDrawable) textMessageContainer.getBackground()).setColor(
+                isCurrentUser ? colorCurrentUser : colorRemoteUser);
 
         // Update all views alignment depending is current user or not
         this.updateDesignDependingUser(isCurrentUser);
@@ -119,7 +122,8 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     private void updateDesignDependingUser(Boolean isSender){
 
         // PROFILE CONTAINER
-        RelativeLayout.LayoutParams paramsLayoutHeader = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams paramsLayoutHeader = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsLayoutHeader.addRule(isSender ? RelativeLayout.ALIGN_PARENT_RIGHT : RelativeLayout.ALIGN_PARENT_LEFT);
         this.profileContainer.setLayoutParams(paramsLayoutHeader);
 
@@ -129,7 +133,8 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         this.messageContainer.setLayoutParams(paramsLayoutContent);
 
         // CARDVIEW IMAGE SEND
-        RelativeLayout.LayoutParams paramsImageView = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams paramsImageView = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsImageView.addRule(isSender ? RelativeLayout.ALIGN_LEFT : RelativeLayout.ALIGN_RIGHT, R.id.activity_mentor_chat_item_message_container_text_message_container);
         this.cardViewImageSent.setLayoutParams(paramsImageView);
 

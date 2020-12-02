@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,13 +24,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
@@ -61,7 +63,52 @@ public class SettingFragment extends Fragment {
      Button profileActivityButtonUpdate;
      Button profileActivityButtonSignOut;
      Button profileActivityButtonDelete;
+
      CheckBox profileActivityCheckBoxIsMentor;
+
+    // 4 - Adding requests to button listeners
+    private View.OnClickListener onClickUpdateButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            updateUsernameInFirebase();
+        }
+
+
+    };
+    private View.OnClickListener onClickSignOutButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            signOutUserFromFirebase();
+        }
+
+
+    };
+
+    private View.OnClickListener onClickDeleteButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(rootView.getContext())
+                    .setMessage(R.string.popup_message_confirmation_delete_account)
+                    .setPositiveButton(R.string.popup_message_choice_yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteUserFromFirebase();
+                        }
+                    })
+                    .setNegativeButton(R.string.popup_message_choice_no, null)
+                    .show();
+        }
+
+
+    };
+    private View.OnClickListener onClickCheckBoxIsMentor = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            updateUserIsMentor();
+        }
+
+
+    };
     private static final int SIGN_OUT_TASK = 10;
     private static final int DELETE_USER_TASK = 20;
     private static final int UPDATE_USERNAME = 30;
@@ -112,8 +159,39 @@ public class SettingFragment extends Fragment {
         profileActivityButtonDelete = rootView.findViewById(R.id.profileActivityButtonDelete);
         profileActivityCheckBoxIsMentor = rootView.findViewById(R.id.profileActivityCheckBoxIsMentor);
 
+
+
+
         updateUIWhenCreating();
         addClickListener();
+    }
+    private void updateUIWhenCreating(){
+
+        if (controler.getCurrentUser() != null){
+
+            if (controler.getCurrentUser().getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(controler.getCurrentUser().getPhotoUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageViewProfile);
+            }
+
+            String email = TextUtils.isEmpty(controler.getCurrentUser().getEmail())
+                    ? getString(R.string.info_no_email_found) : controler.getCurrentUser().getEmail();
+
+            this.textViewEmail.setText(email);
+
+            // 7 - Get additional data from Firestore (isMentor & Username)
+            UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User currentUser = documentSnapshot.toObject(User.class);
+                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
+                    profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                    textInputEditTextUsername.setText(username);
+                }
+            });
+        }
     }
     private void  addClickListener(){
         profileActivityButtonUpdate.setOnClickListener(onClickUpdateButton);
@@ -122,49 +200,8 @@ public class SettingFragment extends Fragment {
         profileActivityCheckBoxIsMentor.setOnClickListener(onClickCheckBoxIsMentor);
     }
 
-    // 4 - Adding requests to button listeners
-    private View.OnClickListener onClickUpdateButton = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            updateUsernameInFirebase();
-        }
 
 
-    };
-    private View.OnClickListener onClickSignOutButton = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            signOutUserFromFirebase();
-        }
-
-
-    };
-
-    private View.OnClickListener onClickDeleteButton = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            new AlertDialog.Builder(rootView.getContext())
-                    .setMessage(R.string.popup_message_confirmation_delete_account)
-                    .setPositiveButton(R.string.popup_message_choice_yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            deleteUserFromFirebase();
-                        }
-                    })
-                    .setNegativeButton(R.string.popup_message_choice_no, null)
-                    .show();
-        }
-
-
-    };
-    private View.OnClickListener onClickCheckBoxIsMentor = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            updateUserIsMentor();
-        }
-
-
-    };
 
     // --------------------
     // REST REQUESTS
@@ -216,41 +253,8 @@ public class SettingFragment extends Fragment {
 
 
 
-    private void updateUIWhenCreating(){
 
-        if (controler.getCurrentUser() != null){
 
-            if (controler.getCurrentUser().getPhotoUrl() != null) {
-                Glide.with(this)
-                        .load(controler.getCurrentUser().getPhotoUrl())
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(imageViewProfile);
-            }
-
-            String email = TextUtils.isEmpty(controler.getCurrentUser().getEmail())
-                    ? getString(R.string.info_no_email_found) : controler.getCurrentUser().getEmail();
-
-            this.textViewEmail.setText(email);
-
-            // 7 - Get additional data from Firestore (isMentor & Username)
-            UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    User currentUser = documentSnapshot.toObject(User.class);
-                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
-                    profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
-                    textInputEditTextUsername.setText(username);
-                }
-            });
-        }
-    }
-    // 3 - Launching Profile Activity
-    private void startLoginActivity(){
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-
-    }
     // 3 - Create OnCompleteListener called after tasks ended
     private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
         return new OnSuccessListener<Void>() {
@@ -265,6 +269,8 @@ public class SettingFragment extends Fragment {
                        // ((AppsActivity)rootView.getContext()).finish();
                         startLoginActivity();
                         break;
+                    case UPDATE_USERNAME:
+                        progressBar.setVisibility(View.INVISIBLE);
                     default:
                         break;
                 }
@@ -272,6 +278,13 @@ public class SettingFragment extends Fragment {
         };
     }
 
+    // 3 - Launching Profile Activity
+    private void startLoginActivity(){
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+
+    }
 
 
 }

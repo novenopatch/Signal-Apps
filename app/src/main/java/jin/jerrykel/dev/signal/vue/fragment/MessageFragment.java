@@ -1,7 +1,6 @@
 package jin.jerrykel.dev.signal.vue.fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,12 +8,10 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +35,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
-import java.util.concurrent.Executor;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.MessageHelper;
@@ -47,6 +43,7 @@ import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.AppsActivity;
+import jin.jerrykel.dev.signal.vue.mentor_chat.MentorChatAdapter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -188,9 +185,16 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
     //-----------------
     // Actions
     //---------------
-
+    private void getCurrentUserFromFirestore(){
+        UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                modelCurrentUser = documentSnapshot.toObject(User.class);
+            }
+        });
+    }
     public void onClickSendMessage() {
-        if (!TextUtils.isEmpty(editTextMessage.getText()) && modelCurrentUser != null){
+        if (!(editTextMessage.getText().toString().isEmpty()) && modelCurrentUser != null){
             // Check if the ImageView is set
             if (this.imageViewPreview.getDrawable() == null) {
                 // SEND A TEXT MESSAGE
@@ -269,14 +273,7 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
     // REST REQUESTS
     // --------------------
 
-    private void getCurrentUserFromFirestore(){
-        UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                modelCurrentUser = documentSnapshot.toObject(User.class);
-            }
-        });
-    }
+
 
 
     // --------------------

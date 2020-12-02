@@ -22,9 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
@@ -34,8 +32,8 @@ public class LoginActivity extends BaseActivity {
     //FOR DATA
     // 1 - Identifier for Sign-In Activity
     private static final int RC_SIGN_IN = 123;
-    @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.buttonLogin) Button  buttonLogin;
+    private CoordinatorLayout coordinatorLayout;
+    private Button  buttonLogin;
     private Controler controler;
 
 
@@ -44,8 +42,12 @@ public class LoginActivity extends BaseActivity {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_login);
          controler = Controler.getInstance();
-         ButterKnife.bind(this);
+         initView();
 
+    }
+    private void initView(){
+        coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
+        buttonLogin =  findViewById(R.id.buttonLogin);
     }
 
     public void login(View v){

@@ -30,8 +30,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.MessageHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
@@ -39,7 +38,6 @@ import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.BaseActivity;
-import jin.jerrykel.dev.signal.vue.fragment.MentorChatAdapter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -50,10 +48,14 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MentorChatActivity extends BaseActivity implements MentorChatAdapter.Listener {
 
     // FOR DESIGN
-    @BindView(R.id.activity_mentor_chat_recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.activity_mentor_chat_text_view_recycler_view_empty) TextView textViewRecyclerViewEmpty;
-    @BindView(R.id.activity_mentor_chat_message_edit_text) TextInputEditText editTextMessage;
-    @BindView(R.id.activity_mentor_chat_image_chosen_preview) ImageView imageViewPreview;
+    //@BindView(R.id.activity_mentor_chat_recycler_view)
+    RecyclerView recyclerView;
+    //@BindView(R.id.activity_mentor_chat_text_view_recycler_view_empty)
+    TextView textViewRecyclerViewEmpty;
+    //@BindView(R.id.activity_mentor_chat_message_edit_text)
+    TextInputEditText editTextMessage;
+   // @BindView(R.id.activity_mentor_chat_image_chosen_preview)
+    ImageView imageViewPreview;
 
     // FOR DATA
     private MentorChatAdapter mentorChatAdapter;
@@ -101,7 +103,7 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
     // ACTIONS
     // --------------------
 
-    @OnClick(R.id.activity_mentor_chat_send_button)
+   // @OnClick(R.id.activity_mentor_chat_send_button)
     public void onClickSendMessage() {
         if (!TextUtils.isEmpty(editTextMessage.getText()) && modelCurrentUser != null){
             // Check if the ImageView is set
@@ -118,7 +120,7 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
         }
     }
 
-    @OnClick({ R.id.activity_mentor_chat_android_chat_button, R.id.activity_mentor_chat_firebase_chat_button, R.id.activity_mentor_chat_bug_chat_button})
+    //@OnClick({ R.id.activity_mentor_chat_android_chat_button, R.id.activity_mentor_chat_firebase_chat_button, R.id.activity_mentor_chat_bug_chat_button})
     public void onClickChatButtons(ImageButton imageButton) {
         switch (Integer.valueOf(imageButton.getTag().toString())){
             case 10:
@@ -133,7 +135,7 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
         }
     }
 
-    @OnClick(R.id.activity_mentor_chat_add_file_button)
+    //@OnClick(R.id.activity_mentor_chat_add_file_button)
     @AfterPermissionGranted(RC_IMAGE_PERMS)
     public void onClickAddFile() { this.chooseImageFromPhone(); }
 

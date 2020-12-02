@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.fragment;
+package jin.jerrykel.dev.signal.vue.mentor_chat;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -39,6 +39,7 @@ public class MentorChatAdapter extends FirestoreRecyclerAdapter<Message, Message
     @Override
     protected void onBindViewHolder(@NonNull MessageViewHolder holder, int position, @NonNull Message model) {
         holder.updateWithMessage(model, this.idCurrentUser, this.glide);
+
     }
 
     @Override
