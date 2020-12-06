@@ -109,7 +109,8 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
             // Check if the ImageView is set
             if (this.imageViewPreview.getDrawable() == null) {
                 // SEND A TEXT MESSAGE
-                MessageHelper.createMessageForChat(editTextMessage.getText().toString(), this.currentChatName, modelCurrentUser).addOnFailureListener(controler.onFailureListener(this));
+                MessageHelper.createMessageForChat(editTextMessage.getText().toString(),
+                 this.currentChatName, modelCurrentUser).addOnFailureListener(controler.onFailureListener(this));
                 this.editTextMessage.setText("");
             } else {
                 // SEND A IMAGE + TEXT IMAGE
@@ -162,7 +163,9 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         String pathImageSavedInFirebase = taskSnapshot.getMetadata().getPath().toString();
                         // B - SAVE MESSAGE IN FIRESTORE
-                        MessageHelper.createMessageWithImageForChat(pathImageSavedInFirebase, message, currentChatName, modelCurrentUser).addOnFailureListener(controler.onFailureListener(MentorChatActivity.this));
+                        MessageHelper.createMessageWithImageForChat(
+                            pathImageSavedInFirebase, message, currentChatName, modelCurrentUser).addOnFailureListener(
+                                controler.onFailureListener(MentorChatActivity.this));
                     }
                 })
                 .addOnFailureListener(controler.onFailureListener(this));
@@ -203,8 +206,12 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
         //Track current chat name
         this.currentChatName = chatName;
         //Configure Adapter & RecyclerView
-        this.mentorChatAdapter = new MentorChatAdapter(generateOptionsForAdapter(MessageHelper.getAllMessageForChat(this.currentChatName)), Glide.with(this), this, controler.getCurrentUser().getUid());
-        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        this.mentorChatAdapter = new MentorChatAdapter(
+            generateOptionsForAdapter(
+                MessageHelper.getAllMessageForChat(this.currentChatName)),
+                 Glide.with(this), this, controler.getCurrentUser().getUid());
+        mentorChatAdapter.registerAdapterDataObserver(
+            new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -105,6 +106,7 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
             onClickSendMessage();
         }
     };
+    LinearLayout linearLayoutSend;
 
 
     public MessageFragment() {
@@ -155,7 +157,7 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
         textViewRecyclerViewEmpty = rootView.findViewById(R.id.activity_mentor_chat_text_view_recycler_view_empty);
         editTextMessage = rootView.findViewById(R.id.activity_mentor_chat_message_edit_text);
         imageViewPreview = rootView.findViewById(R.id.activity_mentor_chat_image_chosen_preview);
-
+        linearLayoutSend =  rootView.findViewById(R.id.activity_mentor_chat_add_message_container);
         send  = rootView.findViewById( R.id.activity_mentor_chat_send_button);
         chat_android = rootView.findViewById(R.id.activity_mentor_chat_android_chat_button);
         chat_firebase_chat_button = rootView.findViewById( R.id.activity_mentor_chat_firebase_chat_button);
@@ -185,14 +187,6 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
     //-----------------
     // Actions
     //---------------
-    private void getCurrentUserFromFirestore(){
-        UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                modelCurrentUser = documentSnapshot.toObject(User.class);
-            }
-        });
-    }
     public void onClickSendMessage() {
         if (!(editTextMessage.getText().toString().isEmpty()) && modelCurrentUser != null){
             // Check if the ImageView is set
@@ -209,24 +203,6 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
             }
         }
     }
-    private void uploadPhotoInFirebaseAndSendMessage(final String message) {
-        String uuid = UUID.randomUUID().toString(); // GENERATE UNIQUE STRING
-        // A - UPLOAD TO GCS
-        StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-        mImageRef.putFile(this.uriImageSelected)
-                .addOnSuccessListener((AppsActivity)context, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String pathImageSavedInFirebase =
-                                taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                        // B - SAVE MESSAGE IN FIRESTORE
-                        MessageHelper.createMessageWithImageForChat(pathImageSavedInFirebase,
-                                message, currentChatName, modelCurrentUser).addOnFailureListener(
-                                        controler.onFailureListener(context));
-                    }
-                })
-                .addOnFailureListener(controler.onFailureListener(context));
-    }
     public void onClickChatButtons(View v) {
         switch (Integer.valueOf(( (ImageButton)v).getTag().toString())){
             case 10:
@@ -241,17 +217,56 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
                 break;
         }
     }
-
+    
     @AfterPermissionGranted(RC_IMAGE_PERMS)
     public void onClickAddFile() {
         this.chooseImageFromPhone(); }
+
+    
+    // --------------------
+    // REST REQUESTS
+    // --------------------
+    private void getCurrentUserFromFirestore(){
+        UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                modelCurrentUser = documentSnapshot.toObject(User.class);
+                if(modelCurrentUser.getIsMentor()){
+                    linearLayoutSend.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void uploadPhotoInFirebaseAndSendMessage(final String message) {
+        String uuid = UUID.randomUUID().toString(); // GENERATE UNIQUE STRING
+        // A - UPLOAD TO GCS
+        StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+        mImageRef.putFile(this.uriImageSelected)
+                .addOnSuccessListener((AppsActivity)context, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        String pathImageSavedInFirebase =
+                                taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                        // B - SAVE MESSAGE IN FIRESTORE
+                        MessageHelper.createMessageWithImageForChat(
+                            pathImageSavedInFirebase,
+                                message, currentChatName, modelCurrentUser).addOnFailureListener(
+                                        controler.onFailureListener(context));
+                    }
+                })
+                .addOnFailureListener(controler.onFailureListener(context));
+    }
+// --------------------
+    // FILE MANAGEMENT
+    // --------------------
     private void chooseImageFromPhone(){
         if (!EasyPermissions.hasPermissions(context, PERMS)) {
             EasyPermissions.requestPermissions((AppsActivity) context,
                     getString(R.string.popup_title_permission_files_access), RC_IMAGE_PERMS, PERMS);
             return;
         }
-        Toast.makeText(context, "Vous avez le droit d'accéder aux images !", Toast.LENGTH_SHORT).show();
+        ///Toast.makeText(context, "Vous avez le droit d'accéder aux images !", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
@@ -269,12 +284,12 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
             }
         }
     }
-    // --------------------
-    // REST REQUESTS
-    // --------------------
 
+    
+  
 
-
+    
+   
 
     // --------------------
     // UI
@@ -284,10 +299,12 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
         //Track current chat name
         this.currentChatName = chatName;
         //Configure Adapter & RecyclerView
-        this.mentorChatAdapter = new MentorChatAdapter(generateOptionsForAdapter(
+        this.mentorChatAdapter = new MentorChatAdapter(
+            generateOptionsForAdapter(
                 MessageHelper.getAllMessageForChat(this.currentChatName)),
                 Glide.with(context), this, controler.getCurrentUser().getUid());
-        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        mentorChatAdapter.registerAdapterDataObserver(
+            new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
@@ -302,6 +319,7 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
                 .setLifecycleOwner((AppsActivity)context)
                 .build();
     }
+    
     // --------------------
     // CALLBACK
     // --------------------
@@ -309,19 +327,6 @@ public class MessageFragment extends Fragment implements MentorChatAdapter.Liste
     public void onDataChanged() {
         textViewRecyclerViewEmpty.setVisibility(this.mentorChatAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
-
-
-    // --------------------
-    // FILE MANAGEMENT
-    // --------------------
-
-
-
-
-
-
-
-
 
 
 }

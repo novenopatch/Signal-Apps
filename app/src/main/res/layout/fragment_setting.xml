@@ -52,13 +52,6 @@
                 android:drawableLeft="@drawable/ic_baseline_email_black_24"
                 android:textSize="14sp" />
 
-            <CheckBox
-                android:id="@+id/profileActivityCheckBoxIsMentor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/check_box_is_mentor" />
-
         </LinearLayout>
 
         <ProgressBar
@@ -73,6 +66,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -93,18 +87,6 @@
             android:textSize="@dimen/default_text_size" />
 
         <!-- BUTTON SIGN OUT -->
-        <Button
-            android:id="@+id/profileActivityButtonSignOut"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:background="@drawable/button_radius_accent_color"
-            android:padding="@dimen/default_margin"
-            android:text="@string/button_sign_out_account"
-            android:textColor="#fff"
-            android:textSize="@dimen/default_text_size"
-            />
 
         <!-- BUTTON DELETE ACCOUNT -->
         <Button

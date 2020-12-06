@@ -51,16 +51,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void login(View v){
-        if(v.getId() == R.id.buttonLogin) {
-            if (controler.isCurrentUserLogged()){
-                this.startAppActivity();
-            } else {
-                this.startSignInActivity();
-            }
-        }else if(v.getId() == R.id.buttonChat){
-                // 3 - Launch Sign-In Activity when user clicked on Login Button
-            this.startAppropriateActivity();
-            }
+
+        startAppropriateActivity();
+    }
+    public void startAppropriateActivity() {
+        // 4 - Start appropriate activity
+        if (controler.isCurrentUserLogged()){
+            this.startAppActivity();
+        } else {
+            this.startSignInActivity();
+        }
 
     }
 
@@ -107,15 +107,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    public void startAppropriateActivity() {
-        // 4 - Start appropriate activity
-        if (controler.isCurrentUserLogged()){
-            this.startAppActivity();
-        } else {
-            this.startSignInActivity();
-        }
 
-    }
     // 3 - Launching Profile Activity
     private void startAppActivity(){
         Intent intent = new Intent(getApplicationContext(), AppsActivity.class);

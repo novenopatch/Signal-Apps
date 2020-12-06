@@ -1,8 +1,10 @@
 package jin.jerrykel.dev.signal.vue.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -61,10 +64,12 @@ public class SettingFragment extends Fragment {
      TextView textViewEmail;
      ProgressBar progressBar;
      Button profileActivityButtonUpdate;
-     Button profileActivityButtonSignOut;
+    // Button profileActivityButtonSignOut;
      Button profileActivityButtonDelete;
+     Context context;
+     LinearLayout linearLayout;
 
-     CheckBox profileActivityCheckBoxIsMentor;
+     //CheckBox profileActivityCheckBoxIsMentor;
 
     // 4 - Adding requests to button listeners
     private View.OnClickListener onClickUpdateButton = new View.OnClickListener() {
@@ -75,14 +80,7 @@ public class SettingFragment extends Fragment {
 
 
     };
-    private View.OnClickListener onClickSignOutButton = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            signOutUserFromFirebase();
-        }
 
-
-    };
 
     private View.OnClickListener onClickDeleteButton = new View.OnClickListener() {
         @Override
@@ -101,18 +99,16 @@ public class SettingFragment extends Fragment {
 
 
     };
-    private View.OnClickListener onClickCheckBoxIsMentor = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            updateUserIsMentor();
-        }
 
-
-    };
     private static final int SIGN_OUT_TASK = 10;
     private static final int DELETE_USER_TASK = 20;
     private static final int UPDATE_USERNAME = 30;
-
+    private View.OnClickListener OnClickListenerButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startSuperActivity();
+        }
+    };
 
 
     public SettingFragment() {
@@ -146,6 +142,7 @@ public class SettingFragment extends Fragment {
         controler = Controler.getInstance();
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_setting, container, false);
+        context = rootView.getContext();
         initView(rootView);
         return rootView;
     }
@@ -155,9 +152,10 @@ public class SettingFragment extends Fragment {
         textViewEmail = rootView.findViewById(R.id.profile_activity_text_view_email);
         progressBar = rootView.findViewById(R.id.profile_activity_progress_bar);
         profileActivityButtonUpdate = rootView.findViewById(R.id.profileActivityButtonUpdate);
-        profileActivityButtonSignOut = rootView.findViewById(R.id.profileActivityButtonSignOut);
         profileActivityButtonDelete = rootView.findViewById(R.id.profileActivityButtonDelete);
-        profileActivityCheckBoxIsMentor = rootView.findViewById(R.id.profileActivityCheckBoxIsMentor);
+        //profileActivityButtonSignOut = rootView.findViewById(R.id.profileActivityButtonSignOut);
+        //profileActivityCheckBoxIsMentor = rootView.findViewById(R.id.profileActivityCheckBoxIsMentor);
+        linearLayout = rootView.findViewById(R.id.linearLayout);
 
 
 
@@ -187,17 +185,27 @@ public class SettingFragment extends Fragment {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     User currentUser = documentSnapshot.toObject(User.class);
                     String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
-                    profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
                     textInputEditTextUsername.setText(username);
+                    if(currentUser.getIsMentor()){
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.setMargins(0,30,0,0);
+                        Button button = new Button(context);
+                        button.setLayoutParams(params);
+                        button.setTextColor(Color.WHITE);
+                        button.setText("Control");
+                        button.setOnClickListener(OnClickListenerButton);
+                        linearLayout.addView(button);
+                    }
                 }
             });
         }
     }
     private void  addClickListener(){
         profileActivityButtonUpdate.setOnClickListener(onClickUpdateButton);
-        profileActivityButtonSignOut.setOnClickListener(onClickSignOutButton);
+       // profileActivityButtonSignOut.setOnClickListener(onClickSignOutButton);
         profileActivityButtonDelete.setOnClickListener(onClickDeleteButton);
-        profileActivityCheckBoxIsMentor.setOnClickListener(onClickCheckBoxIsMentor);
+       // profileActivityCheckBoxIsMentor.setOnClickListener(onClickCheckBoxIsMentor);
     }
 
 
@@ -208,10 +216,21 @@ public class SettingFragment extends Fragment {
     // --------------------
     // 1 - Create http requests (SignOut & Delete)
 
-    private void signOutUserFromFirebase(){
-        AuthUI.getInstance()
-                .signOut(rootView.getContext()).addOnSuccessListener((AppsActivity)rootView.getContext(), this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
-    }
+    /**
+     *   private View.OnClickListener onClickSignOutButton = new View.OnClickListener() {
+     *         @Override
+     *         public void onClick(View v) {
+     *             signOutUserFromFirebase();
+     *         }
+     *
+     *
+     *     };
+     * private void signOutUserFromFirebase(){
+     *         AuthUI.getInstance()
+     *                 .signOut(rootView.getContext()).addOnSuccessListener((AppsActivity)rootView.getContext(), this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
+     *     }
+     */
+
 
     private void deleteUserFromFirebase(){
         if (controler.getCurrentUser() != null) {
@@ -242,12 +261,22 @@ public class SettingFragment extends Fragment {
         }
     }
 
-    // 2 - Update User Mentor (is or not)
-    private void updateUserIsMentor(){
-        if (controler.getCurrentUser() != null) {
-            UserHelper.updateIsMentor(controler.getCurrentUser().getUid(), this.profileActivityCheckBoxIsMentor.isChecked()).addOnFailureListener(controler.onFailureListener(rootView.getContext()));
-        }
-    }
+    /**
+     * private View.OnClickListener onClickCheckBoxIsMentor = new View.OnClickListener() {
+     *         @Override
+     *         public void onClick(View v) {
+     *             updateUserIsMentor();
+     *         }
+     *
+     *
+     *     };
+     *  // 2 - Update User Mentor (is or not)
+     *     private void updateUserIsMentor(){
+     *         if (controler.getCurrentUser() != null) {
+     *             UserHelper.updateIsMentor(controler.getCurrentUser().getUid(), this.profileActivityCheckBoxIsMentor.isChecked()).addOnFailureListener(controler.onFailureListener(rootView.getContext()));
+     *         }
+     *     }
+     */
 
 
 
@@ -285,6 +314,8 @@ public class SettingFragment extends Fragment {
         getActivity().finish();
 
     }
-
+    private void startSuperActivity(){
+        //TODO
+    }
 
 }
