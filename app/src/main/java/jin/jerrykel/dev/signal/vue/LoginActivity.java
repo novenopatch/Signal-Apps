@@ -3,16 +3,10 @@ package jin.jerrykel.dev.signal.vue;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -25,7 +19,6 @@ import java.util.List;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.controler.Controler;
 
 public class LoginActivity extends BaseActivity {
 
@@ -34,14 +27,14 @@ public class LoginActivity extends BaseActivity {
     private static final int RC_SIGN_IN = 123;
     private CoordinatorLayout coordinatorLayout;
     private Button  buttonLogin;
-    private Controler controler;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_login);
-         controler = Controler.getInstance();
+
          initView();
 
     }
@@ -56,7 +49,7 @@ public class LoginActivity extends BaseActivity {
     }
     public void startAppropriateActivity() {
         // 4 - Start appropriate activity
-        if (controler.isCurrentUserLogged()){
+        if (isCurrentUserLogged()){
             this.startAppActivity();
         } else {
             this.startSignInActivity();
@@ -110,7 +103,7 @@ public class LoginActivity extends BaseActivity {
 
     // 3 - Launching Profile Activity
     private void startAppActivity(){
-        Intent intent = new Intent(getApplicationContext(), AppsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -118,22 +111,22 @@ public class LoginActivity extends BaseActivity {
     // 1 - Http request that create user in firestore
     private void createUserInFirestore(){
 
-        if (controler.getCurrentUser() != null){
+        if (getCurrentUser() != null){
 
-            String urlPicture = (controler.getCurrentUser().getPhotoUrl() != null) ? controler.getCurrentUser().getPhotoUrl().toString() : null;
-            String username = controler.getCurrentUser().getDisplayName();
-            String uid = controler.getCurrentUser().getUid();
+            String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
+            String username = getCurrentUser().getDisplayName();
+            String uid = getCurrentUser().getUid();
 
             UserHelper.createUser(uid, username, urlPicture)
                     .addOnFailureListener(
-                            controler.onFailureListener(this)
+                            onFailureListener()
                     );
         }
     }
 
     // 2 - Update UI when activity is resuming
     private void updateUIWhenResuming(){
-        this.buttonLogin.setText(controler.isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+        this.buttonLogin.setText(isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
     }
 
 

@@ -1,20 +1,23 @@
-package jin.jerrykel.dev.signal.vue.mentor_chat;
+package jin.jerrykel.dev.signal.vue;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,66 +29,121 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import java.util.UUID;
-
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.MessageHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.BaseActivity;
+import jin.jerrykel.dev.signal.vue.mentor_chat.MentorChatAdapter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-/**
- * Created by Philippe on 31/01/2018.
- */
+public class MainActivity extends BaseActivity implements MentorChatAdapter.Listener{
 
-public class MentorChatActivity extends BaseActivity implements MentorChatAdapter.Listener {
 
-    // FOR DESIGN
-    //@BindView(R.id.activity_mentor_chat_recycler_view)
+    private Toolbar toolbar;
+    CarouselView carouselView;
+    int[] sampleImages = {R.mipmap.img_1, R.mipmap.img_2, R.mipmap.img_3};
+
     RecyclerView recyclerView;
-    //@BindView(R.id.activity_mentor_chat_text_view_recycler_view_empty)
     TextView textViewRecyclerViewEmpty;
-    //@BindView(R.id.activity_mentor_chat_message_edit_text)
-    TextInputEditText editTextMessage;
-   // @BindView(R.id.activity_mentor_chat_image_chosen_preview)
-    ImageView imageViewPreview;
+
 
     // FOR DATA
     private MentorChatAdapter mentorChatAdapter;
-    @Nullable private User modelCurrentUser;
+    @Nullable
+    private User modelCurrentUser;
     private String currentChatName;
     private Uri uriImageSelected;
 
     // STATIC DATA FOR CHAT
     private static final String CHAT_NAME_ANDROID = "android";
-    private static final String CHAT_NAME_BUG = "bug";
-    private static final String CHAT_NAME_FIREBASE = "firebase";
 
     // STATIC DATA FOR PICTURE
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
     private static final int RC_IMAGE_PERMS = 100;
     private static final int RC_CHOOSE_PHOTO = 200;
-    private Controler controler;
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+
+            imageView.setImageResource(sampleImages [position]);
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_message);
-        controler = Controler.getInstance();
+        setContentView(R.layout.activity_main);
+        configureToolbar();
+        initView();
+
         this.configureRecyclerView(CHAT_NAME_ANDROID);
-
-
         this.getCurrentUserFromFirestore();
     }
+    private void configureToolbar(){
+        // Get the toolbar view inside the activity layout
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar
+        setSupportActionBar(toolbar);
 
 
+
+    }
+    private void initView(){
+        carouselView = findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
+        carouselView.setImageListener(imageListener);
+
+        recyclerView = findViewById(R.id.activity_mentor_chat_recycler_view);
+        textViewRecyclerViewEmpty = findViewById(R.id.activity_mentor_chat_text_view_recycler_view_empty);
+
+
+
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //2 - Inflate the menu and add it to the Toolbar
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //3 - Handle actions on menu items
+        switch (item.getItemId()) {
+
+            case R.id.menu_activity_main_params:
+                startSettingActivity();
+                break;
+            default:
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void startSettingActivity(){
+        Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+        startActivity(intent);
+
+    }
+    @Override
+    public void onBackPressed() {
+        // 5 - Handle back click to close menu
+
+        super.onBackPressed();
+
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -96,107 +154,84 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        this.handleResponse(requestCode, resultCode, data);
+
     }
 
-    // --------------------
-    // ACTIONS
-    // --------------------
-
-   // @OnClick(R.id.activity_mentor_chat_send_button)
-    public void onClickSendMessage() {
-        if (!TextUtils.isEmpty(editTextMessage.getText()) && modelCurrentUser != null){
-            // Check if the ImageView is set
-            if (this.imageViewPreview.getDrawable() == null) {
-                // SEND A TEXT MESSAGE
-                MessageHelper.createMessageForChat(editTextMessage.getText().toString(),
-                 this.currentChatName, modelCurrentUser).addOnFailureListener(controler.onFailureListener(this));
-                this.editTextMessage.setText("");
-            } else {
-                // SEND A IMAGE + TEXT IMAGE
-                this.uploadPhotoInFirebaseAndSendMessage(editTextMessage.getText().toString());
-                this.editTextMessage.setText("");
-                this.imageViewPreview.setImageDrawable(null);
-            }
-        }
-    }
-
-    //@OnClick({ R.id.activity_mentor_chat_android_chat_button, R.id.activity_mentor_chat_firebase_chat_button, R.id.activity_mentor_chat_bug_chat_button})
-    public void onClickChatButtons(ImageButton imageButton) {
-        switch (Integer.valueOf(imageButton.getTag().toString())){
+    public void onClickChatButtons(View v) {
+        switch (Integer.valueOf(( (ImageButton)v).getTag().toString())){
             case 10:
                 this.configureRecyclerView(CHAT_NAME_ANDROID);
+
                 break;
             case 20:
-                this.configureRecyclerView(CHAT_NAME_FIREBASE);
+               // this.configureRecyclerView(CHAT_NAME_FIREBASE);
                 break;
             case 30:
-                this.configureRecyclerView(CHAT_NAME_BUG);
+                //this.configureRecyclerView(CHAT_NAME_BUG);
                 break;
         }
     }
 
-    //@OnClick(R.id.activity_mentor_chat_add_file_button)
     @AfterPermissionGranted(RC_IMAGE_PERMS)
-    public void onClickAddFile() { this.chooseImageFromPhone(); }
+    public void onClickAddFile() {
+        this.chooseImageFromPhone(); }
+
 
     // --------------------
     // REST REQUESTS
     // --------------------
-
     private void getCurrentUserFromFirestore(){
-        UserHelper.getUser(controler.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 modelCurrentUser = documentSnapshot.toObject(User.class);
+                if(modelCurrentUser.getIsMentor()){
+
+
+                }
             }
         });
     }
 
     private void uploadPhotoInFirebaseAndSendMessage(final String message) {
         String uuid = UUID.randomUUID().toString(); // GENERATE UNIQUE STRING
-        // A - UPLOAD TO GCS
+
         StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
         mImageRef.putFile(this.uriImageSelected)
                 .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String pathImageSavedInFirebase = taskSnapshot.getMetadata().getPath().toString();
+                        String pathImageSavedInFirebase =
+                                taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                         // B - SAVE MESSAGE IN FIRESTORE
                         MessageHelper.createMessageWithImageForChat(
-                            pathImageSavedInFirebase, message, currentChatName, modelCurrentUser).addOnFailureListener(
-                                controler.onFailureListener(MentorChatActivity.this));
+                                pathImageSavedInFirebase,
+                                message, currentChatName, modelCurrentUser).addOnFailureListener(
+                                onFailureListener());
                     }
                 })
-                .addOnFailureListener(controler.onFailureListener(this));
+                .addOnFailureListener(onFailureListener());
     }
-
     // --------------------
     // FILE MANAGEMENT
     // --------------------
-
     private void chooseImageFromPhone(){
         if (!EasyPermissions.hasPermissions(this, PERMS)) {
-            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_files_access), RC_IMAGE_PERMS, PERMS);
+            EasyPermissions.requestPermissions( this,
+                    getString(R.string.popup_title_permission_files_access), RC_IMAGE_PERMS, PERMS);
             return;
         }
+        ///Toast.makeText(context, "Vous avez le droit d'accéder aux images !", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
-    private void handleResponse(int requestCode, int resultCode, Intent data){
-        if (requestCode == RC_CHOOSE_PHOTO) {
-            if (resultCode == RESULT_OK) { //SUCCESS
-                this.uriImageSelected = data.getData();
-                Glide.with(this) //SHOWING PREVIEW OF IMAGE
-                        .load(this.uriImageSelected)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(this.imageViewPreview);
-            } else {
-                Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
+
+
+
+
+
 
     // --------------------
     // UI
@@ -207,20 +242,19 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
         this.currentChatName = chatName;
         //Configure Adapter & RecyclerView
         this.mentorChatAdapter = new MentorChatAdapter(
-            generateOptionsForAdapter(
-                MessageHelper.getAllMessageForChat(this.currentChatName)),
-                 Glide.with(this), this, controler.getCurrentUser().getUid());
+                generateOptionsForAdapter(
+                        MessageHelper.getAllMessageForChat(this.currentChatName)),
+                Glide.with(this), this, getCurrentUser().getUid());
         mentorChatAdapter.registerAdapterDataObserver(
-            new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
-            }
-        });
+                new RecyclerView.AdapterDataObserver() {
+                    @Override
+                    public void onItemRangeInserted(int positionStart, int itemCount) {
+                        recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
+                    }
+                });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(this.mentorChatAdapter);
     }
-
     private FirestoreRecyclerOptions<Message> generateOptionsForAdapter(Query query){
         return new FirestoreRecyclerOptions.Builder<Message>()
                 .setQuery(query, Message.class)
@@ -231,10 +265,8 @@ public class MentorChatActivity extends BaseActivity implements MentorChatAdapte
     // --------------------
     // CALLBACK
     // --------------------
-
     @Override
     public void onDataChanged() {
         textViewRecyclerViewEmpty.setVisibility(this.mentorChatAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }
-

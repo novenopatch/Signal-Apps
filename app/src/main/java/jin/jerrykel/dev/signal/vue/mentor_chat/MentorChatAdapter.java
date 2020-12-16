@@ -45,7 +45,7 @@ public class MentorChatAdapter extends FirestoreRecyclerAdapter<Message, Message
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MessageViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_mentor_chat_item, parent, false));
+                .inflate(R.layout.activity_mentor_chat_itemn, parent, false));
     }
 
     @Override

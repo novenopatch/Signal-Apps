@@ -1,6 +1,7 @@
 package jin.jerrykel.dev.signal.api;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import jin.jerrykel.dev.signal.model.Message;
@@ -11,6 +12,7 @@ import jin.jerrykel.dev.signal.model.User;
 public class MessageHelper {
 
     private static final String COLLECTION_NAME = "messages";
+    private static final String  COLLECTION_IMG = "IMG_pub";
 
     // --- GET ---
 
@@ -34,6 +36,10 @@ public class MessageHelper {
                 .document(chat)
                 .collection(COLLECTION_NAME)
                 .add(message);
+    }
+    public static Task<DocumentReference>createMessageWithImage(String urlImage, String chat, User userSender){
+        Message message = new Message( urlImage, userSender);
+        return FirebaseFirestore.getInstance().collection(COLLECTION_IMG).add(message);
     }
 
 }
