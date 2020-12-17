@@ -5,15 +5,8 @@
     >
 
     <item
-        android:id="@+id/menu_activity_main_params"
+        android:id="@+id/menuActionSettings"
         android:icon="@drawable/ic_baseline_dashboard_black_24"
-        android:title="Paramètres"
-        app:showAsAction="never">
-
-    </item>
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

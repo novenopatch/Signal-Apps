@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements MentorChatAdapter.List
         //3 - Handle actions on menu items
         switch (item.getItemId()) {
 
-            case R.id.menu_activity_main_params:
+            case R.id.menuActionSettings:
                 startSettingActivity();
                 break;
             default:
