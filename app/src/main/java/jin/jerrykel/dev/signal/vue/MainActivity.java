@@ -1,9 +1,7 @@
 package jin.jerrykel.dev.signal.vue;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +36,7 @@ import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.mentor_chat.MentorChatAdapter;
+import jin.jerrykel.dev.signal.vue.settings.SettingActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 

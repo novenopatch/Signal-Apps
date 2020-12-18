@@ -1,7 +1,6 @@
-package jin.jerrykel.dev.signal.vue;
+package jin.jerrykel.dev.signal.vue.settings;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,10 +26,89 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
+import jin.jerrykel.dev.signal.vue.BaseActivity;
+import jin.jerrykel.dev.signal.vue.LoginActivity;
+import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 
 public class SettingActivity extends BaseActivity {
 
-    //FOR DESIGN
+    ImageView imageViewProfile;
+    TextView textInputEditTextUsername;
+    TextView textViewEmail;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings_new);
+
+        initView();
+    }
+    private void initView(){
+        imageViewProfile = findViewById(R.id.img_profile);
+        textInputEditTextUsername  = findViewById(R.id.profile_activity_edit_text_username);
+        textViewEmail = findViewById(R.id.profile_activity_text_view_email);
+
+
+
+
+        updateUIWhenCreating();
+
+    }
+    private void updateUIWhenCreating(){
+
+
+        if (getCurrentUser() != null){
+
+            if (getCurrentUser().getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(getCurrentUser().getPhotoUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageViewProfile);
+            }
+
+            String email = TextUtils.isEmpty(getCurrentUser().getEmail())
+                    ? getString(R.string.info_no_email_found) : getCurrentUser().getEmail();
+
+            this.textViewEmail.setText(email);
+
+            // 7 - Get additional data from Firestore (isMentor & Username)
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User currentUser = documentSnapshot.toObject(User.class);
+                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
+                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                    textInputEditTextUsername.setText(username);
+                }
+            });
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+
+
+
+
+//FOR DESIGN
     ImageView imageViewProfile;
     TextInputEditText textInputEditTextUsername;
     TextView textViewEmail;
@@ -76,14 +154,6 @@ public class SettingActivity extends BaseActivity {
     private static final int DELETE_USER_TASK = 20;
     private static final int UPDATE_USERNAME = 30;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        initView();
-    }
-
     private void initView(){
         imageViewProfile = findViewById(R.id.img_profile);
         textInputEditTextUsername  = findViewById(R.id.profile_activity_edit_text_username);
@@ -100,8 +170,9 @@ public class SettingActivity extends BaseActivity {
 
         updateUIWhenCreating();
         addClickListener();
+
     }
-    private void updateUIWhenCreating(){
+     private void updateUIWhenCreating(){
 
         if (getCurrentUser() != null){
 
@@ -125,10 +196,10 @@ public class SettingActivity extends BaseActivity {
                     String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
                     //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
                     textInputEditTextUsername.setText(username);
-                    if(currentUser.getIsMentor()){
+                    if(!currentUser.getIsMentor()){
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         params.setMargins(0,30,0,0);
-                        Button button = new Button(context);
+                        Button button = new Button(SettingActivity.this);
                         button.setLayoutParams(params);
                         button.setTextColor(Color.WHITE);
                         button.setText("Control");
@@ -144,12 +215,25 @@ public class SettingActivity extends BaseActivity {
             });
         }
     }
-    private void  addClickListener(){
+     private void  addClickListener(){
         profileActivityButtonUpdate.setOnClickListener(onClickUpdateButton);
         // profileActivityButtonSignOut.setOnClickListener(onClickSignOutButton);
         profileActivityButtonDelete.setOnClickListener(onClickDeleteButton);
         // profileActivityCheckBoxIsMentor.setOnClickListener(onClickCheckBoxIsMentor);
     }
+     private void deleteUserFromFirebase(){
+        if (getCurrentUser() != null) {
+            //4 - We also delete user from firestore storage
+            UserHelper.deleteUser(getCurrentUser().getUid()).addOnFailureListener(onFailureListener());
+            AuthUI.getInstance()
+                    .delete(this)
+                    .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(DELETE_USER_TASK));
+
+        }
+    }
+     */
+
+
 
 
 
@@ -173,20 +257,13 @@ public class SettingActivity extends BaseActivity {
      *                 .signOut(getContext()).addOnSuccessListener((AppsActivity)getContext(), this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
      *     }
      */
+/*
 
 
-    private void deleteUserFromFirebase(){
-        if (getCurrentUser() != null) {
-            //4 - We also delete user from firestore storage
-            UserHelper.deleteUser(getCurrentUser().getUid()).addOnFailureListener(onFailureListener());
-            AuthUI.getInstance()
-                    .delete(this)
-                    .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(DELETE_USER_TASK));
 
-        }
-    }
+ */
 
-
+/**
     // 3 - Update User Username
     private void updateUsernameInFirebase(){
 
@@ -226,6 +303,8 @@ public class SettingActivity extends BaseActivity {
 
 
 
+    /**
+     *
 
     // 3 - Create OnCompleteListener called after tasks ended
     private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
@@ -258,7 +337,10 @@ public class SettingActivity extends BaseActivity {
 
     }
     private void startSuperActivity(){
-        //TODO
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+        finish();
     }
+     **/
 
 }

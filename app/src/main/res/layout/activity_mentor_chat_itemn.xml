@@ -43,7 +43,7 @@
         android:layout_margin="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/ic_chat_message_background"
+        android:background="@drawable/background_message_chat"
 
         android:gravity="center"
         android:minWidth="200dp"

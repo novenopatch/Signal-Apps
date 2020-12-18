@@ -12,9 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vue.DashboardActivity"></activity>
+        <activity android:name=".vue.settings.road.AccountActivity"></activity>
+        <activity android:name=".vue.settings.road.AboutActivity" />
+        <activity android:name=".vue.settings.road.PayActivity" />
+        <activity android:name=".vue.settings.road.ThemeActivity" />
+        <activity android:name=".vue.settings.road.HelpActivity" />
+        <activity android:name=".vue.settings.road.NotificationActivity" />
+        <activity android:name=".vue.settings.road.ProfileActivity" />
+        <activity android:name=".vue.dashboard.DashboardActivity" />
         <activity
-            android:name=".vue.SettingActivity"
+            android:name=".vue.settings.SettingActivity"
             android:parentActivityName=".vue.MainActivity" />
         <activity android:name=".vue.MainActivity" />
         <activity android:name=".vue.LoginActivity">
