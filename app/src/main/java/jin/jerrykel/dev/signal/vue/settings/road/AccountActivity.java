@@ -1,17 +1,20 @@
 package jin.jerrykel.dev.signal.vue.settings.road;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.vue.BaseActivity;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class AccountActivity extends BaseActivity {
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+    public int getLayout() {
+        return R.layout.activity_account;
+    }
+
+    @Override
+    public void initView() {
+
     }
 }

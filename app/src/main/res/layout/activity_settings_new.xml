@@ -11,10 +11,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/img_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
 
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_baseline_account_circle_black_48" />
@@ -50,7 +52,7 @@
                     android:layout_marginTop="10dp"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -88,7 +90,7 @@
                 android:layout_height="wrap_content"
 
                 android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_account_box_white_24" />
+                android:src="@drawable/ic_baseline_account_circle_white_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +108,7 @@
                     android:maxLines="1"
                     android:text="Account"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -139,7 +141,7 @@
                 android:layout_height="wrap_content"
 
                 android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_notifications_black_24" />
+                android:src="@drawable/ic_baseline_notifications_white_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,7 +159,7 @@
                     android:maxLines="1"
                     android:text="Notifications"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -190,7 +192,7 @@
                 android:layout_height="wrap_content"
 
                 android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_help_outline_black_24" />
+                android:src="@drawable/ic_baseline_help_white_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,7 +209,7 @@
                     android:maxLines="1"
                     android:text="Help"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -240,7 +242,7 @@
                 android:layout_height="wrap_content"
 
                 android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_info_black_24" />
+                android:src="@drawable/ic_baseline_info_white_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -257,7 +259,7 @@
                     android:maxLines="1"
                     android:text="About"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -286,8 +288,7 @@
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingRight="@dimen/dimen_20dp"
-           >
+            android:paddingRight="@dimen/dimen_20dp">
 
             <ImageView
 
@@ -295,7 +296,7 @@
                 android:layout_height="wrap_content"
 
                 android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_color_lens_theme_24" />
+                android:src="@drawable/ic_baseline_color_lens_white_24" />
 
             <TextView
 
@@ -307,11 +308,17 @@
                 android:maxLines="1"
                 android:text="Theme"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -327,7 +334,7 @@
                 android:layout_height="wrap_content"
 
                 android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_send_black_24" />
+                android:src="@drawable/ic_baseline_share_white_24" />
 
             <TextView
 
@@ -339,10 +346,36 @@
                 android:maxLines="1"
                 android:text="Invite a friend"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="BLUETECH"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

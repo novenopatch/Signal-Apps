@@ -29,7 +29,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
    LinearLayout rootView;
 
     //PROFILE CONTAINER
-    LinearLayout profileContainer;
+   // LinearLayout profileContainer;
     ImageView imageViewIsMentor;
 
     //MESSAGE CONTAINER
@@ -56,7 +56,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
 
         //PROFILE CONTAINER
-        profileContainer= superView.findViewById(R.id.linearLayoutTitleContainer);
+        //profileContainer= superView.findViewById(R.id.linearLayoutTitleContainer);
         textViewMentorName = superView.findViewById(R.id.textViewMentorName);
         imageViewIsMentor= superView.findViewById(R.id.imageViewMentorImage);
 

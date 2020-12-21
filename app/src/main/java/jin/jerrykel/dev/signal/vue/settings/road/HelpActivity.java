@@ -5,12 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
+    public int getLayout() {
+        return R.layout.activity_help;
+    }
+
+    @Override
+    public void initView() {
+
     }
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.vue.BaseActivity;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.AddAccountFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.AdminSettingsFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.BugFragment;
@@ -22,12 +22,18 @@ import jin.jerrykel.dev.signal.vue.dashboard.fragment.UsageFragment;
 public class DashboardActivity extends BaseActivity implements  HomeDashboardFragment.OnButtonClickedListener {
     private FrameLayout frameLayoutContent;
     private Fragment fragment = null;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+    public int getLayout() {
+        return R.layout.activity_dashboard;
+    }
+
+    @Override
+    public void initView() {
         initContentView();
     }
+
     public void initContentView(){
         Fragment fragment = new HomeDashboardFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

@@ -35,6 +35,7 @@ import jin.jerrykel.dev.signal.api.MessageHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.User;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.mentor_chat.MentorChatAdapter;
 import jin.jerrykel.dev.signal.vue.settings.SettingActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -43,7 +44,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends BaseActivity implements MentorChatAdapter.Listener{
 
 
-    private Toolbar toolbar;
+
     CarouselView carouselView;
     int[] sampleImages = {R.mipmap.img_1, R.mipmap.img_2, R.mipmap.img_3};
 
@@ -76,26 +77,13 @@ public class MainActivity extends BaseActivity implements MentorChatAdapter.List
     };
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        configureToolbar();
-        initView();
-
-        this.configureRecyclerView(CHAT_NAME_ANDROID);
-        this.getCurrentUserFromFirestore();
+    public int getLayout() {
+        return R.layout.activity_main;
     }
-    private void configureToolbar(){
-        // Get the toolbar view inside the activity layout
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Sets the Toolbar
-        setSupportActionBar(toolbar);
-
-
-
-    }
-    private void initView(){
+    @Override
+    public void initView(){
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
@@ -103,7 +91,8 @@ public class MainActivity extends BaseActivity implements MentorChatAdapter.List
         recyclerView = findViewById(R.id.activity_mentor_chat_recycler_view);
         textViewRecyclerViewEmpty = findViewById(R.id.activity_mentor_chat_text_view_recycler_view_empty);
 
-
+        this.configureRecyclerView(CHAT_NAME_ANDROID);
+        this.getCurrentUserFromFirestore();
 
 
     }

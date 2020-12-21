@@ -1,6 +1,5 @@
 package jin.jerrykel.dev.signal.vue;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity {
 
@@ -30,15 +30,13 @@ public class LoginActivity extends BaseActivity {
 
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_login);
-
-         initView();
-
+    public int getLayout() {
+        return R.layout.activity_login;
     }
-    private void initView(){
+    @Override
+    public void initView(){
         coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
         buttonLogin =  findViewById(R.id.buttonLogin);
     }

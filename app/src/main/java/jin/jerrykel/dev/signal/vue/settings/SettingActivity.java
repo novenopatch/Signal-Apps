@@ -1,34 +1,19 @@
 package jin.jerrykel.dev.signal.vue.settings;
 
-import androidx.appcompat.app.AlertDialog;
-
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.BaseActivity;
-import jin.jerrykel.dev.signal.vue.LoginActivity;
-import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class SettingActivity extends BaseActivity {
 
@@ -37,14 +22,14 @@ public class SettingActivity extends BaseActivity {
     TextView textViewEmail;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_new);
 
-        initView();
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_settings_new;
     }
-    private void initView(){
+    @Override
+    public void initView(){
         imageViewProfile = findViewById(R.id.img_profile);
         textInputEditTextUsername  = findViewById(R.id.profile_activity_edit_text_username);
         textViewEmail = findViewById(R.id.profile_activity_text_view_email);
@@ -65,12 +50,16 @@ public class SettingActivity extends BaseActivity {
                         .load(getCurrentUser().getPhotoUrl())
                         .apply(RequestOptions.circleCropTransform())
                         .into(imageViewProfile);
+
             }
 
             String email = TextUtils.isEmpty(getCurrentUser().getEmail())
                     ? getString(R.string.info_no_email_found) : getCurrentUser().getEmail();
 
             this.textViewEmail.setText(email);
+            String username = getCurrentUser().getDisplayName();
+            textInputEditTextUsername.setText(username);
+            /*
 
             // 7 - Get additional data from Firestore (isMentor & Username)
             UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -82,8 +71,11 @@ public class SettingActivity extends BaseActivity {
                     textInputEditTextUsername.setText(username);
                 }
             });
+
+             */
         }
     }
+
 
 
 

@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue;
+package jin.jerrykel.dev.signal.vue.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,7 +18,21 @@ import jin.jerrykel.dev.signal.R;
 /**
  * Created by JerrykelDEV on 22/11/2020 16:22
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(this.getLayout());
+        this.initView();
+
+    }
+    public abstract int getLayout();
+    public abstract void initView();
+    protected void configureToolbar(){
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+    }
 
     @Nullable
     public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
