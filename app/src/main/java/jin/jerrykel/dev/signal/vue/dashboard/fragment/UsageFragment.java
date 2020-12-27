@@ -4,29 +4,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
+import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UsageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UsageFragment extends Fragment {
+public class UsageFragment extends BaseFragment {
 
 
     View rootView;

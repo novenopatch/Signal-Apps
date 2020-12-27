@@ -2,6 +2,7 @@ package jin.jerrykel.dev.signal.model;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,22 +17,30 @@ public class Message {
     private String backgroundColor;
     private  String messageColor;
 
+    private ArrayList<String> idStringArrayList ;
+
+
+
+
     public Message() { }
 
     public Message(String message, User userSender) {
         this.message = message;
         this.userSender = userSender;
+        this.idStringArrayList =new ArrayList<>();
     }
     public Message(String message, String urlImage, User userSender) {
         this.message = message;
         this.urlImage = urlImage;
         this.userSender = userSender;
+        this.idStringArrayList =new ArrayList<>();
     }
     public Message(String message, User userSender,String color,String messageColor) {
         this.message = message;
         this.backgroundColor = color;
         this.messageColor = messageColor;
         this.userSender = userSender;
+        this.idStringArrayList =new ArrayList<>();
     }
 
     public Message(String message, String urlImage,String color,String messageColor, User userSender) {
@@ -40,6 +49,7 @@ public class Message {
         this.backgroundColor = color;
         this.messageColor = messageColor;
         this.userSender = userSender;
+        this.idStringArrayList =new ArrayList<>();
     }
 
 
@@ -48,7 +58,8 @@ public class Message {
 
     // --- GETTERS ---
     public String getMessage() { return message; }
-    @ServerTimestamp public Date getDateCreated() { return dateCreated; }
+    @ServerTimestamp
+    public Date getDateCreated() { return dateCreated; }
     public User getUserSender() { return userSender; }
     public String getUrlImage() { return urlImage; }
     public String getBackgroundColor() {
@@ -57,6 +68,12 @@ public class Message {
     public String getMessageColor() {
         return messageColor;
     }
+
+    public ArrayList<String> getIdStringArrayList() {
+        return idStringArrayList;
+    }
+
+
 
     // --- SETTERS ---
     public void setMessage(String message) { this.message = message; }
@@ -69,4 +86,6 @@ public class Message {
     public void setMessageColor(String messageColor) {
         this.messageColor = messageColor;
     }
+
+
 }

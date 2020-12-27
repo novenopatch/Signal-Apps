@@ -1,13 +1,21 @@
 package jin.jerrykel.dev.signal.vue.dashboard;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.AddAccountFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.AdminSettingsFragment;
@@ -97,7 +105,15 @@ public class DashboardActivity extends BaseActivity implements  HomeDashboardFra
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        if(! (fragment instanceof HomeDashboardFragment)){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragment = new HomeDashboardFragment();
+            fragmentTransaction.replace(R.id.frameLayoutContent,fragment);
+            fragmentTransaction.commit();
+        }else {
+            super.onBackPressed();
+        }
     }
 
     @Override

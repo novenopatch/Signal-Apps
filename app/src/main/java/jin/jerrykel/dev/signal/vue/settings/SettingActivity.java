@@ -1,7 +1,9 @@
 package jin.jerrykel.dev.signal.vue.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,10 +16,12 @@ import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
+import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 
 public class SettingActivity extends BaseActivity {
 
     ImageView imageViewProfile;
+    ImageView imageViewDashboard;
     TextView textInputEditTextUsername;
     TextView textViewEmail;
 
@@ -33,6 +37,8 @@ public class SettingActivity extends BaseActivity {
         imageViewProfile = findViewById(R.id.img_profile);
         textInputEditTextUsername  = findViewById(R.id.profile_activity_edit_text_username);
         textViewEmail = findViewById(R.id.profile_activity_text_view_email);
+        imageViewDashboard = findViewById(R.id.imageViewDashboard);
+
 
 
 
@@ -73,7 +79,33 @@ public class SettingActivity extends BaseActivity {
             });
 
              */
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User currentUser = documentSnapshot.toObject(User.class);
+                   // String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
+                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                    //textInputEditTextUsername.setText(username);
+                    if(currentUser.getIsMentor()){
+                        imageViewDashboard.setVisibility(View.VISIBLE);
+                        imageViewDashboard.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startSuperActivity();
+                            }
+                        });
+                    }else {
+                        imageViewDashboard.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+            });
         }
+    }
+    private void startSuperActivity(){
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+        //finish();
     }
 
 
@@ -328,11 +360,7 @@ public class SettingActivity extends BaseActivity {
         finish();
 
     }
-    private void startSuperActivity(){
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
      **/
 
 }

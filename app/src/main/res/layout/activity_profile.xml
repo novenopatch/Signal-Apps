@@ -84,7 +84,7 @@
                 android:textStyle="bold" />
 
             <View
-                android:id="@+id/divider3"
+                android:id="@+id/divr3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="3dp"
@@ -151,7 +151,7 @@
                 android:textStyle="bold" />
 
             <View
-                android:id="@+id/divider3"
+
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="3dp"
@@ -203,7 +203,7 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imageVi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

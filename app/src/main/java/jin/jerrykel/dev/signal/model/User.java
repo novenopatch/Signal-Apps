@@ -14,7 +14,6 @@ public class User {
     private String username;
     private Boolean isMentor;
     private Boolean isRoot ;
-    private String mentor;
     @Nullable private String urlPicture;
 
     public User() { }
@@ -27,12 +26,7 @@ public class User {
         this.isRoot = false;
     }
 
-    public User(String uid, String username, Boolean isMentor, String urlPicture) {
-        this.uid = uid;
-        this.username = username;
-        this.urlPicture = urlPicture;
-        this.isMentor = isMentor;
-    }
+
 
 
 
@@ -45,9 +39,6 @@ public class User {
     public Boolean getRoot() {
         return isRoot;
     }
-    public String getMentor() {
-        return mentor;
-    }
     // --- SETTERS ---
     public void setUsername(String username) { this.username = username; }
     public void setUid(String uid) { this.uid = uid; }
@@ -56,8 +47,6 @@ public class User {
     public void setRoot(Boolean root) {
         this.isRoot = root;
     }
-    public void setMentor(String mentor) {
-        this.mentor = mentor;
-    }
+
 
 }

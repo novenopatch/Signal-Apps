@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddAccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddAccountFragment extends Fragment {
+public class AddAccountFragment extends BaseFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

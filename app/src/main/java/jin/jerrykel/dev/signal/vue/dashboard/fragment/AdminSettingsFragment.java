@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AdminSettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdminSettingsFragment extends Fragment {
+public class AdminSettingsFragment extends BaseFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

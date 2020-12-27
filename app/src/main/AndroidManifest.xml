@@ -60,8 +60,10 @@
             android:parentActivityName=".vue.settings.SettingActivity"/>
         <activity
             android:name=".vue.dashboard.DashboardActivity"
-            android:theme="@style/LoginTheme"
+            android:theme="@style/MainTheme"
             android:parentActivityName=".vue.settings.SettingActivity"/>
+
+
         <service
             android:name=".api.NotificationsService"
             tools:ignore="WrongManifestParent">

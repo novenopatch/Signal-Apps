@@ -10,6 +10,8 @@
 
 
     </style>
+
+
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -45,6 +47,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:textColorHint">@android:color/white</item>
     </style>
+
 
     <style name="LightTheme" parent="@android:style/Theme.Light"></style>
 

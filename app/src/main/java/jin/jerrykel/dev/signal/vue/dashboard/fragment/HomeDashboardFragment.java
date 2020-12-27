@@ -3,8 +3,7 @@ package jin.jerrykel.dev.signal.vue.dashboard.fragment;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import jin.jerrykel.dev.signal.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
-public class HomeDashboardFragment extends Fragment implements View.OnClickListener{
+import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.base.BaseFragment;
+
+public class HomeDashboardFragment extends BaseFragment implements View.OnClickListener{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -65,6 +68,7 @@ public class HomeDashboardFragment extends Fragment implements View.OnClickListe
         textViewCountActionAllowed = rootView.findViewById(R.id.textViewCountActionAllowed);
         textViewAppVersion = rootView.findViewById(R.id.textViewAppVersion);
         textViewUsername = rootView.findViewById(R.id.textViewUsername);
+        updateUIWhenCreating();
        linearLayouts = new LinearLayout[]{
                 linearLayoutSendMessage,linearLayoutSendAlertMessage,
                 linearLayoutUpdateImagePub,linearLayoutRootTimeLine,
@@ -141,4 +145,38 @@ public class HomeDashboardFragment extends Fragment implements View.OnClickListe
             throw new ClassCastException(e.toString()+ " must implement OnButtonClickedListener");
         }
     }
+    private void updateUIWhenCreating(){
+
+
+        if (getCurrentUser() != null){
+
+            if (getCurrentUser().getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(getCurrentUser().getPhotoUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into( imageViewUser);
+
+            }
+
+
+            String username = getCurrentUser().getDisplayName();
+            textViewUsername.setText(username);
+            /*
+
+            // 7 - Get additional data from Firestore (isMentor & Username)
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User currentUser = documentSnapshot.toObject(User.class);
+                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
+                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                    textInputEditTextUsername.setText(username);
+                }
+            });
+
+             */
+
+        }
+    }
+
 }

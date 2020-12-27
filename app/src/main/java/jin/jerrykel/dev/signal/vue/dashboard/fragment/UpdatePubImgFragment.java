@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UpdatePubImgFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpdatePubImgFragment extends Fragment {
+public class UpdatePubImgFragment extends BaseFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
