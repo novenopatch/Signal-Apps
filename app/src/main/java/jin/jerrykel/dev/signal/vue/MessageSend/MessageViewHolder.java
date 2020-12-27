@@ -157,7 +157,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
             }
         }
         this.likeMessage = false;
-        imageViewLike.setImageResource(R.drawable.fav);
+        imageViewLike.setImageResource(R.drawable.ic_baseline_favorite_border_black_24);
         return false;
     }
 
