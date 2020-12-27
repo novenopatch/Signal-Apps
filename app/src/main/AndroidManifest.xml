@@ -12,18 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
+        <activity android:name=".vue.settings.road.AccountActivity"></activity>
+        <activity android:name=".vue.settings.road.AboutActivity" />
+        <activity android:name=".vue.settings.road.PayActivity" />
+        <activity android:name=".vue.settings.road.ThemeActivity" />
+        <activity android:name=".vue.settings.road.HelpActivity" />
+        <activity android:name=".vue.settings.road.NotificationActivity" />
+        <activity android:name=".vue.settings.road.ProfileActivity" />
+        <activity android:name=".vue.dashboard.DashboardActivity" />
         <activity
-            android:name=".vue.LoginActivity"
-            android:theme="@style/LoginTheme">
+            android:name=".vue.settings.SettingActivity"
+            android:parentActivityName=".vue.MainActivity" />
+        <activity android:name=".vue.MainActivity" />
+        <activity android:name=".vue.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".vue.MainActivity" />
         <activity
@@ -63,6 +71,8 @@
             android:theme="@style/MainTheme"
             android:parentActivityName=".vue.settings.SettingActivity"/>
 
+=======
+>>>>>>> parent of 77b7afb... refonte du holder
 
         <service
             android:name=".api.NotificationsService"
