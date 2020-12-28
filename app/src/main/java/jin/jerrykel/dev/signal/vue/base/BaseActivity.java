@@ -1,6 +1,5 @@
 package jin.jerrykel.dev.signal.vue.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -48,4 +47,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         };
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Force application to crash
+
+    }
+
 }
