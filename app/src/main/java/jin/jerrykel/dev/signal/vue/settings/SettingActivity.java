@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,15 +18,23 @@ import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
+import jin.jerrykel.dev.signal.vue.settings.road.AboutActivity;
+import jin.jerrykel.dev.signal.vue.settings.road.AccountActivity;
+import jin.jerrykel.dev.signal.vue.settings.road.HelpActivity;
+import jin.jerrykel.dev.signal.vue.settings.road.ProfileActivity;
 
 public class SettingActivity extends BaseActivity {
 
-    ImageView imageViewProfile;
-    ImageView imageViewDashboard;
-    TextView textInputEditTextUsername;
-    TextView textViewEmail;
+    private ImageView imageViewProfile;
 
-
+    private TextView textInputEditTextUsername;
+    private TextView textViewEmail;
+    private LinearLayout linearLayoutProfile;
+    private LinearLayout linearLayoutAccount;
+    private LinearLayout linearLayoutHelp;
+    private LinearLayout linearLayoutAbout;
+    private LinearLayout linearLayoutInvite;
+    private LinearLayout linearLayoutINC;
 
 
     @Override
@@ -37,7 +46,14 @@ public class SettingActivity extends BaseActivity {
         imageViewProfile = findViewById(R.id.img_profile);
         textInputEditTextUsername  = findViewById(R.id.profile_activity_edit_text_username);
         textViewEmail = findViewById(R.id.profile_activity_text_view_email);
-        imageViewDashboard = findViewById(R.id.imageViewDashboard);
+
+
+        linearLayoutProfile = findViewById(R.id.linearLayoutProfile);
+        linearLayoutAccount = findViewById(R.id.linearLayoutAccount);
+        linearLayoutHelp = findViewById(R.id.linearLayoutHelp);
+        linearLayoutAbout = findViewById(R.id.linearLayoutAbout);
+        linearLayoutInvite = findViewById(R.id.linearLayoutInvite);
+        linearLayoutINC = findViewById(R.id.linearLayoutINC);
 
 
 
@@ -79,6 +95,7 @@ public class SettingActivity extends BaseActivity {
             });
 
              */
+            final ImageView  imageViewDashboard = findViewById(R.id.imageViewDashboard);
             UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -106,6 +123,43 @@ public class SettingActivity extends BaseActivity {
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
         //finish();
+    }
+    public  void linearLayoutOnclick(View view){
+        switch (view.getId()){
+            case R.id.linearLayoutProfile:
+                ///
+                ///
+                startActivity(new Intent(this, ProfileActivity.class));
+                break;
+            case R.id.linearLayoutAccount:
+                startActivity(new Intent(this, AccountActivity.class));
+                break;
+            case R.id.linearLayoutHelp:
+                ///
+                ///
+                startActivity(new Intent(this, HelpActivity.class));
+                break;
+
+            case R.id.linearLayoutAbout:
+                ///
+                ///
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
+            case  R.id.linearLayoutInvite:
+                ///
+                ///
+
+                break;
+            case R.id.linearLayoutINC:
+                ///
+                ///
+                break;
+
+            default:
+                break;
+
+
+        }
     }
 
 

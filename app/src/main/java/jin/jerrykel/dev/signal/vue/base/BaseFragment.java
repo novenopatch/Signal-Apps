@@ -38,6 +38,6 @@ public class BaseFragment extends Fragment {
         };
     }
     private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+       // Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 }

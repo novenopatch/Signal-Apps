@@ -43,16 +43,8 @@
             android:label="@string/Payment"
             android:parentActivityName=".vue.settings.road.AccountActivity"/>
         <activity
-            android:name=".vue.settings.road.ThemeActivity"
-            android:label="@string/theme"
-            android:parentActivityName=".vue.settings.SettingActivity"/>
-        <activity
             android:name=".vue.settings.road.HelpActivity"
             android:label="@string/help"
-            android:parentActivityName=".vue.settings.SettingActivity"/>
-        <activity
-            android:name=".vue.settings.road.NotificationActivity"
-            android:label="@string/notification"
             android:parentActivityName=".vue.settings.SettingActivity"/>
         <activity
             android:name=".vue.settings.road.ProfileActivity"

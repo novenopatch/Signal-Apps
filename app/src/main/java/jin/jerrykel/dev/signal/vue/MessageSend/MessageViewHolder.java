@@ -1,6 +1,9 @@
 package jin.jerrykel.dev.signal.vue.MessageSend;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,19 +97,24 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         }
         // Update profile picture ImageView
         if(message.getUserSender().getUrlPicture()!=null){
-            glide.load(message.getUserSender()
-                    .getUrlPicture())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageViewMentorImage);
+            glide.load(message.getUserSender().getUrlPicture()).apply(RequestOptions.circleCropTransform()).into(imageViewMentorImage);
         }
         this.textViewMentorP.setVisibility(message.getUserSender().getIsMentor() ? View.VISIBLE : View.INVISIBLE);
         this.textViewMentorName.setText(message.getUserSender().getUsername());
         // Update image sent ImageView
 
         if (message.getUrlImage() != null){
+            /*
+
+
+
+             */
+            Log.e("bbbbbbbbbbb",message.getUrlImage());
             glide.load(message.getUrlImage())
                     .into(imageViewSent);
-            Log.e("bbbbbbbbbbb",message.getUrlImage());
+            //glide.load(message.getUrlImage()).into(imageViewSent);
+            //imageViewSent.setImageBitmap( this.stringToBitmap(message.getUrlImage()));
+           // message.getUrlImage();
             this.imageViewSent.setVisibility(View.VISIBLE);
         }
         else {
@@ -181,7 +190,17 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
             }
         };
     }
+    private  Bitmap stringToBitmap(String picture){
+        Bitmap bitmap = null;
+        try {
+            byte[] decodeString = Base64.decode(picture, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(decodeString,0,decodeString.length);
 
+        }catch (Exception e){
+
+        }
+        return bitmap;
+    }
 
     // ---
 
