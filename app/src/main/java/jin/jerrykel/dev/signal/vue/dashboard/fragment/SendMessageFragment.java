@@ -3,38 +3,22 @@ package jin.jerrykel.dev.signal.vue.dashboard.fragment;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.auth.api.signin.internal.Storage;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -42,16 +26,12 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.Utils.Utils;
 import jin.jerrykel.dev.signal.api.MessageHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.MainActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -78,7 +58,6 @@ public class SendMessageFragment extends BaseFragment {
     private FloatingActionButton floatingActionButtonSend;
     private ImageView ImageViewPreview;
     private ImageButton imageButtonAddFile;
-    private View rootView;
     private User modelCurrentUser;
     private String currentChatName;
 
@@ -94,21 +73,18 @@ public class SendMessageFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
 
-        }
+
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_send_message;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-       rootView =  inflater.inflate(R.layout.fragment_send_message, container, false);
-        initView(rootView);
-        return rootView;
+    public void initView() {
+
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/activity_main_drawer_menu_profile"
+        android:icon="@drawable/ic_baseline_account_box_white_24"
+        android:title="@string/profile"/>
+    <item
+        android:id="@+id/activity_main_drawer_menu_settings"
+        android:icon="@drawable/ic_baseline_text_fields_black_24"
+        android:title="@string/settings"/>
+    <item
+        android:id="@+id/activity_main_drawer_menu_logout"
+        android:icon="@drawable/ic_baseline_text_fields_black_24"
+        android:title="@string/log_out"/>
+    <item
+        android:id="@+id/activity_main_drawer_recycler_signal"
+        android:icon="@drawable/ic_baseline_text_fields_black_24"
+        android:title="@string/signal"/>
+    <item
+        android:id="@+id/activity_main_drawer_recycler_tutorial"
+        android:icon="@drawable/ic_baseline_text_fields_black_24"
+        android:title="@string/tutorial"/>
+    <item
+        android:id="@+id/activity_main_drawer_recycler_share"
+        android:icon="@drawable/ic_baseline_text_fields_black_24"
+        android:title="@string/share_app"/>
+
+
+</menu>

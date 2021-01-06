@@ -113,13 +113,6 @@
                 android:paddingTop="10dp">
 
                 <!-- IMAGE SENT CONTAINER -->
-                <ImageView
-                    android:id="@+id/imageViewSendV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    />
                 <!-- IMAGE SENT -->
                 <ImageView
                     android:id="@+id/imageViewSend"

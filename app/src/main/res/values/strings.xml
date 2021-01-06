@@ -64,6 +64,16 @@
     <string name="theme">Theme</string>
     <string name="help">Help</string>
     <string name="notification">Notificaation</string>
+
+    <string name="title_activity_m">MActivity</string>
+
+    <string name="log_out">Log out</string>
+    <string name="signal">Signals</string>
+    <string name="alert">Alert</string>
     <string name="profile">Profile</string>
+    <string name="share_app">share app</string>
+    <string name="tutorial">tutorial</string>
+
+
 
 </resources>

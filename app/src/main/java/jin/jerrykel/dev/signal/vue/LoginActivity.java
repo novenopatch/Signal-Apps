@@ -1,11 +1,10 @@
 package jin.jerrykel.dev.signal.vue;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -15,9 +14,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Arrays;
 import java.util.List;
 
-
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.vue.Main.MainActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity {

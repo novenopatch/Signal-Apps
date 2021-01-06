@@ -2,11 +2,7 @@ package jin.jerrykel.dev.signal.vue.dashboard.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,8 +21,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
     private String mParam2;
 
     private OnButtonClickedListener mCallback;
-    private Context context;
-    private View rootView;
     private LinearLayout linearLayoutSendMessage;
     private LinearLayout linearLayoutSendAlertMessage;
     private LinearLayout linearLayoutUpdateImagePub;
@@ -53,31 +47,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
         public void onButtonClicked(View view);
     }
     private void  initAllView(View rootView){
-        linearLayoutSendMessage = rootView.findViewById(R.id.linearLayoutSendMessage);
-        linearLayoutSendAlertMessage = rootView.findViewById(R.id.linearLayoutSendAlertMessage);
-        linearLayoutUpdateImagePub = rootView.findViewById(R.id.linearLayoutUpdateImagePub);
-        linearLayoutRootTimeLine = rootView.findViewById(R.id.linearLayoutRootTimeLine);
-        linearLayoutManageUser = rootView.findViewById(R.id.linearLayoutManageUser);
-        linearLayoutAddProAccount = rootView.findViewById(R.id.linearLayoutAddProAccount);
-        linearLayoutGetGraphicUsage = rootView.findViewById(R.id.linearLayoutGetGraphicUsage);
-        LinearLayoutAdminSettings = rootView.findViewById(R.id.LinearLayoutAdminSettings);
-        linearLayoutSendBugReport = rootView.findViewById(R.id.linearLayoutSendBugReport);
 
-        imageViewUser = rootView.findViewById(R.id.imageViewUser);
-
-        textViewCountActionAllowed = rootView.findViewById(R.id.textViewCountActionAllowed);
-        textViewAppVersion = rootView.findViewById(R.id.textViewAppVersion);
-        textViewUsername = rootView.findViewById(R.id.textViewUsername);
-        updateUIWhenCreating();
-       linearLayouts = new LinearLayout[]{
-                linearLayoutSendMessage,linearLayoutSendAlertMessage,
-                linearLayoutUpdateImagePub,linearLayoutRootTimeLine,
-                linearLayoutManageUser,linearLayoutAddProAccount,linearLayoutGetGraphicUsage,
-                LinearLayoutAdminSettings,linearLayoutSendBugReport
-        };
-        for(LinearLayout v : linearLayouts){
-            v.setOnClickListener(this);
-        }
 
     }
 
@@ -102,24 +72,43 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
     }
 
 
+
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public int getLayout() {
+        return R.layout.fragment_home_dashboard;
+    }
+
+    @Override
+    public void initView() {
+        linearLayoutSendMessage = rootView.findViewById(R.id.linearLayoutSendMessage);
+        linearLayoutSendAlertMessage = rootView.findViewById(R.id.linearLayoutSendAlertMessage);
+        linearLayoutUpdateImagePub = rootView.findViewById(R.id.linearLayoutUpdateImagePub);
+        linearLayoutRootTimeLine = rootView.findViewById(R.id.linearLayoutRootTimeLine);
+        linearLayoutManageUser = rootView.findViewById(R.id.linearLayoutManageUser);
+        linearLayoutAddProAccount = rootView.findViewById(R.id.linearLayoutAddProAccount);
+        linearLayoutGetGraphicUsage = rootView.findViewById(R.id.linearLayoutGetGraphicUsage);
+        LinearLayoutAdminSettings = rootView.findViewById(R.id.LinearLayoutAdminSettings);
+        linearLayoutSendBugReport = rootView.findViewById(R.id.linearLayoutSendBugReport);
+
+        imageViewUser = rootView.findViewById(R.id.imageViewUser);
+
+        textViewCountActionAllowed = rootView.findViewById(R.id.textViewCountActionAllowed);
+        textViewAppVersion = rootView.findViewById(R.id.textViewAppVersion);
+        textViewUsername = rootView.findViewById(R.id.textViewUsername);
+        updateUIWhenCreating();
+        linearLayouts = new LinearLayout[]{
+                linearLayoutSendMessage,linearLayoutSendAlertMessage,
+                linearLayoutUpdateImagePub,linearLayoutRootTimeLine,
+                linearLayoutManageUser,linearLayoutAddProAccount,linearLayoutGetGraphicUsage,
+                LinearLayoutAdminSettings,linearLayoutSendBugReport
+        };
+        for(LinearLayout v : linearLayouts){
+            v.setOnClickListener(this);
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        rootView =   inflater.inflate(R.layout.fragment_home_dashboard, container, false);
-        context = rootView.getContext();
-        initAllView(rootView);
-
-        return rootView ;
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

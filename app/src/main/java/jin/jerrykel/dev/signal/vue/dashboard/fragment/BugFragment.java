@@ -1,12 +1,11 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
@@ -63,5 +62,15 @@ public class BugFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bug, container, false);
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_bug;
+    }
+
+    @Override
+    public void initView() {
+
     }
 }
