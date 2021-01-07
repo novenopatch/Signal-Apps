@@ -61,13 +61,10 @@ dependencies {
 
 
 
-    implementation 'com.github.yalantis:ucrop:2.2.6'
 
     implementation 'com.j256.ormlite:ormlite-android:5.0'
 
     implementation 'pub.devrel:easypermissions:3.0.0'
-
-    implementation 'com.synnapps:carouselview:0.1.4'
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.2.0')

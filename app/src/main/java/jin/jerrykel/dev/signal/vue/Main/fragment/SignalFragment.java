@@ -3,7 +3,6 @@ package jin.jerrykel.dev.signal.vue.Main.fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -16,8 +15,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 
@@ -36,13 +33,12 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
 
     RecyclerView recyclerView;
     TextView textViewRecyclerViewEmpty;
-    CarouselView carouselView;
-    int[] sampleImages = {R.mipmap.img_1, R.mipmap.img_2, R.mipmap.img_3};
+
     private Spinner spinner1;
     private Spinner spinner2;
     ArrayList<String> stringArrayList = new ArrayList<>();
 
-    // FOR DATA
+
     private MentorChatAdapter mentorChatAdapter;
     @Nullable
     private User modelCurrentUser;
@@ -50,21 +46,9 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
 
 
 
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-
-            imageView.setImageResource(sampleImages [position]);
-
-        }
-    };
-
 
     @Override
     public void initView( ){
-        carouselView = this.rootView.findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(imageListener);
 
         recyclerView = this.rootView.findViewById(R.id.activity_mentor_chat_recycler_view);
         textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.activity_mentor_chat_text_view_recycler_view_empty);

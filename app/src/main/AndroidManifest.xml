@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".vue.Main.MainActivity" />
+        <activity android:name=".vue.Main.MainActivity"
+            android:label="WG SIGNALS"/>
         <activity
             android:name=".vue.settings.SettingActivity"
             android:label="@string/settings"

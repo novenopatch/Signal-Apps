@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".vue.Main.fragment.SignalFragment"
-android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vue.Main.fragment.SignalFragment"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +15,11 @@ android:orientation="vertical">
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
 
             android:layout_weight="1"
 
-            android:textAlignment="center"
-            />
+            android:textAlignment="center" />
 
         <Space
             android:layout_width="20dp"
@@ -31,7 +29,7 @@ android:orientation="vertical">
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
 
             android:layout_weight="1"
 
@@ -50,69 +48,27 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/carouselView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:animateOnBoundary="true"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#00000000"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp" />
-
         <LinearLayout
+            android:id="@+id/activity_mentor_chat_recycler_view_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button"
+            <!-- MESSAGE RECYCLER VIEW EMPTY -->
+            <TextView
+                android:id="@+id/activity_mentor_chat_text_view_recycler_view_empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="premium" />
-        </LinearLayout>
+                android:layout_margin="@dimen/default_large_margin"
+                android:text="@string/text_view_mentor_chat_error"
+                android:textAlignment="center" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:orientation="vertical"
-            >
-
-            <!-- BUTTONS CHAT CONTAINER -->
-
-
-            <!-- RECYCLER VIEW CONTAINER -->
-            <LinearLayout
-                android:id="@+id/activity_mentor_chat_recycler_view_container"
+            <!-- RECYCLER VIEW -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activity_mentor_chat_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:orientation="vertical">
-
-                <!-- MESSAGE RECYCLER VIEW EMPTY -->
-                <TextView
-                    android:id="@+id/activity_mentor_chat_text_view_recycler_view_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/default_large_margin"
-                    android:text="@string/text_view_mentor_chat_error"
-                    android:textAlignment="center" />
-
-                <!-- RECYCLER VIEW -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/activity_mentor_chat_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <!-- IMAGE CHOSEN PREVIEW -->
-
-            <!-- ADD MESSAGE CONTAINER -->
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
