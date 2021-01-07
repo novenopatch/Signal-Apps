@@ -1,7 +1,10 @@
 package jin.jerrykel.dev.signal.vue.Main.fragment;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,6 +18,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
+
+import java.util.ArrayList;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.MessageHelper;
@@ -33,6 +38,9 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
     TextView textViewRecyclerViewEmpty;
     CarouselView carouselView;
     int[] sampleImages = {R.mipmap.img_1, R.mipmap.img_2, R.mipmap.img_3};
+    private Spinner spinner1;
+    private Spinner spinner2;
+    ArrayList<String> stringArrayList = new ArrayList<>();
 
     // FOR DATA
     private MentorChatAdapter mentorChatAdapter;
@@ -77,10 +85,47 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
          */
-
+        initgraph();
 
     }
+    private void initgraph(){
 
+        stringArrayList.add("Eur/ip");
+        stringArrayList.add("Dollar/hostName");
+        spinner1 = this.rootView.findViewById(R.id.spinner1);
+        spinner2 = this.rootView.findViewById(R.id.spinner2);
+        SpinerAdapter spinerAdapterspinner1 = new SpinerAdapter(this.context,android.R.layout.simple_spinner_item, stringArrayList);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.context, R.array.configSpinner, android.R.layout.simple_spinner_item);
+
+        spinerAdapterspinner1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner1.setAdapter(spinerAdapterspinner1);
+        spinner2.setAdapter(adapter);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //updateConversion(valeur1.getText().toString(),valeur2, spinner1,spinner2);
+               //spinner1.getSelectedItemPosition();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               // updateConversion(valeur2.getText().toString(),valeur1, spinner2,spinner1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
 
     public SignalFragment() {
         // Required empty public constructor

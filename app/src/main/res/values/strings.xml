@@ -74,6 +74,12 @@
     <string name="share_app">share app</string>
     <string name="tutorial">tutorial</string>
 
-
+    <string-array name="configSpinner">
+        <item>All</item>
+        <item>Active</item>
+        <item>Ready</item>
+        <item>Sell</item>
+        <item>Buy</item>
+    </string-array>
 
 </resources>
