@@ -37,8 +37,57 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
 
-<androidx.core.widget.NestedScrollView
+        <TextView
+            android:id="@+id/textView_never_miss_trade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_large_margin"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/default_large_margin"
+            android:layout_marginBottom="3dp"
+            android:text="@string/never_miss_a_trade"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_premium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_never_miss_trade"
+            android:layout_marginStart="@dimen/default_large_margin"
+            android:layout_marginEnd="@dimen/default_large_margin"
+            android:layout_marginBottom="3dp"
+            android:text="@string/get_live_notifications_n_no_ads"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonPremium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/textView_premium"
+            android:layout_alignEnd="@id/textView_never_miss_trade"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/colorAccent"
+            android:padding="10dp"
+            android:text="@string/get_premium"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -49,7 +98,7 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/activity_mentor_chat_recycler_view_container"
+            android:id="@+id/fragment_signal_recycler_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -57,16 +106,16 @@
 
             <!-- MESSAGE RECYCLER VIEW EMPTY -->
             <TextView
-                android:id="@+id/activity_mentor_chat_text_view_recycler_view_empty"
+                android:id="@+id/fragment_signal_not_found_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_large_margin"
-                android:text="@string/text_view_mentor_chat_error"
+                android:text="@string/signal_not_found"
                 android:textAlignment="center" />
 
             <!-- RECYCLER VIEW -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/activity_mentor_chat_recycler_view"
+                android:id="@+id/recyclerViewSignal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

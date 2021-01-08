@@ -73,6 +73,10 @@
     <string name="profile">Profile</string>
     <string name="share_app">share app</string>
     <string name="tutorial">tutorial</string>
+    <string name="signal_not_found">we are sorry,\n empty select an other signal on oder view configuration</string>
+    <string name="never_miss_a_trade">Never Miss A Trade!</string>
+    <string name="get_premium">Get \n Premium</string>
+    <string name="get_live_notifications_n_no_ads">Get Live notifications \nNo ads</string>
 
     <string-array name="configSpinner">
         <item>All</item>

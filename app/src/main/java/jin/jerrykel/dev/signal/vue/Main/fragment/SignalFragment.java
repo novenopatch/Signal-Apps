@@ -50,7 +50,7 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
     @Override
     public void initView( ){
 
-        recyclerView = this.rootView.findViewById(R.id.activity_mentor_chat_recycler_view);
+        recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
         textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.activity_mentor_chat_text_view_recycler_view_empty);
 
         this.configureRecyclerView(currentChatName);
