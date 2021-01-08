@@ -8,41 +8,41 @@ import java.util.Date;
  * Created by JerrykelDEV on 08/01/2021 08:24
  */
 public class Signals {
-    private String signalsName;
+    private TypeSignals typeSignals;
     private String signalStatus;
     private String sellOrBuy;
     private String entryPrice;
     private  String stopLoss;
     private String takeProfit;
     private Date dateCreated;
-    private Date dateExpired;
     private String urlImage;
+    private boolean active = true;
 
-    public Signals(String signalsName, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit, Date dateCreated, Date dateExpired, String urlImage) {
-        this.signalsName = signalsName;
+    public Signals(TypeSignals typeSignals,
+                   String signalStatus, String sellOrBuy, String entryPrice,
+                   String stopLoss, String takeProfit, String urlImage) {
+        this.typeSignals = typeSignals;
         this.signalStatus = signalStatus;
         this.sellOrBuy = sellOrBuy;
         this.entryPrice = entryPrice;
         this.stopLoss = stopLoss;
         this.takeProfit = takeProfit;
-        this.dateCreated = dateCreated;
-        this.dateExpired = dateExpired;
         this.urlImage = urlImage;
     }
 
-    public Signals(String signalsName, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit, Date dateCreated, Date dateExpired) {
-        this.signalsName = signalsName;
+    public Signals(TypeSignals typeSignals, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
+        this.typeSignals = typeSignals;
         this.signalStatus = signalStatus;
         this.sellOrBuy = sellOrBuy;
         this.entryPrice = entryPrice;
         this.stopLoss = stopLoss;
         this.takeProfit = takeProfit;
-        this.dateCreated = dateCreated;
-        this.dateExpired = dateExpired;
+
     }
 
-    public void setSignalsName(String signalsName) {
-        this.signalsName = signalsName;
+
+    public void setTypeSignals(TypeSignals typeSignals) {
+        this.typeSignals = typeSignals;
     }
 
     public void setSignalStatus(String signalStatus) {
@@ -65,13 +65,7 @@ public class Signals {
         this.takeProfit = takeProfit;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
 
-    public void setDateExpired(Date dateExpired) {
-        this.dateExpired = dateExpired;
-    }
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
@@ -79,8 +73,9 @@ public class Signals {
 
     //getter
 
-    public String getSignalsName() {
-        return signalsName;
+
+    public TypeSignals getTypeSignals() {
+        return typeSignals;
     }
 
     public String getSignalStatus() {
@@ -108,11 +103,16 @@ public class Signals {
         return dateCreated;
     }
 
-    public Date getDateExpired() {
-        return dateExpired;
-    }
 
     public String getUrlImage() {
         return urlImage;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

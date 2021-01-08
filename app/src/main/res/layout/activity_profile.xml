@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/colorPrimary"
-        tools:context=".vue.settings.road.ProfileActivity"
+        tools:context=".vue.Activities.settings.road.ProfileActivity"
         android:fillViewport="true">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 

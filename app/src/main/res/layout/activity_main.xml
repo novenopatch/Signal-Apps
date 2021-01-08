@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vue.Main.MainActivity"
+    tools:context=".vue.Activities.Main.MainActivity"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
 

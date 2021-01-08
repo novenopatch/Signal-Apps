@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".vue.LoginActivity"
+            android:name=".vue.Activities.LoginActivity"
             android:theme="@style/LoginTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,35 +23,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".vue.Main.MainActivity"
+        <activity android:name=".vue.Activities.Main.MainActivity"
             android:label="WG SIGNALS"/>
         <activity
-            android:name=".vue.settings.SettingActivity"
+            android:name=".vue.Activities.settings.SettingActivity"
             android:label="@string/settings"
-            android:parentActivityName=".vue.Main.MainActivity" />
+            android:parentActivityName=".vue.Activities.Main.MainActivity" />
         <activity
-            android:name=".vue.settings.road.AccountActivity"
+            android:name=".vue.Activities.settings.road.AccountActivity"
             android:label="@string/account"
-            android:parentActivityName=".vue.settings.SettingActivity" />
+            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
         <activity
-            android:name=".vue.settings.road.AboutActivity"
+            android:name=".vue.Activities.settings.road.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".vue.settings.SettingActivity" />
+            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
         <activity
-            android:name=".vue.settings.road.PayActivity"
+            android:name=".vue.Activities.settings.road.PayActivity"
             android:label="@string/Payment"
-            android:parentActivityName=".vue.settings.road.AccountActivity" />
+            android:parentActivityName=".vue.Activities.settings.road.AccountActivity" />
         <activity
-            android:name=".vue.settings.road.HelpActivity"
+            android:name=".vue.Activities.settings.road.HelpActivity"
             android:label="@string/help"
-            android:parentActivityName=".vue.settings.SettingActivity" />
+            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
         <activity
-            android:name=".vue.settings.road.ProfileActivity"
+            android:name=".vue.Activities.settings.road.ProfileActivity"
             android:label="@string/profile"
-            android:parentActivityName=".vue.settings.SettingActivity" />
+            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
         <activity
             android:name=".vue.dashboard.DashboardActivity"
-            android:parentActivityName=".vue.settings.SettingActivity"
+            android:parentActivityName=".vue.Activities.settings.SettingActivity"
             android:theme="@style/MainTheme" />
 
         <service

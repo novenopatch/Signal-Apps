@@ -1,6 +1,5 @@
-package jin.jerrykel.dev.signal.vue.settings.road;
+package jin.jerrykel.dev.signal.vue.Activities.settings.road;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +14,9 @@ import androidx.cardview.widget.CardView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class ProfileActivity extends BaseActivity {

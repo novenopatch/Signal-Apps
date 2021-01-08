@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.MessageSend;
+package jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.model.Message;
 
 
-public class MentorChatAdapter extends FirestoreRecyclerAdapter<Message, MessageViewHolder> {
+public class SignalsAdapter extends FirestoreRecyclerAdapter<Message, SignalsViewHolder> {
 
     public interface Listener {
         void onDataChanged();
@@ -26,7 +26,7 @@ public class MentorChatAdapter extends FirestoreRecyclerAdapter<Message, Message
     //FOR COMMUNICATION
     private Listener callback;
 
-    public MentorChatAdapter(@NonNull FirestoreRecyclerOptions<Message> options, RequestManager glide, Listener callback, String idCurrentUser) {
+    public SignalsAdapter(@NonNull FirestoreRecyclerOptions<Message> options, RequestManager glide, Listener callback, String idCurrentUser) {
         super(options);
         this.glide = glide;
         this.callback = callback;
@@ -34,14 +34,14 @@ public class MentorChatAdapter extends FirestoreRecyclerAdapter<Message, Message
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MessageViewHolder holder, int position, @NonNull Message model) {
+    protected void onBindViewHolder(@NonNull SignalsViewHolder holder, int position, @NonNull Message model) {
         holder.updateWithMessage(model, this.idCurrentUser, this.glide);
 
     }
 
     @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MessageViewHolder(LayoutInflater.from(parent.getContext())
+    public SignalsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new SignalsViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.message_chat_itemn, parent, false));
     }
 

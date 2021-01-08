@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue;
+package jin.jerrykel.dev.signal.vue.Activities;
 
 import android.content.Intent;
 import android.view.View;
@@ -16,7 +16,7 @@ import java.util.List;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.vue.Main.MainActivity;
+import jin.jerrykel.dev.signal.vue.Activities.Main.MainActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity {

@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.MessageSend;
+package jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +26,7 @@ import jin.jerrykel.dev.signal.api.MessageHelper;
 import jin.jerrykel.dev.signal.model.Message;
 
 
-public class MessageViewHolder extends RecyclerView.ViewHolder {
+public class SignalsViewHolder extends RecyclerView.ViewHolder {
 
 
 
@@ -69,7 +68,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         textViewMentorP = superView.findViewById(R.id.textViewMentorP);
 
     }
-    public MessageViewHolder(View itemView) {
+    public SignalsViewHolder(View itemView) {
         super(itemView);
         initView(itemView);
         colorCurrentUser = ContextCompat.getColor(itemView.getContext(), R.color.colorAccent);

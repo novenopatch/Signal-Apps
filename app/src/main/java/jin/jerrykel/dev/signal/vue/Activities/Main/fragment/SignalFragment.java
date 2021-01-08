@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.Main.fragment;
+package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,11 +23,12 @@ import jin.jerrykel.dev.signal.api.MessageHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.MessageSend.MentorChatAdapter;
+import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters.SignalsAdapter;
+import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters.SpinerAdapter;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 
-public class SignalFragment extends BaseFragment implements MentorChatAdapter.Listener{
+public class SignalFragment extends BaseFragment implements SignalsAdapter.Listener{
 
 
 
@@ -39,7 +40,7 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
     ArrayList<String> stringArrayList = new ArrayList<>();
 
 
-    private MentorChatAdapter mentorChatAdapter;
+    private SignalsAdapter mentorChatAdapter;
     @Nullable
     private User modelCurrentUser;
     private String  currentChatName = "MessageSent";
@@ -51,7 +52,7 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
     public void initView( ){
 
         recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
-        textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.activity_mentor_chat_text_view_recycler_view_empty);
+        textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.fragment_signal_not_found_textView);
 
         this.configureRecyclerView(currentChatName);
         this.getCurrentUserFromFirestore();
@@ -148,7 +149,7 @@ public class SignalFragment extends BaseFragment implements MentorChatAdapter.Li
         //Track current chat name
         this.currentChatName = chatName;
         //Configure Adapter & RecyclerView
-        this.mentorChatAdapter = new MentorChatAdapter(
+        this.mentorChatAdapter = new SignalsAdapter(
                 generateOptionsForAdapter(
                         MessageHelper.getAllMessageForChat(this.currentChatName)),
                 Glide.with(this), this, getCurrentUser().getUid());

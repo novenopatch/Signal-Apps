@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vue.settings.road.HelpActivity">
+    tools:context=".vue.Activities.settings.road.HelpActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

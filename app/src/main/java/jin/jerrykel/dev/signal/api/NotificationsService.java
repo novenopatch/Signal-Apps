@@ -14,7 +14,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.vue.LoginActivity;
+import jin.jerrykel.dev.signal.vue.Activities.LoginActivity;
 
 /**
  * Created by JerrykelDEV on 29/11/2020 10:31

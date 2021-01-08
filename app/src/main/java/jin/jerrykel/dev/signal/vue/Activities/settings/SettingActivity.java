@@ -1,7 +1,6 @@
-package jin.jerrykel.dev.signal.vue.settings;
+package jin.jerrykel.dev.signal.vue.Activities.settings;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,10 +17,10 @@ import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
-import jin.jerrykel.dev.signal.vue.settings.road.AboutActivity;
-import jin.jerrykel.dev.signal.vue.settings.road.AccountActivity;
-import jin.jerrykel.dev.signal.vue.settings.road.HelpActivity;
-import jin.jerrykel.dev.signal.vue.settings.road.ProfileActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.road.AboutActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.road.HelpActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.road.ProfileActivity;
 
 public class SettingActivity extends BaseActivity {
 

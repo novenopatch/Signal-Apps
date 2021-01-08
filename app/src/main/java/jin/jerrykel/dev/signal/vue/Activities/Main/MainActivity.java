@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.Main;
+package jin.jerrykel.dev.signal.vue.Activities.Main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -22,11 +22,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.vue.Main.fragment.AlertFragment;
-import jin.jerrykel.dev.signal.vue.Main.fragment.ProfileFragment;
-import jin.jerrykel.dev.signal.vue.Main.fragment.SignalFragment;
+import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.AlertFragment;
+import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.ProfileFragment;
+import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.SignalFragment;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
-import jin.jerrykel.dev.signal.vue.settings.SettingActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.SettingActivity;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener  {
 

@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.Main.fragment;
+package jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

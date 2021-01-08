@@ -1,8 +1,4 @@
-package jin.jerrykel.dev.signal.vue.settings.road;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+package jin.jerrykel.dev.signal.vue.Activities.settings.road;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;

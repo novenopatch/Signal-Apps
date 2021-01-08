@@ -1,20 +1,18 @@
-package jin.jerrykel.dev.signal.vue.Main.fragment;
+package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AlertFragment#newInstance} factory method to
+ * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AlertFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +23,7 @@ public class AlertFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AlertFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -35,35 +33,31 @@ public class AlertFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AlertFragment.
+     * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AlertFragment newInstance(String param1, String param2) {
-        AlertFragment fragment = new AlertFragment();
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-    public static AlertFragment newInstance() {
-        AlertFragment fragment = new AlertFragment();
+    public static ProfileFragment newInstance() {
+        ProfileFragment fragment = new ProfileFragment();
+
         return fragment;
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public int getLayout() {
+        return R.layout.fragment_profile;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alert, container, false);
+    public void initView() {
+
     }
 }
