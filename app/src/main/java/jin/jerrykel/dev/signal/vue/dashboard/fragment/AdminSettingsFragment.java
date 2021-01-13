@@ -48,7 +48,7 @@ public class AdminSettingsFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_admin_settings;
+        return R.layout.fragment_dash_admin_settings;
     }
 
     @Override

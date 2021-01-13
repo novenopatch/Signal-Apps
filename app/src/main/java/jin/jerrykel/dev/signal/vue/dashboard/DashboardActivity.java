@@ -1,28 +1,20 @@
 package jin.jerrykel.dev.signal.vue.dashboard;
 
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.AddAccountFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.AdminSettingsFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.BugFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.HomeDashboardFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.ManageUsersFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.SendMessageFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.SendNewSignalTypeFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.SendSignalFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.TimelineFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.UpdatePubImgFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.UsageFragment;
@@ -51,11 +43,11 @@ public class DashboardActivity extends BaseActivity implements  HomeDashboardFra
     private void initContentView(View view){
 
         switch (view.getId()){
-            case R.id.linearLayoutSendMessage:
-                 fragment = new SendMessageFragment();
+            case R.id.linearLayoutSendSignal:
+                 fragment = new SendSignalFragment();
                 break;
-            case R.id.linearLayoutSendAlertMessage:
-                fragment = new SendMessageFragment();
+            case R.id.linearLayoutSendNewSignalType:
+                fragment = new SendNewSignalTypeFragment();
                 ///
                 break;
             case R.id.linearLayoutUpdateImagePub:

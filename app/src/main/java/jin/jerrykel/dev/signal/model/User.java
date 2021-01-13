@@ -2,9 +2,6 @@ package jin.jerrykel.dev.signal.model;
 
 import androidx.annotation.Nullable;
 
-import java.util.Date;
-import java.util.Objects;
-
 /**
  * Created by JerrykelDEV on 23/11/2020 13:42
  */
@@ -14,6 +11,7 @@ public class User {
     private String username;
     private Boolean isMentor;
     private Boolean isRoot ;
+
     @Nullable private String urlPicture;
 
     public User() { }
@@ -25,8 +23,6 @@ public class User {
         this.isMentor = false;
         this.isRoot = false;
     }
-
-
 
 
 

@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity {
                         .setTheme(R.style.LoginTheme)
                         .setAvailableProviders(providers)
                         .setIsSmartLockEnabled(false,true)
-                        .setLogo(R.drawable.ic_baseline_account_circle_black_24)
+                        .setLogo(R.drawable.ic_baseline_account_circle_white_24)
                         .build(),
                 RC_SIGN_IN);
     }

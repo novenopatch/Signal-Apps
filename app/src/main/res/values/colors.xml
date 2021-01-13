@@ -16,5 +16,12 @@
     <color name="tedColor">#71C1D9</color>
 
 
+    <color name="colorPrimaryio">#039BE5</color>
+    <color name="colorPrimaryDarkio">#0288D1</color>
+    <color name="colorAccentio">#FFA000</color>
+
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_500">#9E9E9E</color>
 
 </resources>

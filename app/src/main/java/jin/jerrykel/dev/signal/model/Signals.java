@@ -4,11 +4,14 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
+import jin.jerrykel.dev.signal.Utils.Utils;
+
 /**
  * Created by JerrykelDEV on 08/01/2021 08:24
  */
 public class Signals {
-    private TypeSignals typeSignals;
+    private String senderUi;
+    private String typeSignalsName;
     private String signalStatus;
     private String sellOrBuy;
     private String entryPrice;
@@ -18,10 +21,11 @@ public class Signals {
     private String urlImage;
     private boolean active = true;
 
-    public Signals(TypeSignals typeSignals,
+    public Signals(String senderUii,String typeSignalsName,
                    String signalStatus, String sellOrBuy, String entryPrice,
                    String stopLoss, String takeProfit, String urlImage) {
-        this.typeSignals = typeSignals;
+        this.senderUi  =senderUii;
+        this.typeSignalsName = typeSignalsName;
         this.signalStatus = signalStatus;
         this.sellOrBuy = sellOrBuy;
         this.entryPrice = entryPrice;
@@ -30,8 +34,9 @@ public class Signals {
         this.urlImage = urlImage;
     }
 
-    public Signals(TypeSignals typeSignals, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
-        this.typeSignals = typeSignals;
+    public Signals(String senderUii,String typeSignalsName, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
+        this.senderUi  =senderUii;
+        this.typeSignalsName = typeSignalsName;
         this.signalStatus = signalStatus;
         this.sellOrBuy = sellOrBuy;
         this.entryPrice = entryPrice;
@@ -40,9 +45,16 @@ public class Signals {
 
     }
 
+    public String getSenderUi() {
+        return senderUi;
+    }
 
-    public void setTypeSignals(TypeSignals typeSignals) {
-        this.typeSignals = typeSignals;
+    public void setSenderUi(String senderUi) {
+        this.senderUi = senderUi;
+    }
+
+    public void setTypeSignalsName(String typeSignals) {
+        this.typeSignalsName = typeSignals;
     }
 
     public void setSignalStatus(String signalStatus) {
@@ -74,8 +86,8 @@ public class Signals {
     //getter
 
 
-    public TypeSignals getTypeSignals() {
-        return typeSignals;
+    public String getTypeSignalsName() {
+        return typeSignalsName;
     }
 
     public String getSignalStatus() {
@@ -114,5 +126,7 @@ public class Signals {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+    public String getDateCreatedString(){return Utils.convertDateToString(getDateCreated());
     }
 }

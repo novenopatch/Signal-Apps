@@ -49,7 +49,7 @@ public class UpdatePubImgFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_update_pub_img;
+        return R.layout.fragment_update_Dash_pub_img;
     }
 
     @Override

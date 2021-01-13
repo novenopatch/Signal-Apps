@@ -49,7 +49,7 @@ public class TimelineFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_timeline;
+        return R.layout.fragment_Dash_timeline;
     }
 
     @Override

@@ -10,10 +10,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.model.Message;
+import jin.jerrykel.dev.signal.model.Signals;
 
 
-public class SignalsAdapter extends FirestoreRecyclerAdapter<Message, SignalsViewHolder> {
+public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsViewHolder> {
 
     public interface Listener {
         void onDataChanged();
@@ -21,28 +21,28 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Message, SignalsVie
 
     //FOR DATA
     private final RequestManager glide;
-    private final String idCurrentUser;
+    //private final String idCurrentUser;
 
     //FOR COMMUNICATION
     private Listener callback;
 
-    public SignalsAdapter(@NonNull FirestoreRecyclerOptions<Message> options, RequestManager glide, Listener callback, String idCurrentUser) {
+    public SignalsAdapter(@NonNull FirestoreRecyclerOptions<Signals> options, RequestManager glide, Listener callback) {
         super(options);
         this.glide = glide;
         this.callback = callback;
-        this.idCurrentUser = idCurrentUser;
+        //this.idCurrentUser = idCurrentUser;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull SignalsViewHolder holder, int position, @NonNull Message model) {
-        holder.updateWithMessage(model, this.idCurrentUser, this.glide);
+    protected void onBindViewHolder(@NonNull SignalsViewHolder holder, int position, @NonNull Signals model) {
+        holder.updateWithMessage(model,  this.glide);
 
     }
 
     @Override
     public SignalsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SignalsViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.message_chat_itemn, parent, false));
+                .inflate(R.layout.signal_item, parent, false));
     }
 
     @Override

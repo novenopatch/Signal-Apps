@@ -15,12 +15,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.base.BaseActivity;
-import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AboutActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.HelpActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.ProfileActivity;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
+import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 
 public class SettingActivity extends BaseActivity {
 
@@ -38,7 +38,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public int getLayout() {
-        return R.layout.activity_settings_new;
+        return R.layout.activity_settings;
     }
     @Override
     public void initView(){

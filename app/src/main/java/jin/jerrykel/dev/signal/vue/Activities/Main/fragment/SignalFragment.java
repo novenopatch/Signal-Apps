@@ -15,16 +15,18 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.MessageHelper;
+import jin.jerrykel.dev.signal.api.SignalHelper;
+import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
-import jin.jerrykel.dev.signal.model.Message;
+import jin.jerrykel.dev.signal.model.Signals;
+import jin.jerrykel.dev.signal.model.TypeSignals;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters.SignalsAdapter;
-import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters.SpinerAdapter;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 
@@ -35,17 +37,27 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     RecyclerView recyclerView;
     TextView textViewRecyclerViewEmpty;
 
-    private Spinner spinner1;
-    private Spinner spinner2;
-    ArrayList<String> stringArrayList = new ArrayList<>();
+    private Spinner spinnerSignalsName;
+    private Spinner spinnerSignatState;
+    private static ArrayList<String> stringArrayList = new ArrayList<>();
+
 
 
     private SignalsAdapter mentorChatAdapter;
     @Nullable
     private User modelCurrentUser;
-    private String  currentChatName = "MessageSent";
 
 
+
+    public SignalFragment() {
+        // Required empty public constructor
+    }
+
+
+    public static SignalFragment newInstance() {
+        SignalFragment fragment = new SignalFragment();
+        return fragment;
+    }
 
 
     @Override
@@ -53,9 +65,12 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
 
         recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
         textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.fragment_signal_not_found_textView);
-
-        this.configureRecyclerView(currentChatName);
+        this.configureRecyclerView();
         this.getCurrentUserFromFirestore();
+        stringArrayList = getTypeSignalsString();
+        initgraph();
+
+
         /*
         Button crashButton = new Button(this);
         crashButton.setText("Crash!");
@@ -70,28 +85,110 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
          */
-        initgraph();
+
+
+    }
+
+
+    private void configureRecyclerView(){
+
+        //Configure Adapter & RecyclerView
+        this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSent()), Glide.with(this), this);
+        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
+        recyclerView.setAdapter(this.mentorChatAdapter);
+    }
+    private void configureRecyclerViewSpinnerForName(String config){
+
+        //Configure Adapter & RecyclerView
+        this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSentSignalName(config)), Glide.with(this), this);
+        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
+        recyclerView.setAdapter(this.mentorChatAdapter);
+    }
+    private void getCurrentUserFromFirestore(){
+        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                modelCurrentUser = documentSnapshot.toObject(User.class);
+
+            }
+        });
+    }
+    private void configureRecyclerView(String config){
+        switch (config){
+            case "Active":
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this);
+                break;
+
+
+            case  "Ready":
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this);
+                break;
+            case  "Buy":
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSentSellOrBuy(config)), Glide.with(this), this);
+                break;
+            case  "Sell":
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSentSellOrBuy(config)), Glide.with(this), this);
+                break;
+            case "All":
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalHelper.getAllSignalSent()), Glide.with(this), this);
+                break;
+            default:
+
+        }
+        //Configure Adapter & RecyclerView
+
+        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
+        recyclerView.setAdapter(this.mentorChatAdapter);
+    }
+    private FirestoreRecyclerOptions<Signals> generateOptionsForAdapter(Query query){
+
+        return new FirestoreRecyclerOptions.Builder<Signals>()
+                .setQuery(query, Signals.class)
+                .setLifecycleOwner(this)
+                .build();
 
     }
     private void initgraph(){
 
-        stringArrayList.add("Eur/ip");
-        stringArrayList.add("Dollar/hostName");
-        spinner1 = this.rootView.findViewById(R.id.spinner1);
-        spinner2 = this.rootView.findViewById(R.id.spinner2);
-        SpinerAdapter spinerAdapterspinner1 = new SpinerAdapter(this.context,android.R.layout.simple_spinner_item, stringArrayList);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.context, R.array.configSpinner, android.R.layout.simple_spinner_item);
+        spinnerSignalsName = this.rootView.findViewById(R.id.spinner1);
+        spinnerSignatState = this.rootView.findViewById(R.id.spinner2);
+        ArrayAdapter<String> spinnerAdapters = new ArrayAdapter<>(this.context,R.layout.spinner_item, stringArrayList);//stringArrayList);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.context, R.array.configSpinner, R.layout.spinner_item);
 
-        spinerAdapterspinner1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner1.setAdapter(spinerAdapterspinner1);
-        spinner2.setAdapter(adapter);
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        spinnerSignalsName.setAdapter(spinnerAdapters);
+        spinnerSignatState.setAdapter(adapter);
+
+        spinnerListener();
+    }
+    private void spinnerListener(){
+        spinnerSignalsName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //updateConversion(valeur1.getText().toString(),valeur2, spinner1,spinner2);
-               //spinner1.getSelectedItemPosition();
+                //spinnerSignalsName.getSelectedItemPosition();
+                configureRecyclerViewSpinnerForName((String) spinnerSignalsName.getSelectedItem());
             }
 
             @Override
@@ -99,10 +196,13 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
 
             }
         });
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSignatState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               // updateConversion(valeur2.getText().toString(),valeur1, spinner2,spinner1);
+                // updateConversion(valeur2.getText().toString(),valeur1, spinner2,spinner1);
+                configureRecyclerView((String) spinnerSignatState.getSelectedItem());
+                mentorChatAdapter.onDataChanged();
+                mentorChatAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -111,16 +211,31 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
             }
         });
     }
+    private   ArrayList<String> getTypeSignalsString(){
+        String TAG = "getTypeSignalsString()";
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        SignalTypeListHelper.getAllSignalTypeSent().get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
 
-    public SignalFragment() {
-        // Required empty public constructor
+
+                    TypeSignals typeSignals = document.toObject(TypeSignals.class);
+                    stringArrayList.add(typeSignals.getName());
+                    //Log.d(TAG, document.getId() + " => " + document.getData());
+                }
+            } else {
+                stringArrayList.add("None");
+                //Log.d(TAG, "Error getting documents: ", task.getException());
+            }
+        });
+        if(stringArrayList.size()<=1){
+            stringArrayList.add("None");
+        }
+        return stringArrayList;
     }
 
 
-    public static SignalFragment newInstance() {
-        SignalFragment fragment = new SignalFragment();
-        return fragment;
-    }
+
 
 
     @Override
@@ -133,44 +248,6 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     public void onDataChanged() {
         textViewRecyclerViewEmpty.setVisibility(this.mentorChatAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
-    private void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                modelCurrentUser = documentSnapshot.toObject(User.class);
-                if(modelCurrentUser.getIsMentor()){
-
-
-                }
-            }
-        });
-    }
-    private void configureRecyclerView(String chatName){
-        //Track current chat name
-        this.currentChatName = chatName;
-        //Configure Adapter & RecyclerView
-        this.mentorChatAdapter = new SignalsAdapter(
-                generateOptionsForAdapter(
-                        MessageHelper.getAllMessageForChat(this.currentChatName)),
-                Glide.with(this), this, getCurrentUser().getUid());
-        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
-        recyclerView.setAdapter(this.mentorChatAdapter);
-    }
-    private FirestoreRecyclerOptions<Message> generateOptionsForAdapter(Query query){
-
-        return new FirestoreRecyclerOptions.Builder<Message>()
-                .setQuery(query, Message.class)
-                .setLifecycleOwner(this)
-                .build();
-
-    }
-
 
 
 }

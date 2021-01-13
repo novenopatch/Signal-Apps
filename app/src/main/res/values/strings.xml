@@ -69,7 +69,7 @@
 
     <string name="log_out">Log out</string>
     <string name="signal">Signals</string>
-    <string name="alert">Alert</string>
+    <string name="alert">Alerts</string>
     <string name="profile">Profile</string>
     <string name="share_app">share app</string>
     <string name="tutorial">tutorial</string>
@@ -77,11 +77,27 @@
     <string name="never_miss_a_trade">Never Miss A Trade!</string>
     <string name="get_premium">Get \n Premium</string>
     <string name="get_live_notifications_n_no_ads">Get Live notifications \nNo ads</string>
+    <string name="hint_email">email</string>
+    <string name="hint_username">username</string>
+    <string name="update">Update</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="your_autentification_email">Your autentification email</string>
+    <string name="enter_signal_type_name">enter Signal type name</string>
 
     <string-array name="configSpinner">
         <item>All</item>
         <item>Active</item>
         <item>Ready</item>
+        <item>Sell</item>
+        <item>Buy</item>
+    </string-array>
+    <string-array name="configSpinnerStatut">
+        <item>Active</item>
+        <item>Ready</item>
+
+    </string-array>
+    <string-array name="configSpinnerType">
         <item>Sell</item>
         <item>Buy</item>
     </string-array>

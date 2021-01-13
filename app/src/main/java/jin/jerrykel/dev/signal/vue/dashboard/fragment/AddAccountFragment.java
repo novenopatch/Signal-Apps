@@ -47,7 +47,7 @@ public class AddAccountFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_add_account;
+        return R.layout.fragment_dash_add_account;
     }
 
     @Override

@@ -12,21 +12,25 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.AlertFragment;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.ProfileFragment;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.SignalFragment;
-import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.SettingActivity;
+import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -102,6 +106,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 //Intent intent = new Intent(SaveActivity.this, ConnectActivity.class);
                 //  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 // startActivity(intent2);
+                tabs.getTabAt(2).select();
                 overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
                 break;
             case R.id.activity_main_drawer_recycler_signal:
@@ -109,13 +114,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 //startActivity(intent);
                 //overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
                 // pager.setCurrentItem(1,true);
-                tabs.getTabAt(1).select();
+                tabs.getTabAt(0).select();
 
 
                 break;
             case R.id.activity_main_drawer_menu_settings:
                 startSettingActivity();
                 break;
+            case R.id.activity_main_drawer_menu_logout:
+                new AlertDialog.Builder(this).setTitle("Confirm ?")
+                        .setMessage("Are you sure?")
+                        .setPositiveButton("YES", (dialog, which) -> {
+                            signOutUserFromFirebase();
+                                    // Perform Action & Dismiss dialog
+                                    dialog.dismiss();
+
+                                })
+                        .setNegativeButton("NO", (dialog, which) -> {
+                            // Do nothing
+                            dialog.dismiss();
+                        })
+                        .create()
+                        .show();
+
+                break;
+            case R.id.activity_main_drawer_recycler_tutorial:
+                startSettingActivity();
+                break;
+            case R.id.activity_main_drawer_recycler_share:
+            startSettingActivity();
+            break;
             default:
                 break;
         }
@@ -128,7 +156,26 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         return true;
     }
+    private void signOutUserFromFirebase(){
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted());
 
+    }
+    private void deleteUserFromFirebase(){
+        if (this.getCurrentUser() != null) {
+
+            //4 - We also delete user from firestore storage
+            UserHelper.deleteUser(this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
+
+            AuthUI.getInstance()
+                    .delete(this)
+                    .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted());
+        }
+    }
+    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(){
+        return aVoid -> finish();
+    }
     @Override
     public void onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {

@@ -54,7 +54,7 @@ public class UsageFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.activity_settings_new;
+        return R.layout.activity_settings;
     }
 
     @Override

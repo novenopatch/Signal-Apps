@@ -1,7 +1,6 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,16 +9,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import jin.jerrykel.dev.signal.BuildConfig;
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 public class HomeDashboardFragment extends BaseFragment implements View.OnClickListener{
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
 
+    private User currentUser;
     private OnButtonClickedListener mCallback;
     private LinearLayout linearLayoutSendMessage;
     private LinearLayout linearLayoutSendAlertMessage;
@@ -35,7 +34,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
 
     private TextView textViewCountActionAllowed;
     private TextView textViewAppVersion;
-    private  TextView textViewDashboardVersion;
+
     private TextView textViewUsername;
 
     private LinearLayout[] linearLayouts;
@@ -46,10 +45,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
     public interface OnButtonClickedListener {
         public void onButtonClicked(View view);
     }
-    private void  initAllView(View rootView){
 
-
-    }
 
 
 
@@ -57,16 +53,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
         // Required empty public constructor
     }
 
-
-    public static HomeDashboardFragment newInstance(String param1, String param2) {
-        HomeDashboardFragment fragment = new HomeDashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-    public static HomeDashboardFragment newInstance() {
+    public static HomeDashboardFragment newInstance(User user) {
         HomeDashboardFragment fragment = new HomeDashboardFragment();
         return fragment;
     }
@@ -77,13 +64,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_home_dashboard;
+        return R.layout.fragment_dash_home_dashboard;
     }
 
     @Override
     public void initView() {
-        linearLayoutSendMessage = rootView.findViewById(R.id.linearLayoutSendMessage);
-        linearLayoutSendAlertMessage = rootView.findViewById(R.id.linearLayoutSendAlertMessage);
+        linearLayoutSendMessage = rootView.findViewById(R.id.linearLayoutSendSignal);
+        linearLayoutSendAlertMessage = rootView.findViewById(R.id.linearLayoutSendNewSignalType);
         linearLayoutUpdateImagePub = rootView.findViewById(R.id.linearLayoutUpdateImagePub);
         linearLayoutRootTimeLine = rootView.findViewById(R.id.linearLayoutRootTimeLine);
         linearLayoutManageUser = rootView.findViewById(R.id.linearLayoutManageUser);
@@ -98,6 +85,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
         textViewAppVersion = rootView.findViewById(R.id.textViewAppVersion);
         textViewUsername = rootView.findViewById(R.id.textViewUsername);
         updateUIWhenCreating();
+        initEnd();
+
         linearLayouts = new LinearLayout[]{
                 linearLayoutSendMessage,linearLayoutSendAlertMessage,
                 linearLayoutUpdateImagePub,linearLayoutRootTimeLine,
@@ -107,6 +96,10 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
         for(LinearLayout v : linearLayouts){
             v.setOnClickListener(this);
         }
+
+    }
+    private void initEnd(){
+        textViewAppVersion.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override
@@ -121,9 +114,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
         // 5 - Spread the click to the parent activity
         mCallback.onButtonClicked(v);
     }
-    // --------------
-    // FRAGMENT SUPPORT
-    // --------------
 
     // 3 - Create callback to parent activity
     private void createCallbackToParentActivity(){
@@ -150,20 +140,12 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
 
             String username = getCurrentUser().getDisplayName();
             textViewUsername.setText(username);
-            /*
+
 
             // 7 - Get additional data from Firestore (isMentor & Username)
-            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    User currentUser = documentSnapshot.toObject(User.class);
-                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
-                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
-                    textInputEditTextUsername.setText(username);
-                }
-            });
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> currentUser = documentSnapshot.toObject(User.class));
 
-             */
+
 
         }
     }

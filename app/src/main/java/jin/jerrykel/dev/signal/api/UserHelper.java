@@ -4,6 +4,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import jin.jerrykel.dev.signal.model.User;
 
@@ -20,6 +21,7 @@ public class UserHelper {
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
+
     // --- CREATE ---
 
     public static Task<Void> createUser(String uid, String username, String urlPicture) {
@@ -31,6 +33,11 @@ public class UserHelper {
 
     public static Task<DocumentSnapshot> getUser(String uid){
         return UserHelper.getUsersCollection().document(uid).get();
+    }
+    public static Query getAllUsers(){
+
+
+        return getUsersCollection().orderBy("dateCreated");
     }
 
     // --- UPDATE ---

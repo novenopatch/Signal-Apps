@@ -30,12 +30,12 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_baseline_account_circle_black_62"
+                android:src="@drawable/ic_baseline_account_circle_white_24"
                 tools:ignore="VectorDrawableCompat" />
 
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progressBarFragmentProfile"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

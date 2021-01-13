@@ -9,17 +9,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="#263647"
         android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
 
             android:layout_weight="1"
 
-            android:textAlignment="center" />
+            android:minHeight="30dp"
+
+            android:textSize="20sp" />
 
         <Space
             android:layout_width="20dp"
@@ -29,11 +31,12 @@
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
 
             android:layout_weight="1"
+            android:minHeight="30dp"
 
-            android:textAlignment="center" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

@@ -1,19 +1,42 @@
 package jin.jerrykel.dev.signal.model;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
+import jin.jerrykel.dev.signal.Utils.Utils;
+
 /**
  * Created by JerrykelDEV on 08/01/2021 10:09
  */
 public class TypeSignals {
+    private String senderUi;
     private String name;
     private String urlImage;
+    private Date dateCreated;
 
-    public TypeSignals(String name, String urlImage) {
+    public TypeSignals(String senderUii,String name, String urlImage) {
+        this.senderUi  =senderUii;
         this.name = name;
         this.urlImage = urlImage;
     }
-    public TypeSignals(String name) {
+    public TypeSignals(String senderUii,String name) {
+        this.senderUi  =senderUii;
         this.name = name;
 
+    }
+    public String getSenderUi() {
+        return senderUi;
+    }
+
+    public void setSenderUi(String senderUi) {
+        this.senderUi = senderUi;
+    }
+    @ServerTimestamp
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+    public String getDateCreatedString(){return Utils.convertDateToString(getDateCreated());
     }
 
     public String getName() {

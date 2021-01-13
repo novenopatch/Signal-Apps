@@ -61,12 +61,12 @@ public class BugFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bug, container, false);
+        return inflater.inflate(R.layout.fragment_Dash_bug, container, false);
     }
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_bug;
+        return R.layout.fragment_Dash_bug;
     }
 
     @Override

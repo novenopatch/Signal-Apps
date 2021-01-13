@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
@@ -46,7 +45,7 @@ public class ProfileActivity extends BaseActivity {
         imageViewProfile = findViewById(R.id.imageViewProfile);
         textViewUsername  = findViewById(R.id.textViewUsername);
         textViewEmail = findViewById(R.id.textViewEmail);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBarFragmentProfile);
         linearLayoutUsername = findViewById(R.id.linearLayoutUsername);
         cardViewInput = findViewById(R.id. cardViewInput);
         editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
@@ -84,33 +83,27 @@ public class ProfileActivity extends BaseActivity {
             Button buttonSave = findViewById(R.id.buttonSave);
             Button buttonCancel = findViewById(R.id.buttonCancel);
 
-            View.OnClickListener onClickListener =  new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(v.getId() ==R.id.buttonSave){
-                        progressBar.setVisibility(View.VISIBLE);
-                        final String username = editTextTextPersonName.getText().toString();
+            View.OnClickListener onClickListener = v -> {
+                if(v.getId() ==R.id.buttonSave){
+                    progressBar.setVisibility(View.VISIBLE);
+                    final String username = editTextTextPersonName.getText().toString();
 
-                        if (getCurrentUser() != null){
-                            if (!username.isEmpty() &&  !username.equals(getString(R.string.info_no_username_found))){
-                                UserHelper.updateUsername(username,
-                                        getCurrentUser().getUid()
-                                ).addOnFailureListener(
-                                        onFailureListener()
-                                ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        textViewUsername.setText(username);
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                    }
-                                });
-                            }
+                    if (getCurrentUser() != null){
+                        if (!username.isEmpty() &&  !username.equals(getString(R.string.info_no_username_found))){
+                            UserHelper.updateUsername(username,
+                                    getCurrentUser().getUid()
+                            ).addOnFailureListener(
+                                    onFailureListener()
+                            ).addOnSuccessListener(aVoid -> {
+                                textViewUsername.setText(username);
+                                progressBar.setVisibility(View.INVISIBLE);
+                            });
                         }
                     }
+                }
 
-                    else {
-                        cardViewInput.setVisibility(View.INVISIBLE);
-                    }
+                else {
+                    cardViewInput.setVisibility(View.INVISIBLE);
                 }
             };
             buttonSave.setOnClickListener(onClickListener);

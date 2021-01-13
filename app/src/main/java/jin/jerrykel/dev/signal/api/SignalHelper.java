@@ -6,12 +6,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.Date;
-
-import jin.jerrykel.dev.signal.model.Message;
 import jin.jerrykel.dev.signal.model.Signals;
-import jin.jerrykel.dev.signal.model.TypeSignals;
-import jin.jerrykel.dev.signal.model.User;
 
 /**
  * Created by JerrykelDEV on 08/01/2021 10:15
@@ -28,16 +23,29 @@ public class SignalHelper {
 
     public static Query getAllSignalSent(){
 
+
         return  getSignalCollection().orderBy("dateCreated");
+    }
+    public static Query getAllSignalSentSignalName(String config){
+
+        return  getSignalCollection().whereEqualTo("typeSignalsName",config).orderBy("dateCreated");
+    }
+    public static Query getAllSignalSentActiveOrReady(String config){
+
+        return  getSignalCollection().whereEqualTo("signalStatus",config).orderBy("dateCreated");
+    }
+    public static Query getAllSignalSentSellOrBuy(String config){
+
+        return  getSignalCollection().whereEqualTo("sellOrBuy",config).orderBy("dateCreated");
     }
 
 
     // --- CREATE ---
 
-    public static Task<DocumentReference> createSignalSent(TypeSignals typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
+    public static Task<DocumentReference> createSignalSent(String ui,String typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
                                                                String stopLoss, String takeProfit){
 
-        Signals signals = new Signals(typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit);
+        Signals signals = new Signals(ui,typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit);
         return getSignalCollection().add(signals);
     }
 
