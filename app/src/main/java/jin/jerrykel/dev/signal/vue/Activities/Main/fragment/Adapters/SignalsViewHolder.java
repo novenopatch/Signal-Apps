@@ -36,7 +36,7 @@ public class SignalsViewHolder extends RecyclerView.ViewHolder {
         this.textViewSignalType = superView.findViewById(R.id.textViewSignalType);
         this.buttonEntryPrice  = superView.findViewById(R.id.buttonEntryPrice);
         this.buttonStopLoss  = superView.findViewById(R.id.buttonStopLoss);
-        this.buttonTakeProfit    = superView.findViewById(R.id. buttonTakeProfit);
+        this.buttonTakeProfit    = superView.findViewById(R.id.buttonTakeProfit);
         this.buttonReadMore     = superView.findViewById(R.id.buttonReadMore);
         this.imageViewSend      = superView.findViewById(R.id.imageViewSend);
 

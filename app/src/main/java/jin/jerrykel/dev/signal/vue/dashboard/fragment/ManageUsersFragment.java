@@ -10,25 +10,21 @@ import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.User.UserAdapter;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.User.UserAdapterDash;
 
-public class ManageUsersFragment extends BaseFragment  implements UserAdapter.Listener{
+public class ManageUsersFragment extends BaseFragment  implements UserAdapterDash.Listener{
 
-    private User  modelCurrentUser;
-    private UserAdapter userAdapter;
+
+    private UserAdapterDash userAdapter;
     private RecyclerView recyclerView;
 
     public ManageUsersFragment() {
         // Required empty public constructor
     }
-
-
-    // TODO: Rename and change types and number of parameters
     public static ManageUsersFragment newInstance() {
         ManageUsersFragment fragment = new ManageUsersFragment();
         return fragment;
     }
-
 
     @Override
     public int getLayout() {
@@ -37,19 +33,14 @@ public class ManageUsersFragment extends BaseFragment  implements UserAdapter.Li
 
     @Override
     public void initView() {
-        getCurrentUserFromFirestore();
         recyclerView = rootView.findViewById(R.id.recyclerViewUser);
-        configureRecyclerViewSpinnerForName();
+        configureRecyclerView();
     }
-    private void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(
-                documentSnapshot ->
-                        modelCurrentUser = documentSnapshot.toObject(User.class));
-    }
-    private void configureRecyclerViewSpinnerForName(){
+
+    private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
-        this.userAdapter = new UserAdapter( generateOptionsForAdapter(UserHelper.getAllUsers()) ,this,modelCurrentUser);
+        this.userAdapter = new UserAdapterDash( generateOptionsForAdapter(UserHelper.getAllUsers()) ,this,modelCurrentUser);
         userAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {

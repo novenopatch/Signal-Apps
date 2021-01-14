@@ -37,7 +37,7 @@ public class UserHelper {
     public static Query getAllUsers(){
 
 
-        return getUsersCollection().orderBy("dateCreated");
+        return UserHelper.getUsersCollection().orderBy("dateCreated");
     }
 
     // --- UPDATE ---

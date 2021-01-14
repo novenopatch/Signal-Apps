@@ -11,8 +11,9 @@ import jin.jerrykel.dev.signal.model.Signals;
 /**
  * Created by JerrykelDEV on 08/01/2021 10:15
  */
-public class SignalHelper {
-    private static final String COLLECTION_NAME = "Signals";
+public class SignalsHelper {
+
+    private static final String COLLECTION_NAME = "signal";
 
     // --- COLLECTION REFERENCE ---
 
@@ -42,8 +43,8 @@ public class SignalHelper {
 
     // --- CREATE ---
 
-    public static Task<DocumentReference> createSignalSent(String ui,String typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
-                                                               String stopLoss, String takeProfit){
+    public static Task<DocumentReference> createSignal(String ui, String typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
+                                                       String stopLoss, String takeProfit){
 
         Signals signals = new Signals(ui,typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit);
         return getSignalCollection().add(signals);

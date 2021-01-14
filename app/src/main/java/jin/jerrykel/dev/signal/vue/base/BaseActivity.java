@@ -3,7 +3,6 @@ package jin.jerrykel.dev.signal.vue.base;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,16 +12,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.User;
 
 /**
  * Created by JerrykelDEV on 22/11/2020 16:22
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    private User modelCurrentUser;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayout());
+        if(isCurrentUserLogged()){
+            getCurrentUserFromFirestore();
+        }
+
         this.initView();
 
     }
@@ -39,19 +45,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
 
     public OnFailureListener onFailureListener(){
-        return new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
-
-            }
-        };
+        return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
     }
     @Override
     protected void onResume() {
         super.onResume();
         // Force application to crash
 
+    }
+    protected void getCurrentUserFromFirestore(){
+        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class));
     }
 
 }

@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
@@ -95,27 +93,22 @@ public class SettingActivity extends BaseActivity {
 
              */
             final ImageView  imageViewDashboard = findViewById(R.id.imageViewDashboard);
-            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    User currentUser = documentSnapshot.toObject(User.class);
-                   // String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
-                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
-                    //textInputEditTextUsername.setText(username);
-                    if(currentUser.getIsMentor()){
-                        imageViewDashboard.setVisibility(View.VISIBLE);
-                        imageViewDashboard.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                startSuperActivity();
-                            }
-                        });
-                    }else {
-                        imageViewDashboard.setVisibility(View.INVISIBLE);
-                    }
-
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                User currentUser = documentSnapshot.toObject(User.class);
+               // String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
+                //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
+                //textInputEditTextUsername.setText(username);
+                if(currentUser.getMentor()){
+                    imageViewDashboard.setVisibility(View.VISIBLE);
+                    imageViewDashboard.setOnClickListener(v -> startSuperActivity());
+                }else {
+                    imageViewDashboard.setVisibility(View.INVISIBLE);
                 }
+
             });
+            //ToDo
+            imageViewDashboard.setVisibility(View.VISIBLE);
+            imageViewDashboard.setOnClickListener(v -> startSuperActivity());
         }
     }
     private void startSuperActivity(){

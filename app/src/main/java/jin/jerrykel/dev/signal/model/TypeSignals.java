@@ -4,8 +4,6 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-import jin.jerrykel.dev.signal.Utils.Utils;
-
 /**
  * Created by JerrykelDEV on 08/01/2021 10:09
  */
@@ -36,8 +34,7 @@ public class TypeSignals {
     public Date getDateCreated() {
         return dateCreated;
     }
-    public String getDateCreatedString(){return Utils.convertDateToString(getDateCreated());
-    }
+
 
     public String getName() {
         return name;

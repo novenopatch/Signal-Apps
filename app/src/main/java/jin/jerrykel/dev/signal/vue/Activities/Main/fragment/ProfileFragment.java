@@ -1,6 +1,6 @@
 package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
 
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,16 +57,12 @@ public class ProfileFragment extends BaseFragment {
 
         if (getCurrentUser() != null){
 
-            if (getCurrentUser().getPhotoUrl() != null) {
-
-
-            }
-
-            String email = TextUtils.isEmpty(getCurrentUser().getEmail())
-                    ? getString(R.string.info_no_email_found) : getCurrentUser().getEmail();
+            String username = getCurrentUser().getDisplayName();
+            String email = getCurrentUser().getEmail();
+            Log.d("Tago",email);
 
             this.textViewEmail.setText(email);
-            String username = getCurrentUser().getDisplayName();
+
             editTextUsername.setText(username);
         }
     }

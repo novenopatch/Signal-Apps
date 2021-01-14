@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
@@ -15,11 +14,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.User;
+
 
 public abstract class BaseFragment extends Fragment {
 
     protected View rootView;
     protected  Context  context;
+    protected User modelCurrentUser;
 
 
     @Override
@@ -33,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(this.getLayout(), container, false);
         context = this.rootView.getContext();
+        getCurrentUserFromFirestore();
         this.initView();
         return rootView;
     }
@@ -44,14 +48,12 @@ public abstract class BaseFragment extends Fragment {
     public Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
 
     public OnFailureListener onFailureListener(final CoordinatorLayout coordinatorLayout, final String message){
-        return new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                showSnackBar(coordinatorLayout,message);
-            }
-        };
+        return e -> showSnackBar(coordinatorLayout,message);
     }
     private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
        // Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+    }
+    protected void getCurrentUserFromFirestore(){
+        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class));
     }
 }

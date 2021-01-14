@@ -42,7 +42,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsVie
     @Override
     public SignalsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SignalsViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.signal_item, parent, false));
+                .inflate(R.layout.item_signal, parent, false));
     }
 
     @Override

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.Utils.Utils;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.TypeSignals;
 import jin.jerrykel.dev.signal.model.User;
@@ -50,7 +51,7 @@ public class SignalsTypeViewHolderDash extends RecyclerView.ViewHolder {
         );
 
         this.textViewUserName.setText(modelCurrentUser.getUsername());
-        this.textViewDateSend.setText(typeSignals.getDateCreatedString());
+        this.textViewDateSend.setText(Utils.convertDateToString(typeSignals.getDateCreated()));
         this.textViewSignalName.setText(typeSignals.getName());
 
 

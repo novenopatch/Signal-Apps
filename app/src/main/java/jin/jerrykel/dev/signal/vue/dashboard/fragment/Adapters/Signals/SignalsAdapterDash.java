@@ -42,7 +42,7 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
     @Override
     public SignalsViewHolderDash onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SignalsViewHolderDash(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.signal_item_dash, parent, false));
+                .inflate(R.layout.item_signal_dash, parent, false));
     }
 
     @Override

@@ -18,21 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.SignalHelper;
 import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
-import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.model.TypeSignals;
-import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.Signals.SignalsAdapterDash;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -59,7 +55,6 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     private ImageView ImageViewPreview;
     private ImageButton imageButtonAddFile;
     private static ArrayList<String> stringArrayList = new ArrayList<>();
-    private User modelCurrentUser;
     private RecyclerView recyclerViewSignal;
     private Spinner spinner1;
     private Spinner spinnerSignalStatut;
@@ -109,14 +104,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
         configureRecyclerView();
         initListener();
     }
-    private void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                modelCurrentUser = documentSnapshot.toObject(User.class);
-            }
-        });
-    }
+
     private ArrayList<String> getTypeSignalsString(){
         String TAG = "getTypeSignalsString()";
         ArrayList<String> stringArrayList = new ArrayList<>();
@@ -142,7 +130,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
-        this.signalsAdapterDash = new SignalsAdapterDash( generateOptionsForAdapter(SignalHelper.getAllSignalSent()) ,Glide.with(this),this);
+        this.signalsAdapterDash = new SignalsAdapterDash( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()) ,Glide.with(this),this);
         signalsAdapterDash.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -165,9 +153,9 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
         spinner1 = rootView.findViewById(R.id.spinner1Dash);
         spinnerSignalStatut = this.rootView.findViewById(R.id.spinnerSignalStatut);
         spinnerSignalType = this.rootView.findViewById(R.id.spinnerSignalType);
-        ArrayAdapter<String> spinnerAdapters = new ArrayAdapter<>(this.context,R.layout.spinner_item, stringArrayList);//stringArrayList);
-        ArrayAdapter<CharSequence> adapterSignalStatut = ArrayAdapter.createFromResource(this.context, R.array.configSpinnerStatut, R.layout.spinner_item);
-        ArrayAdapter<CharSequence> adapterSpinnerSignalType = ArrayAdapter.createFromResource(this.context, R.array.configSpinnerType, R.layout.spinner_item);
+        ArrayAdapter<String> spinnerAdapters = new ArrayAdapter<>(this.context,R.layout.item_spinner, stringArrayList);//stringArrayList);
+        ArrayAdapter<CharSequence> adapterSignalStatut = ArrayAdapter.createFromResource(this.context, R.array.configSpinnerStatut, R.layout.item_spinner);
+        ArrayAdapter<CharSequence> adapterSpinnerSignalType = ArrayAdapter.createFromResource(this.context, R.array.configSpinnerType, R.layout.item_spinner);
 
         spinnerAdapters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterSignalStatut.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -185,8 +173,8 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     }
     private void onClickSendMessage() {
         if( !editTextEntryPrice.getText().toString().isEmpty() && !ediTextStopLoss.getText().toString().isEmpty()
-                && !editTextTakeProfit.getText().toString().isEmpty() && modelCurrentUser.getIsMentor()){
-            SignalHelper.createSignalSent(
+                && !editTextTakeProfit.getText().toString().isEmpty() && modelCurrentUser.getMentor()){
+            SignalsHelper.createSignal(
                     modelCurrentUser.getUid(),
                     (String) spinner1.getSelectedItem(),
                     (String)spinnerSignalStatut.getSelectedItem(),

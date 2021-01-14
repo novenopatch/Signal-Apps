@@ -4,8 +4,6 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-import jin.jerrykel.dev.signal.Utils.Utils;
-
 /**
  * Created by JerrykelDEV on 08/01/2021 08:24
  */
@@ -45,9 +43,7 @@ public class Signals {
 
     }
 
-    public String getSenderUi() {
-        return senderUi;
-    }
+
 
     public void setSenderUi(String senderUi) {
         this.senderUi = senderUi;
@@ -77,56 +73,47 @@ public class Signals {
         this.takeProfit = takeProfit;
     }
 
-
-
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
     }
-
+    public void setActive(boolean active) {
+        this.active = active;
+    }
     //getter
 
 
     public String getTypeSignalsName() {
         return typeSignalsName;
     }
-
     public String getSignalStatus() {
         return signalStatus;
     }
-
     public String getSellOrBuy() {
         return sellOrBuy;
     }
-
     public String getEntryPrice() {
         return entryPrice;
     }
-
     public String getStopLoss() {
         return stopLoss;
     }
-
     public String getTakeProfit() {
         return takeProfit;
     }
-
     @ServerTimestamp
     public Date getDateCreated() {
         return dateCreated;
     }
-
-
     public String getUrlImage() {
         return urlImage;
     }
-
+    public String getSenderUi() {
+        return senderUi;
+    }
     public boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-    public String getDateCreatedString(){return Utils.convertDateToString(getDateCreated());
-    }
+
+
 }
