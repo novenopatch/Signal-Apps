@@ -14,29 +14,20 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSignalType"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent" />
 
-
-            <!-- RECYCLER VIEW -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewSignalType"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
         <TextView
             android:id="@+id/fragment_signal_not_found_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
             android:layout_margin="@dimen/default_large_margin"
             android:text="@string/signal_not_found"
-            android:layout_gravity="center|top"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +53,7 @@
                 android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="1"
+                android:paddingBottom="1dp"
                 android:visibility="invisible">
                 <!-- ADD FILE BUTTON -->
 

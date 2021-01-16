@@ -16,21 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSignal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent" />
 
-            <!-- RECYCLER VIEW -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewSignal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
-        </LinearLayout>
+
+
+
+
+
         <TextView
             android:id="@+id/fragment_signal_not_found_textView"
             android:layout_width="match_parent"

@@ -1,6 +1,8 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment.Send;
 
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     private static ArrayList<String> stringArrayList = new ArrayList<>();
 
     private RecyclerView recyclerViewSignalType;
+    private TextView textViewRecyclerViewEmpty;
     private SignalsTypeAdapterDash signalsTypeAdapterDash;
     private EditText editTextSignalName;
 
@@ -50,6 +53,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
         stringArrayList = getTypeSignalsString();
         floatingActionButtonSend =rootView.findViewById(R.id.floatingActionButtonSend);
         recyclerViewSignalType = rootView.findViewById(R.id.recyclerViewSignalType);
+        textViewRecyclerViewEmpty = rootView.findViewById(R.id.fragment_signal_not_found_textView);
         editTextSignalName = rootView.findViewById(R.id.editTextSignalName);
         configureRecyclerView();
         floatingActionButtonSend.setOnClickListener(v -> {
@@ -124,6 +128,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
 
     @Override
     public void onDataChanged() {
+        textViewRecyclerViewEmpty.setVisibility(this.signalsTypeAdapterDash.getItemCount() == 0 ? View.VISIBLE : View.GONE);
 
     }
 }

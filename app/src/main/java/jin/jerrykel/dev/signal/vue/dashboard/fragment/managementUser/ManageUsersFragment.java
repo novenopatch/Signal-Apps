@@ -1,7 +1,5 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser;
 
-import android.util.Log;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +17,7 @@ public class ManageUsersFragment extends BaseFragment  implements UserAdapterDas
 
     private UserAdapterDash userAdapter;
     private RecyclerView recyclerView;
-    private User curentUser;
+
     public ManageUsersFragment() {
         // Required empty public constructor
     }
@@ -36,19 +34,15 @@ public class ManageUsersFragment extends BaseFragment  implements UserAdapterDas
     @Override
     public void initView() {
         recyclerView = rootView.findViewById(R.id.recyclerViewUser);
-        getCurrentUserFromFirestore();
+
         //Log.e("UserAdapterDash",curentUser.toString());
-        //configureRecyclerView();
+        configureRecyclerView();
     }
-    protected void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> curentUser = documentSnapshot.toObject(User.class)).addOnFailureListener(
-                e -> Log.e("Le probleme",e.toString())
-        );
-    }
+
     private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
-        this.userAdapter = new UserAdapterDash( generateOptionsForAdapter(UserHelper.getAllUsers()) ,this,curentUser);
+        this.userAdapter = new UserAdapterDash( generateOptionsForAdapter(UserHelper.getAllUsers()) ,this,modelCurrentUser);
         userAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
