@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class Signals {
     private String senderUi;
+    private String senderName;
     private String typeSignalsName;
     private String signalStatus;
     private String sellOrBuy;
@@ -23,10 +24,11 @@ public class Signals {
 
     }
 
-    public Signals(String senderUii, String typeSignalsName,
+    public Signals(String senderUii,String senderName, String typeSignalsName,
                    String signalStatus, String sellOrBuy, String entryPrice,
                    String stopLoss, String takeProfit, String urlImage) {
         this.senderUi  =senderUii;
+        this.senderName = senderName;
         this.typeSignalsName = typeSignalsName;
         this.signalStatus = signalStatus;
         this.sellOrBuy = sellOrBuy;
@@ -36,8 +38,9 @@ public class Signals {
         this.urlImage = urlImage;
     }
 
-    public Signals(String senderUii,String typeSignalsName, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
+    public Signals(String senderUii,String senderName,String typeSignalsName, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
         this.senderUi  =senderUii;
+        this.senderName = senderName;
         this.typeSignalsName = typeSignalsName;
         this.signalStatus = signalStatus;
         this.sellOrBuy = sellOrBuy;
@@ -83,6 +86,10 @@ public class Signals {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
     //getter
 
 
@@ -117,6 +124,7 @@ public class Signals {
         return active;
     }
 
-
-
+    public String getSenderName() {
+        return senderName;
+    }
 }

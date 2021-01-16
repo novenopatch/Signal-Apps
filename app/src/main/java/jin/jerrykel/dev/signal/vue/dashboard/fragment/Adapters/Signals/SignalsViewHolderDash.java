@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.Utils.Utils;
-import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.Signals;
-import jin.jerrykel.dev.signal.model.User;
+import jin.jerrykel.dev.signal.utils.Utils;
 
 
 public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
@@ -30,7 +28,7 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
     private  EditText buttonTakeProfit;
     private Button buttonReadMore;
     private ImageView imageViewSend;
-    private User modelCurrentUser;
+
     private boolean click = false;
 
 
@@ -62,28 +60,22 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
 
     public void updateWithMessage(final Signals signals, RequestManager glide){
 
-        UserHelper.getUser(signals.getSenderUi()).addOnSuccessListener(
-                documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
-        );
-
-        if(modelCurrentUser!=null){
-
-            this.textViewUserName.setText(modelCurrentUser.getUsername());
-            this.textViewDateSend.setText(Utils.convertDateToString(signals.getDateCreated()));
-            this.textViewSignalName.setText(signals.getTypeSignalsName());
-            this.textViewSignalStatut.setText(signals.getSignalStatus());
-            this.textViewSignalType.setText(signals.getSellOrBuy());
-            this.buttonEntryPrice.setText(signals.getEntryPrice());
-            this.buttonStopLoss.setText(signals.getStopLoss());
-            this.buttonTakeProfit.setText(signals.getTakeProfit());
-            if(signals.getUrlImage()!=null){
-                this.buttonReadMore.setOnClickListener(v -> {
-                    updateImageView(signals,glide);
+        this.textViewUserName.setText(signals.getSenderName());
+        this.textViewDateSend.setText(Utils.convertDateToString(signals.getDateCreated()));
+        this.textViewSignalName.setText(signals.getTypeSignalsName());
+        this.textViewSignalStatut.setText(signals.getSignalStatus());
+        this.textViewSignalType.setText(signals.getSellOrBuy());
+        this.buttonEntryPrice.setText(signals.getEntryPrice());
+        this.buttonStopLoss.setText(signals.getStopLoss());
+        this.buttonTakeProfit.setText(signals.getTakeProfit());
+        if(signals.getUrlImage()!=null){
+            this.buttonReadMore.setOnClickListener(v -> {
+                updateImageView(signals,glide);
 
 
-                });
-            }
+            });
         }
+
 
 
 
@@ -106,10 +98,7 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
                 else {
                     this.imageViewSent.setVisibility(View.GONE);
                 }
-
-
              */
-
 
 
 

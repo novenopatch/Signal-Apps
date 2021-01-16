@@ -150,6 +150,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         spinnerSignalsName.setAdapter(spinnerAdapters);
         spinnerSignalState.setAdapter(adapter);
 
+
         spinnerListener();
     }
     private void spinnerListener(){
@@ -192,13 +193,16 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
                     //Log.d(TAG, document.getId() + " => " + document.getData());
                 }
             } else {
-                stringArrayList.add("None");
+                //stringArrayList.add("None");
                 //Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
+        /*
         if(stringArrayList.size()<=1){
             stringArrayList.add("None");
         }
+
+         */
         return stringArrayList;
     }
 

@@ -20,13 +20,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/fragment_signal_not_found_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_large_margin"
-                android:text="@string/signal_not_found"
-                android:textAlignment="center" />
+
 
             <!-- RECYCLER VIEW -->
             <androidx.recyclerview.widget.RecyclerView
@@ -35,12 +29,20 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/fragment_signal_not_found_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_large_margin"
+            android:text="@string/signal_not_found"
+            android:layout_gravity="center|top"
+            android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="6dp"
             android:orientation="vertical">
 
             <EditText
@@ -49,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:hint="@string/enter_signal_type_name"
-               android:textColor="@android:color/black"/>
-
+                android:textColor="@android:color/black" />
 
 
             <LinearLayout
@@ -61,7 +62,7 @@
                 android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp"
+                android:paddingBottom="1"
                 android:visibility="invisible">
                 <!-- ADD FILE BUTTON -->
 
@@ -93,7 +94,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="6dp"
             android:clickable="true"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_baseline_send_black_24"

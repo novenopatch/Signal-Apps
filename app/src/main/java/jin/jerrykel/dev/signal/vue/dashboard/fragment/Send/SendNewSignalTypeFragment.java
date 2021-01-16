@@ -103,7 +103,13 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     }
     private void onClickSendMessage() {
         if( !editTextSignalName.getText().toString().isEmpty() && modelCurrentUser.getMentor()){
-            SignalTypeListHelper.createSignalType(modelCurrentUser.getUid(),editTextSignalName.getText().toString())
+            SignalTypeListHelper.createSignalType(
+                    modelCurrentUser.getUid(),
+                    modelCurrentUser.getUsername(),
+                    editTextSignalName.getText().toString()
+            ).addOnSuccessListener(documentReference -> {
+                clearEditText();
+            })
                     .addOnFailureListener(e -> {
 
             });

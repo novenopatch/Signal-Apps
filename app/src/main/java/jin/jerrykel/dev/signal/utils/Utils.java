@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.Utils;
+package jin.jerrykel.dev.signal.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

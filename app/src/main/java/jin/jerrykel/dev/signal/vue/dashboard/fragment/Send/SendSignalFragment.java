@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
@@ -56,6 +58,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     private ImageButton imageButtonAddFile;
     private static ArrayList<String> stringArrayList = new ArrayList<>();
     private RecyclerView recyclerViewSignal;
+    private TextView textViewRecyclerViewEmpty;
     private Spinner spinner1;
     private Spinner spinnerSignalStatut;
     private Spinner spinnerSignalType;
@@ -91,6 +94,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
        // this.getCurrentUserFromFirestore();
         stringArrayList = getTypeSignalsString();
        recyclerViewSignal = rootView.findViewById(R.id.recyclerViewSignal);
+        textViewRecyclerViewEmpty = rootView.findViewById(R.id.fragment_signal_not_found_textView);
         floatingActionButtonSend =rootView.findViewById(R.id.floatingActionButtonSend);
         ImageViewPreview =rootView.findViewById(R.id.ImageViewPreview);
         imageButtonAddFile = rootView.findViewById(R.id.ImageButtonAddFile);
@@ -117,14 +121,17 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
                     stringArrayList.add(typeSignals.getName());
                     //Log.d(TAG, document.getId() + " => " + document.getData());
                 }
-            } else {
-                stringArrayList.add("None");
+            } //else {
+                //stringArrayList.add("None");
                 //Log.d(TAG, "Error getting documents: ", task.getException());
-            }
+            //}
         });
+        /*
         if(stringArrayList.size()<=1){
             stringArrayList.add("None");
         }
+
+         */
         return stringArrayList;
     }
     private void configureRecyclerView(){
@@ -176,6 +183,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
                 && !editTextTakeProfit.getText().toString().isEmpty() && modelCurrentUser.getMentor()){
             SignalsHelper.createSignal(
                     modelCurrentUser.getUid(),
+                    modelCurrentUser.getUsername(),
                     (String) spinner1.getSelectedItem(),
                     (String)spinnerSignalStatut.getSelectedItem(),
                     (String) spinnerSignalType.getSelectedItem(),
@@ -212,7 +220,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     }
     @Override
     public void onDataChanged() {
-
+        textViewRecyclerViewEmpty.setVisibility(this.signalsAdapterDash.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private void handleResponse(int requestCode, int resultCode, Intent data){

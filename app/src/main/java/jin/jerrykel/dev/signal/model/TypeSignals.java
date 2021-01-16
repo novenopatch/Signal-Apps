@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class TypeSignals {
     private String senderUi;
+    private String senderName;
     private String name;
     private String urlImage;
     private  @ServerTimestamp Date dateCreated;
@@ -16,8 +17,9 @@ public class TypeSignals {
     public TypeSignals() {
 
     }
-    public TypeSignals(String senderUii,String name, String urlImage) {
+    public TypeSignals(String senderUii,String senderName,String name, String urlImage) {
         this.senderUi  =senderUii;
+        this.senderName = senderName;
         this.name = name;
         this.urlImage = urlImage;
     }
@@ -46,6 +48,10 @@ public class TypeSignals {
     public String getUrlImage() {
         return urlImage;
     }
+    public String getSenderName() {
+        return senderName;
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -53,5 +59,9 @@ public class TypeSignals {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 }

@@ -16,18 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/fragment_signal_not_found_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_large_margin"
-                android:text="@string/signal_not_found"
-                android:textAlignment="center" />
 
             <!-- RECYCLER VIEW -->
             <androidx.recyclerview.widget.RecyclerView
@@ -36,7 +31,15 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/fragment_signal_not_found_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_margin="@dimen/default_large_margin"
+            android:text="@string/signal_not_found"
+            android:textAlignment="center"
+            android:visibility="invisible" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -198,7 +201,6 @@
                 android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp"
                 android:visibility="invisible">
                 <!-- ADD FILE BUTTON -->
 
@@ -208,14 +210,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:padding="5dp"
+                    android:padding="3dp"
                     android:src="@drawable/ic_add_circle_black_24px" />
 
                 <ImageView
                     android:id="@+id/ImageViewPreview"
                     android:layout_width="50dip"
                     android:layout_height="50dip"
-                    android:layout_margin="@dimen/default_margin"
+                    android:layout_margin="3dp"
                     android:visibility="invisible" />
             </LinearLayout>
 
