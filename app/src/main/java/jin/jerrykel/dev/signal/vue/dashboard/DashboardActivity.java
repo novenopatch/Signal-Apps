@@ -8,16 +8,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.AddAccountFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.AdminSettingsFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.BugFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.HomeDashboardFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.ManageUsersFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.SendNewSignalTypeFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.SendSignalFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.TimelineFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.UpdatePubImgFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.UsageFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Send.SendNewSignalTypeFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Send.SendSignalFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Send.UpdatePubImgFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser.AddAccountFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser.AdminSettingsFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser.ManageUsersFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.other.BugFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.other.TimelineFragment;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.other.UsageFragment;
 
 public class DashboardActivity extends BaseActivity implements  HomeDashboardFragment.OnButtonClickedListener {
     private FrameLayout frameLayoutContent;

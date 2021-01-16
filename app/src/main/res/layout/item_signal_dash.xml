@@ -91,9 +91,9 @@
                         android:text="Entry Price"
                         android:textColor="@android:color/black" />
 
-                    <Button
+                    <EditText
 
-                        android:id="@+id/buttonEntryPrice"
+                        android:id="@+id/editTextEntryPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -116,9 +116,9 @@
                         android:text="Stop loss"
                         android:textColor="@android:color/black" />
 
-                    <Button
+                    <EditText
 
-                        android:id="@+id/buttonStopLoss"
+                        android:id="@+id/editTextStopLoss"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"

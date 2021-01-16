@@ -21,6 +21,17 @@ import jin.jerrykel.dev.signal.model.User;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private User modelCurrentUser;
+    protected boolean isLogin;
+    protected FirebaseAuth mAuth;
+    protected FirebaseAuth.AuthStateListener authStateListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addAuthStateListener();
+
+
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,27 +43,68 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.initView();
 
     }
-    public abstract int getLayout();
-    public abstract void initView();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addAuthStateListener();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        removeAuthStateListener();
+    }
+
+    protected void addAuthStateListener(){
+        authStateListener = firebaseAuth -> {
+            FirebaseUser currentUser1 =firebaseAuth.getCurrentUser();
+            if(currentUser1 != null){
+                isLogin = true;
+                UserHelper.getUser(currentUser1.getUid()
+                ).addOnSuccessListener(
+                        documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
+                );
+
+                //updateUI(currentUser);
+            }else {
+                isLogin = false;
+                //updateUI(currentUser);
+            }
+        };
+
+        mAuth  = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+    protected void removeAuthStateListener(){
+        mAuth.removeAuthStateListener(authStateListener);
+    }
+    @Nullable
+    public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+
+    protected Boolean isCurrentUserLogged(){
+        FirebaseUser firebaseUser = this.getCurrentUser();
+        if(firebaseUser != null){
+            isLogin = true;
+        }
+        else {
+            isLogin = false;
+        }
+        return isLogin;
+    }
+    protected abstract int getLayout();
+    protected abstract void initView();
     protected void configureToolbar(){
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    @Nullable
-    public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
 
-    public Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
 
-    public OnFailureListener onFailureListener(){
+
+    protected OnFailureListener onFailureListener(){
         return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Force application to crash
 
-    }
     protected void getCurrentUserFromFirestore(){
         UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class));
     }

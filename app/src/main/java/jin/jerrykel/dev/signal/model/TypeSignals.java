@@ -11,8 +11,11 @@ public class TypeSignals {
     private String senderUi;
     private String name;
     private String urlImage;
-    private Date dateCreated;
+    private  @ServerTimestamp Date dateCreated;
 
+    public TypeSignals() {
+
+    }
     public TypeSignals(String senderUii,String name, String urlImage) {
         this.senderUi  =senderUii;
         this.name = name;
@@ -30,7 +33,7 @@ public class TypeSignals {
     public void setSenderUi(String senderUi) {
         this.senderUi = senderUi;
     }
-    @ServerTimestamp
+
     public Date getDateCreated() {
         return dateCreated;
     }

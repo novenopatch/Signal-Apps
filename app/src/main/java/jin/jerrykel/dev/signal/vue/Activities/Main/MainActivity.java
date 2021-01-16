@@ -98,22 +98,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         switch (id){
             case R.id.activity_main_drawer_menu_profile :
-                // fragment = new NavDrawerMenuTestFragment();
-                // TabLayout tabLayout = findViewById(R.id.activity_main_tabs);
-                //tabLayout.setVisibility(View.INVISIBLE);
 
-                //Intent intent2 = new Intent(MainActivity.this, ConnectAppActivity.class);
-                //Intent intent = new Intent(SaveActivity.this, ConnectActivity.class);
-                //  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                // startActivity(intent2);
                 tabs.getTabAt(2).select();
                 overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
                 break;
             case R.id.activity_main_drawer_recycler_signal:
-                //Intent intent = new Intent(MainActivity.this, ConnectAppActivity.class);
-                //startActivity(intent);
-                //overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
-                // pager.setCurrentItem(1,true);
                 tabs.getTabAt(0).select();
 
 

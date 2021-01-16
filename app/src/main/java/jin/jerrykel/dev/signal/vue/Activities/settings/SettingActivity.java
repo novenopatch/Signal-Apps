@@ -106,9 +106,8 @@ public class SettingActivity extends BaseActivity {
                 }
 
             });
-            //ToDo
-            imageViewDashboard.setVisibility(View.VISIBLE);
-            imageViewDashboard.setOnClickListener(v -> startSuperActivity());
+
+
         }
     }
     private void startSuperActivity(){

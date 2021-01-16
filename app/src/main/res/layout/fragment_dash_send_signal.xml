@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
-        tools:context=".vue.dashboard.fragment.SendSignalFragment"
+        tools:context=".vue.dashboard.fragment.Send.SendSignalFragment"
         android:fillViewport="true">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -115,19 +116,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Entry Price"
-                            android:textColor="@android:color/black" />
+                            android:textColor="#FFF" />
 
                         <EditText
 
                             android:id="@+id/editTextEntryPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
                             android:fontFamily="sans-serif"
                             android:gravity="left"
                             android:hint="entry Entry Price"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black"
+                            android:textColor="#FFF"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -141,19 +141,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Stop loss"
-                            android:textColor="@android:color/black" />
+                            android:textColor="#FFF" />
 
                         <EditText
 
                             android:id="@+id/ediTextStopLoss"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
                             android:fontFamily="sans-serif"
                             android:gravity="left"
                             android:hint="entry Stop Loss"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black"
+                            android:textColor="#FFF"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -167,19 +166,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Take Profit"
-                            android:textColor="@android:color/black" />
+                            android:textColor="#FFF" />
 
                         <EditText
 
                             android:id="@+id/editTextTakeProfit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:enabled="false"
                             android:fontFamily="sans-serif"
                             android:gravity="left"
                             android:hint="entry TakeProfit"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black"
+                            android:textColor="#FFF"
                             android:textStyle="normal" />
                     </LinearLayout>
 

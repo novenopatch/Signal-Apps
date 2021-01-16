@@ -49,10 +49,13 @@ public class SignalsTypeViewHolderDash extends RecyclerView.ViewHolder {
         UserHelper.getUser(typeSignals.getSenderUi()).addOnSuccessListener(
                 documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
         );
+        if(modelCurrentUser!=null){
+            this.textViewUserName.setText(modelCurrentUser.getUsername());
+            this.textViewDateSend.setText(Utils.convertDateToString(typeSignals.getDateCreated()));
+            this.textViewSignalName.setText(typeSignals.getName());
+        }
 
-        this.textViewUserName.setText(modelCurrentUser.getUsername());
-        this.textViewDateSend.setText(Utils.convertDateToString(typeSignals.getDateCreated()));
-        this.textViewSignalName.setText(typeSignals.getName());
+
 
 
 

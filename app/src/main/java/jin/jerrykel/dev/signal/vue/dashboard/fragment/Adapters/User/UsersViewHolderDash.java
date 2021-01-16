@@ -5,12 +5,13 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
@@ -51,7 +52,7 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
 
 
     }
-    public void updateWithMessage(final User user,final User root){
+    public void updateWithMessage(final User user,@NonNull final User root){
 
         this.textViewName.setText(user.getUsername());
         //TODO
@@ -89,7 +90,9 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
             UserHelper.deleteUser(user.getUid()).addOnFailureListener(this.onFailureListener());
             AuthUI.getInstance()
                     .delete(rootView.getContext())
-                    .addOnSuccessListener( updateUIAfterRESTRequestsCompleted());
+                    .addOnCompleteListener(
+                            updateUIAfterRESTRequestsCompleted()
+                    );
 
         }
 
@@ -100,9 +103,14 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
         };
     }
 
-    private OnSuccessListener updateUIAfterRESTRequestsCompleted() {
+    private OnCompleteListener updateUIAfterRESTRequestsCompleted() {
         return o -> {
-                progressBar.setVisibility(View.INVISIBLE);
+                if(o.isSuccessful()){
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    //TODO
+                }
         };
     }
 

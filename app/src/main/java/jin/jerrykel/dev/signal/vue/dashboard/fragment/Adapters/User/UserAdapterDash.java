@@ -26,6 +26,7 @@ public class UserAdapterDash extends FirestoreRecyclerAdapter<User, UsersViewHol
         super(options);
         this.callback = callback;
         this.curentUser = user;
+        //Log.e("UserAdapterDash",user.toString());
     }
 
     @Override

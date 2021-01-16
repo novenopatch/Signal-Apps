@@ -67,6 +67,13 @@
                 android:textSize="@dimen/default_text_size" />
 
 
+            <ProgressBar
+                android:id="@+id/progressBarC"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="invisible" />
+
             <TextView
                 android:id="@+id/textViewSinscrire"
                 android:layout_width="match_parent"

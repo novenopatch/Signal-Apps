@@ -1,8 +1,10 @@
 package jin.jerrykel.dev.signal.vue.Activities;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
@@ -26,7 +28,7 @@ public class LoginActivity extends BaseActivity {
     private static final int RC_SIGN_IN = 123;
     private CoordinatorLayout coordinatorLayout;
     private Button  buttonLogin;
-
+    private int milis = 2000;
 
 
 
@@ -123,7 +125,23 @@ public class LoginActivity extends BaseActivity {
 
     // 2 - Update UI when activity is resuming
     private void updateUIWhenResuming(){
-        this.buttonLogin.setText(isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+        boolean isLogin =isCurrentUserLogged();
+        this.buttonLogin.setText( isLogin? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+        ProgressBar progressBarC = findViewById(R.id.progressBarC);
+        progressBarC.setVisibility(View.VISIBLE);
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                   // progressBarC.setVisibility(View.GONE);
+                    if(isLogin) {
+                        startAppActivity();
+                    }else {
+                        startSignInActivity();
+                    }
+                }
+            };
+            new Handler().postDelayed(runnable,milis);
+
     }
 
 

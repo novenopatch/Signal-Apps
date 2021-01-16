@@ -16,7 +16,7 @@ public class User {
     private Boolean isMentor =false;
     private Boolean isRoot = false;
     private Boolean isDisable = false;
-    private Date dateCreated;
+    private  @ServerTimestamp Date dateCreated;
 
     @Nullable private String urlPicture;
 

@@ -2,6 +2,7 @@ package jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.Signals;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,9 +25,9 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
     private TextView textViewSignalName;
     private TextView textViewSignalStatut;
     private TextView textViewSignalType;
-    private Button buttonEntryPrice;
-    private Button buttonStopLoss;
-    private Button buttonTakeProfit;
+    private EditText buttonEntryPrice;
+    private EditText buttonStopLoss;
+    private  EditText buttonTakeProfit;
     private Button buttonReadMore;
     private ImageView imageViewSend;
     private User modelCurrentUser;
@@ -65,21 +66,25 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
                 documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
         );
 
-        this.textViewUserName.setText(modelCurrentUser.getUsername());
-        this.textViewDateSend.setText(Utils.convertDateToString(signals.getDateCreated()));
-        this.textViewSignalName.setText(signals.getTypeSignalsName());
-        this.textViewSignalStatut.setText(signals.getSignalStatus());
-        this.textViewSignalType.setText(signals.getSellOrBuy());
-        this.buttonEntryPrice.setText(signals.getEntryPrice());
-        this.buttonStopLoss.setText(signals.getStopLoss());
-        this.buttonTakeProfit.setText(signals.getTakeProfit());
-        if(signals.getUrlImage()!=null){
-            this.buttonReadMore.setOnClickListener(v -> {
-                updateImageView(signals,glide);
+        if(modelCurrentUser!=null){
+
+            this.textViewUserName.setText(modelCurrentUser.getUsername());
+            this.textViewDateSend.setText(Utils.convertDateToString(signals.getDateCreated()));
+            this.textViewSignalName.setText(signals.getTypeSignalsName());
+            this.textViewSignalStatut.setText(signals.getSignalStatus());
+            this.textViewSignalType.setText(signals.getSellOrBuy());
+            this.buttonEntryPrice.setText(signals.getEntryPrice());
+            this.buttonStopLoss.setText(signals.getStopLoss());
+            this.buttonTakeProfit.setText(signals.getTakeProfit());
+            if(signals.getUrlImage()!=null){
+                this.buttonReadMore.setOnClickListener(v -> {
+                    updateImageView(signals,glide);
 
 
-            });
+                });
+            }
         }
+
 
 
 

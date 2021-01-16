@@ -15,11 +15,15 @@ public class Signals {
     private String entryPrice;
     private  String stopLoss;
     private String takeProfit;
-    private Date dateCreated;
+    private  @ServerTimestamp Date dateCreated;
     private String urlImage;
     private boolean active = true;
 
-    public Signals(String senderUii,String typeSignalsName,
+    public Signals() {
+
+    }
+
+    public Signals(String senderUii, String typeSignalsName,
                    String signalStatus, String sellOrBuy, String entryPrice,
                    String stopLoss, String takeProfit, String urlImage) {
         this.senderUi  =senderUii;
@@ -100,7 +104,6 @@ public class Signals {
     public String getTakeProfit() {
         return takeProfit;
     }
-    @ServerTimestamp
     public Date getDateCreated() {
         return dateCreated;
     }

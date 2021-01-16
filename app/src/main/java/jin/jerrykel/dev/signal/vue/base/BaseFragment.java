@@ -23,37 +23,91 @@ public abstract class BaseFragment extends Fragment {
     protected View rootView;
     protected  Context  context;
     protected User modelCurrentUser;
+    protected boolean isLogin;
+    protected FirebaseAuth mAuth;
+    protected FirebaseAuth.AuthStateListener authStateListener;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
 
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        addAuthStateListener();
+
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(this.getLayout(), container, false);
         context = this.rootView.getContext();
-        getCurrentUserFromFirestore();
         this.initView();
         return rootView;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        addAuthStateListener();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        removeAuthStateListener();
+    }
+
     public abstract int getLayout();
     public abstract void initView();
+
+
+    protected void addAuthStateListener(){
+        authStateListener = firebaseAuth -> {
+            FirebaseUser currentUser1 =firebaseAuth.getCurrentUser();
+            if(currentUser1 != null){
+                isLogin = true;
+                UserHelper.getUser(currentUser1.getUid()
+                ).addOnSuccessListener(
+                        documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
+                );
+
+                //updateUI(currentUser);
+            }else {
+                isLogin = false;
+                //updateUI(currentUser);
+            }
+            };
+
+        mAuth  = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+    protected void removeAuthStateListener(){
+        mAuth.removeAuthStateListener(authStateListener);
+    }
     @Nullable
     public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
 
-    public Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
+    protected Boolean isCurrentUserLogged(){
+        FirebaseUser firebaseUser = this.getCurrentUser();
+        if(firebaseUser != null){
+            isLogin = true;
+        }
+        else {
+            isLogin = false;
+        }
+        return isLogin;
+    }
 
     public OnFailureListener onFailureListener(final CoordinatorLayout coordinatorLayout, final String message){
         return e -> showSnackBar(coordinatorLayout,message);
     }
     private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
-       // Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+        // Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
-    protected void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class));
-    }
+
 }

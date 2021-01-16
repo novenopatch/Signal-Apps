@@ -15,6 +15,7 @@ public class SignalsHelper {
 
     private static final String COLLECTION_NAME = "signal";
 
+
     // --- COLLECTION REFERENCE ---
 
     public static CollectionReference getSignalCollection(){
