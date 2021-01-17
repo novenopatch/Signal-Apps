@@ -115,8 +115,9 @@ public class LoginActivity extends BaseActivity {
             String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
             String username = getCurrentUser().getDisplayName();
             String uid = getCurrentUser().getUid();
+            String email = getCurrentUser().getEmail();
 
-            UserHelper.createUser(uid, username, urlPicture)
+            UserHelper.createUser(uid, username,email, urlPicture)
                     .addOnFailureListener(
                             onFailureListener()
                     );
@@ -129,15 +130,12 @@ public class LoginActivity extends BaseActivity {
         this.buttonLogin.setText( isLogin? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
         ProgressBar progressBarC = findViewById(R.id.progressBarC);
         progressBarC.setVisibility(View.VISIBLE);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                   // progressBarC.setVisibility(View.GONE);
-                    if(isLogin) {
-                        startAppActivity();
-                    }else {
-                        startSignInActivity();
-                    }
+            Runnable runnable = () -> {
+               // progressBarC.setVisibility(View.GONE);
+                if(isLogin) {
+                    startAppActivity();
+                }else {
+                    startSignInActivity();
                 }
             };
             new Handler().postDelayed(runnable,milis);

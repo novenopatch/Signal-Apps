@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by JerrykelDEV on 08/01/2021 08:24
  */
 public class Signals {
+    private String UI;
     private String senderUi;
     private String senderName;
     private String typeSignalsName;
@@ -24,9 +25,10 @@ public class Signals {
 
     }
 
-    public Signals(String senderUii,String senderName, String typeSignalsName,
+    public Signals(String ui,String senderUii,String senderName, String typeSignalsName,
                    String signalStatus, String sellOrBuy, String entryPrice,
                    String stopLoss, String takeProfit, String urlImage) {
+        this.UI = ui;
         this.senderUi  =senderUii;
         this.senderName = senderName;
         this.typeSignalsName = typeSignalsName;
@@ -38,7 +40,9 @@ public class Signals {
         this.urlImage = urlImage;
     }
 
-    public Signals(String senderUii,String senderName,String typeSignalsName, String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
+    public Signals(String ui,String senderUii,String senderName,String typeSignalsName,
+                   String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
+        this.UI = ui;
         this.senderUi  =senderUii;
         this.senderName = senderName;
         this.typeSignalsName = typeSignalsName;
@@ -51,7 +55,9 @@ public class Signals {
     }
 
 
-
+    public void setUI(String UI) {
+        this.UI = UI;
+    }
     public void setSenderUi(String senderUi) {
         this.senderUi = senderUi;
     }
@@ -126,5 +132,8 @@ public class Signals {
 
     public String getSenderName() {
         return senderName;
+    }
+    public String getUI() {
+        return UI;
     }
 }

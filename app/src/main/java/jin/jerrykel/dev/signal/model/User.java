@@ -13,6 +13,7 @@ public class User {
 
     private String uid;
     private String username;
+    private String email;
     private Boolean isMentor =false;
     private Boolean isRoot = false;
     private Boolean isDisable = false;
@@ -22,15 +23,18 @@ public class User {
 
     public User() { }
 
-    public User(String uid, String username, String urlPicture) {
+    public User(String uid, String username,String email, String urlPicture) {
         this.uid = uid;
         this.username = username;
+        this.email = email;
         this.urlPicture = urlPicture;
 
     }
-    public User(String uid, String username) {
+    public User(String uid, String username,String email) {
         this.uid = uid;
         this.username = username;
+        this.email = email;
+
 
 
     }
@@ -54,6 +58,11 @@ public class User {
     }
     @ServerTimestamp
     public Date getDateCreated() { return dateCreated; }
+
+    public String getEmail() {
+        return email;
+    }
+
     // --- SETTERS ---
     public void setUsername(String username) { this.username = username; }
     public void setUid(String uid) { this.uid = uid; }
@@ -67,7 +76,7 @@ public class User {
         isDisable = disable;
     }
 
-
-
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

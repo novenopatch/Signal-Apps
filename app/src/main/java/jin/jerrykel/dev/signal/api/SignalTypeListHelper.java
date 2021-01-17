@@ -2,9 +2,10 @@ package jin.jerrykel.dev.signal.api;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.UUID;
 
 import jin.jerrykel.dev.signal.model.TypeSignals;
 
@@ -34,10 +35,22 @@ public class SignalTypeListHelper {
 
     // --- CREATE ---
 
-    public static Task<DocumentReference> createSignalType(String ui,String name){
+    public static Task<Void> createSignalType(String ui,String senderName,String name){
+        String uuid = UUID.randomUUID().toString();
+        TypeSignals typeSignals = new TypeSignals(uuid,ui,senderName,name);
 
-        TypeSignals typeSignals = new TypeSignals(ui,name);
+        return getSignalTypeListCollection().document(uuid).set(typeSignals);
+    }
 
-        return getSignalTypeListCollection().add(typeSignals);
+    //Update
+
+    public static Task<Void> updateSignalTypeName(String uid, String name) {
+        return getSignalTypeListCollection().document(uid).update("senderName", name);
+    }
+
+    // --- DELETE ---
+
+    public static Task<Void> deleteSignalType(String uid) {
+        return getSignalTypeListCollection().document(uid).delete();
     }
 }

@@ -50,7 +50,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
 
     @Override
     public void initView() {
-        stringArrayList = getTypeSignalsString();
+        //stringArrayList = getTypeSignalsString();
         floatingActionButtonSend =rootView.findViewById(R.id.floatingActionButtonSend);
         recyclerViewSignalType = rootView.findViewById(R.id.recyclerViewSignalType);
         textViewRecyclerViewEmpty = rootView.findViewById(R.id.fragment_signal_not_found_textView);

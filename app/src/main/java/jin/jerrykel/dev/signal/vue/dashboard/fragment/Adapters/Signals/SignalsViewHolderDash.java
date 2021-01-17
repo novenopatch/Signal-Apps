@@ -2,15 +2,20 @@ package jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.Signals;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.utils.Utils;
 
@@ -23,11 +28,16 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
     private TextView textViewSignalName;
     private TextView textViewSignalStatut;
     private TextView textViewSignalType;
-    private EditText buttonEntryPrice;
-    private EditText buttonStopLoss;
-    private  EditText buttonTakeProfit;
+    private Button buttonEntryPrice;
+    private Button buttonStopLoss;
+    private  Button buttonTakeProfit;
     private Button buttonReadMore;
     private ImageView imageViewSend;
+
+    private Switch switchActiveOrReady;
+    private ImageButton imageButtonDelete;
+    private View rootView;
+    private ProgressBar progressBar;
 
     private boolean click = false;
 
@@ -46,6 +56,9 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
         this.buttonTakeProfit    = superView.findViewById(R.id. buttonTakeProfit);
         this.buttonReadMore     = superView.findViewById(R.id.buttonReadMore);
         this.imageViewSend      = superView.findViewById(R.id.imageViewSend);
+        this.imageButtonDelete = superView.findViewById(R.id.imageButtonDelete);
+        this.switchActiveOrReady = superView.findViewById(R.id.switchActiveOrReady);
+        this.progressBar = superView.findViewById(R.id.progressBar);
 
 
 
@@ -53,6 +66,7 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
     }
     public SignalsViewHolderDash(View itemView) {
         super(itemView);
+        rootView = itemView;
         initView(itemView);
 
 
@@ -75,6 +89,61 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
 
             });
         }
+        imageButtonDelete.setOnClickListener(v -> {
+            new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
+                    .setMessage("Are you sure?")
+                    .setPositiveButton("YES", (dialog, which) -> {
+                        progressBar.setVisibility(View.VISIBLE);
+                        deleteSignalsFromFirebase(signals.getUI());
+                        // Perform Action & Dismiss dialog
+                        dialog.dismiss();
+
+                    })
+                    .setNegativeButton("NO", (dialog, which) -> {
+                        // Do nothing
+                        dialog.dismiss();
+                    })
+                    .create()
+                    .show();
+        });
+        this.switchActiveOrReady.setOnClickListener(v -> {
+
+            if(switchActiveOrReady.isChecked()){
+
+                new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
+                        .setMessage("Are you sure?")
+                        .setPositiveButton("YES", (dialog, which) -> {
+                            progressBar.setVisibility(View.VISIBLE);
+                            SignalsHelper.updateStatut(signals.getUI(),true);
+                            // Perform Action & Dismiss dialog
+                            dialog.dismiss();
+
+                        })
+                        .setNegativeButton("NO", (dialog, which) -> {
+                            // Do nothing
+                            dialog.dismiss();
+                        })
+                        .create()
+                        .show();
+
+            }else {
+                new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
+                        .setMessage("Are you sure?")
+                        .setPositiveButton("YES", (dialog, which) -> {
+                            progressBar.setVisibility(View.VISIBLE);
+                            SignalsHelper.updateStatut(signals.getUI(),false);
+                            // Perform Action & Dismiss dialog
+                            dialog.dismiss();
+
+                        })
+                        .setNegativeButton("NO", (dialog, which) -> {
+                            // Do nothing
+                            dialog.dismiss();
+                        })
+                        .create()
+                        .show();
+            }
+        });
 
 
 
@@ -103,6 +172,28 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
 
 
     }
+
+    private void deleteSignalsFromFirebase(String ui) {
+        SignalsHelper.deleteSignal(ui).addOnCompleteListener(
+                updateUIAfterRESTRequestsCompleted()
+        );
+    }
+    private OnCompleteListener updateUIAfterRESTRequestsCompleted() {
+        return o -> {
+            if(o.isSuccessful()){
+                progressBar.setVisibility(View.INVISIBLE);
+               if(switchActiveOrReady.isChecked()){
+                   switchActiveOrReady.setText("Active");
+               }else {
+                   switchActiveOrReady.setText("Ready");
+               }
+            }
+            else {
+                //TODO
+            }
+        };
+    }
+
     private void updateImageView(Signals signals,RequestManager glide){
         if(click==false){
             glide.load(signals.getUrlImage()).into(imageViewSend);

@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by JerrykelDEV on 08/01/2021 10:09
  */
 public class TypeSignals {
+    private String UI;
     private String senderUi;
     private String senderName;
     private String name;
@@ -17,14 +18,17 @@ public class TypeSignals {
     public TypeSignals() {
 
     }
-    public TypeSignals(String senderUii,String senderName,String name, String urlImage) {
+    public TypeSignals(String ui,String senderUii,String senderName,String name, String urlImage) {
+        this.UI = ui;
         this.senderUi  =senderUii;
         this.senderName = senderName;
         this.name = name;
         this.urlImage = urlImage;
     }
-    public TypeSignals(String senderUii,String name) {
+    public TypeSignals(String ui,String senderUii,String senderName,String name) {
+        this.UI = ui;
         this.senderUi  =senderUii;
+        this.senderName = senderName;
         this.name = name;
 
     }
@@ -32,14 +36,14 @@ public class TypeSignals {
         return senderUi;
     }
 
-    public void setSenderUi(String senderUi) {
-        this.senderUi = senderUi;
-    }
+
 
     public Date getDateCreated() {
         return dateCreated;
     }
-
+    public String getUI() {
+        return UI;
+    }
 
     public String getName() {
         return name;
@@ -64,4 +68,12 @@ public class TypeSignals {
     public void setSenderName(String senderName) {
         this.senderName = senderName;
     }
+
+    public void setUI(String UI) {
+        this.UI = UI;
+    }
+    public void setSenderUi(String senderUi) {
+        this.senderUi = senderUi;
+    }
+
 }

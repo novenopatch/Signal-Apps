@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
 
 
     android:orientation="vertical">
@@ -91,9 +92,9 @@
                         android:text="Entry Price"
                         android:textColor="@android:color/black" />
 
-                    <EditText
+                    <Button
 
-                        android:id="@+id/editTextEntryPrice"
+                        android:id="@+id/buttonEntryPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -116,9 +117,9 @@
                         android:text="Stop loss"
                         android:textColor="@android:color/black" />
 
-                    <EditText
+                    <Button
 
-                        android:id="@+id/editTextStopLoss"
+                        android:id="@+id/buttonStopLoss"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -143,7 +144,7 @@
 
                     <Button
 
-                        android:id="@+id/editTextTakeProfit"
+                        android:id="@+id/buttonTakeProfit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -175,6 +176,38 @@
                 android:id="@+id/imageViewSend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/switchActiveOrReady"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:text="Ready"
+                    tools:checked="false" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_baseline_delete_forever_black_24"
+                    tools:ignore="VectorDrawableCompat" />
+
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="invisible" />
 
         </LinearLayout>
 

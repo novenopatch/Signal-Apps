@@ -2,9 +2,10 @@ package jin.jerrykel.dev.signal.api;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.UUID;
 
 import jin.jerrykel.dev.signal.model.Signals;
 
@@ -21,6 +22,7 @@ public class SignalsHelper {
     public static CollectionReference getSignalCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
+
     // --- GET ---
 
     public static Query getAllSignalSent(){
@@ -44,11 +46,27 @@ public class SignalsHelper {
 
     // --- CREATE ---
 
-    public static Task<DocumentReference> createSignal(String ui, String typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
+    public static Task<Void> createSignal(String ui,String name, String typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
                                                        String stopLoss, String takeProfit){
+        String uuid = UUID.randomUUID().toString();
 
-        Signals signals = new Signals(ui,typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit);
-        return getSignalCollection().add(signals);
+        Signals signals = new Signals(uuid,ui,name,typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit);
+        return getSignalCollection().document(uuid).set(signals);
+    }
+    //Update
+
+    public static Task<Void> updateStatut(String uid, boolean state) {
+        if(state){
+            return getSignalCollection().document(uid).update("signalStatus","Active");
+        }else {
+            return getSignalCollection().document(uid).update("signalStatus","Ready");
+        }
+
+    }
+    // --- DELETE ---
+
+    public static Task<Void> deleteSignal(String uid) {
+        return getSignalCollection().document(uid).delete();
     }
 
 }
