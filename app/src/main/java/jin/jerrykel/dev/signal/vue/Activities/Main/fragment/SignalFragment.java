@@ -193,16 +193,16 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
                     //Log.d(TAG, document.getId() + " => " + document.getData());
                 }
             } else {
-                //stringArrayList.add("None");
+                stringArrayList.add("type signal");
                 //Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
-        /*
+
         if(stringArrayList.size()<=1){
-            stringArrayList.add("None");
+            stringArrayList.add("type signal");
         }
 
-         */
+
         return stringArrayList;
     }
 

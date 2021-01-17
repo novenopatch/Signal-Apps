@@ -1,6 +1,6 @@
 package jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters;
 
-import android.util.Log;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,9 +53,14 @@ public class SignalsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateWithMessage(final Signals signals, RequestManager glide){
-        Log.e("signals",signals.getTypeSignalsName());
+//        Log.e("signals",signals.getTypeSignalsName());
         this.textViewSignalName.setText(signals.getTypeSignalsName());
         this.textViewSignalStatut.setText(signals.getSignalStatus());
+        if(signals.getSellOrBuy().equals("Sell")){
+            this.textViewSignalType.setTextColor(Color.GREEN);
+        }else {
+            this.textViewSignalType.setTextColor(Color.RED);
+        }
         this.textViewSignalType.setText(signals.getSellOrBuy());
         this.buttonEntryPrice.setText(signals.getEntryPrice());
         this.buttonStopLoss.setText(signals.getStopLoss());

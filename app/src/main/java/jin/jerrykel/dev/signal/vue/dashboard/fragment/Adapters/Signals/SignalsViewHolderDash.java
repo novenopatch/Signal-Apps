@@ -75,7 +75,12 @@ public class SignalsViewHolderDash extends RecyclerView.ViewHolder {
     public void updateWithMessage(final Signals signals, RequestManager glide){
 
         this.textViewUserName.setText(signals.getSenderName());
-        this.textViewDateSend.setText(Utils.convertDateToString(signals.getDateCreated()));
+
+
+        //
+        if(signals.getDateCreated()!=null){
+            this.textViewDateSend.setText(Utils.convertDateToString(signals.getDateCreated()));
+        }
         this.textViewSignalName.setText(signals.getTypeSignalsName());
         this.textViewSignalStatut.setText(signals.getSignalStatus());
         this.textViewSignalType.setText(signals.getSellOrBuy());

@@ -49,7 +49,7 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("isDisable", disable);
     }
 
-    public static Task<Void> updateIsMentor(String uid, Boolean isMentor) {
+    public static Task<Void> updateIsMentor(String uid, boolean isMentor) {
         return UserHelper.getUsersCollection().document(uid).update("isMentor", isMentor);
     }
     public static Task<Void> updateIsRoot(String uid,Boolean isMentor, Boolean isRoot) {

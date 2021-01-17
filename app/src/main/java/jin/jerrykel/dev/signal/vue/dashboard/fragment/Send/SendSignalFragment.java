@@ -13,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,11 +37,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static android.app.Activity.RESULT_OK;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SendSignalFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SendSignalFragment extends BaseFragment implements SignalsAdapterDash.Listener{
 
 
@@ -121,17 +116,17 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
                     stringArrayList.add(typeSignals.getName());
                     //Log.d(TAG, document.getId() + " => " + document.getData());
                 }
-            } //else {
-                //stringArrayList.add("None");
+            } else {
+                stringArrayList.add("type signal");
                 //Log.d(TAG, "Error getting documents: ", task.getException());
-            //}
+            }
         });
-        /*
+
         if(stringArrayList.size()<=1){
-            stringArrayList.add("None");
+            stringArrayList.add("type signal");
         }
 
-         */
+
         return stringArrayList;
     }
     private void configureRecyclerView(){

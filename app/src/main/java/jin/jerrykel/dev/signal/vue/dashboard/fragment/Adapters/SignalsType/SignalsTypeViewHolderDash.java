@@ -1,6 +1,5 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsType;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -55,7 +54,7 @@ public class SignalsTypeViewHolderDash extends RecyclerView.ViewHolder {
     }
 
     public void updateWithMessage(final TypeSignals typeSignals, RequestManager glide){
-        Log.e("TypeSignals",typeSignals.getName());
+//        Log.e("TypeSignals",typeSignals.getName());
 
         this.textViewUserName.setText(typeSignals.getSenderName());
         this.textViewDateSend.setText(Utils.convertDateToString(typeSignals.getDateCreated()));

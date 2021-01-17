@@ -32,11 +32,6 @@ public class TypeSignals {
         this.name = name;
 
     }
-    public String getSenderUi() {
-        return senderUi;
-    }
-
-
 
     public Date getDateCreated() {
         return dateCreated;
@@ -44,31 +39,29 @@ public class TypeSignals {
     public String getUI() {
         return UI;
     }
-
     public String getName() {
         return name;
     }
-
+    public String getSenderName() {
+        return senderName;
+    }
     public String getUrlImage() {
         return urlImage;
     }
-    public String getSenderName() {
-        return senderName;
+    public String getSenderUi() {
+        return senderUi;
     }
 
 
     public void setName(String name) {
         this.name = name;
     }
-
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
     }
-
     public void setSenderName(String senderName) {
         this.senderName = senderName;
     }
-
     public void setUI(String UI) {
         this.UI = UI;
     }
