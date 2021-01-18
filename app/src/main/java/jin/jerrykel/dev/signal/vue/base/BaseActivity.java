@@ -20,7 +20,7 @@ import jin.jerrykel.dev.signal.model.User;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private User modelCurrentUser;
+    protected User modelCurrentUser;
     protected boolean isLogin;
     protected FirebaseAuth mAuth;
     protected FirebaseAuth.AuthStateListener authStateListener;
@@ -46,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        addAuthStateListener();
+        //addAuthStateListener();
     }
 
     @Override
@@ -76,13 +76,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         mAuth.addAuthStateListener(authStateListener);
     }
     protected void removeAuthStateListener(){
+
         mAuth.removeAuthStateListener(authStateListener);
     }
     @Nullable
     public FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
 
     protected Boolean isCurrentUserLogged(){
-        FirebaseUser firebaseUser = this.getCurrentUser();
+        FirebaseUser firebaseUser = getCurrentUser();
         if(firebaseUser != null){
             isLogin = true;
         }
@@ -106,7 +107,28 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class));
+        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(
+                documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
+        );
+    }
+    protected boolean updateModelWhenCreating(){
+
+
+        if (getCurrentUser() != null){
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                User currentUser = documentSnapshot.toObject(User.class);
+                modelCurrentUser = currentUser;
+
+                if(currentUser==null || currentUser.getEmail()==null || currentUser.getUsername()==null || currentUser.getDisable()){
+                    isLogin= false;
+                }else {
+                    isLogin =true;
+                }
+            });
+
+
+        }
+        return isLogin;
     }
 
 }

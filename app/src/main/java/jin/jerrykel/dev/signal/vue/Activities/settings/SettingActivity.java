@@ -95,9 +95,6 @@ public class SettingActivity extends BaseActivity {
             final ImageView  imageViewDashboard = findViewById(R.id.imageViewDashboard);
             UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
                 User currentUser = documentSnapshot.toObject(User.class);
-               // String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
-                //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
-                //textInputEditTextUsername.setText(username);
                 if(currentUser.getMentor()){
                     imageViewDashboard.setVisibility(View.VISIBLE);
                     imageViewDashboard.setOnClickListener(v -> startSuperActivity());

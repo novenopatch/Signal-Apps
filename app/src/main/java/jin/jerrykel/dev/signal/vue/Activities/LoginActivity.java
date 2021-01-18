@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity {
     }
     @Override
     public void initView(){
+        updateModelWhenCreating();
         coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
         buttonLogin =  findViewById(R.id.buttonLogin);
     }
@@ -126,6 +127,7 @@ public class LoginActivity extends BaseActivity {
 
     // 2 - Update UI when activity is resuming
     private void updateUIWhenResuming(){
+
         boolean isLogin =isCurrentUserLogged();
         this.buttonLogin.setText( isLogin? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
         ProgressBar progressBarC = findViewById(R.id.progressBarC);
@@ -133,7 +135,21 @@ public class LoginActivity extends BaseActivity {
             Runnable runnable = () -> {
                // progressBarC.setVisibility(View.GONE);
                 if(isLogin) {
-                    startAppActivity();
+
+                    if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
+                        buttonLogin.setEnabled(false);
+                        if(modelCurrentUser.getDisable()){
+                            this.buttonLogin.setText("Can not access  to server,Sorry");
+
+                        }else {
+                            modelCurrentUser.isDeleteAction();
+                            UserHelper.deleteAction(modelCurrentUser.getUid());
+                            AuthUI.getInstance().delete(this);
+                        }
+                    }else {
+                        startAppActivity();
+                    }
+
                 }else {
                     startSignInActivity();
                 }

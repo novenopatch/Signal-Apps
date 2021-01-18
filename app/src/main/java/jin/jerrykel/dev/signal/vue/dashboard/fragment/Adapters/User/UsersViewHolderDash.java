@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 
@@ -65,6 +64,20 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
         this.textViewEmail.setText(user.getEmail());
         //TODO
         this.textViewDate.setText(Utils.convertDateToString(user.getDateCreated()));
+        if(user.getDisable()){
+            this.switchDisableUser.setChecked(true);
+            this.switchDisableUser.setText("User is disable");
+        }else{
+            this.switchDisableUser.setChecked(true);
+            this.switchDisableUser.setText("User is active");
+        }
+        if(user.getMentor()){
+            switchMakeOrDisableMentor.setChecked(true);
+            switchMakeOrDisableMentor.setText("User is mentor");
+        }else {
+            switchMakeOrDisableMentor.setChecked(false);
+            switchMakeOrDisableMentor.setText("User is not mentor");
+        }
         imageButtonDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")
@@ -84,7 +97,7 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
         });
         this.switchDisableUser.setOnClickListener(v -> {
 
-                    if(switchDisableUser.isChecked()){
+                    if(switchDisableUser.isChecked() && !user.getDisable() && !user.getRoot()){
                         new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
                                 .setMessage("Are you sure?")
                                 .setPositiveButton("YES", (dialog, which) -> {
@@ -122,7 +135,7 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
         });
         this.switchMakeOrDisableMentor.setOnClickListener(
                 v -> {
-        if(switchMakeOrDisableMentor.isChecked()){
+        if(switchMakeOrDisableMentor.isChecked() ){
             new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")
                     .setPositiveButton("YES", (dialog, which) -> {
@@ -172,12 +185,17 @@ public class UsersViewHolderDash extends RecyclerView.ViewHolder {
 
         private void deleteUserFromFirebase(User user){
             //4 - We also delete user from firestore storage
-            UserHelper.deleteUser(user.getUid()).addOnFailureListener(this.onFailureListener());
+            UserHelper.deleteUser(user.getUid()).addOnCompleteListener(
+                    updateUIAfterRESTRequestsCompleted()
+            ).addOnFailureListener(this.onFailureListener());
+            /*
             AuthUI.getInstance()
-                    .delete(rootView.getContext())
+                    .delete( rootView.getContext())
                     .addOnCompleteListener(
                             updateUIAfterRESTRequestsCompleted()
                     );
+
+             */
 
         }
 

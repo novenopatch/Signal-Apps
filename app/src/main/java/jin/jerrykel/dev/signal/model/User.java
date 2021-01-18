@@ -14,10 +14,12 @@ public class User {
     private String uid;
     private String username;
     private String email;
-    private Boolean isMentor =false;
-    private Boolean isRoot = false;
-    private Boolean isDisable = false;
-    private  @ServerTimestamp Date dateCreated;
+    private boolean isMentor =false;
+    private boolean isRoot = false;
+    private boolean isDisable = false;
+    private boolean isPremium = false;
+    private boolean DeleteAction = false;
+    private   Date dateCreated;
 
     @Nullable private String urlPicture;
 
@@ -62,6 +64,9 @@ public class User {
     public String getEmail() {
         return email;
     }
+    public boolean isDeleteAction() {
+        return DeleteAction;
+    }
 
     // --- SETTERS ---
     public void setUsername(String username) { this.username = username; }
@@ -79,4 +84,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Boolean getPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(Boolean premium) {
+        isPremium = premium;
+    }
+
+
 }
