@@ -2,6 +2,8 @@ package jin.jerrykel.dev.signal.vue.dashboard.fragment.Send;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,9 +13,6 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
@@ -26,12 +25,15 @@ import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsType.Signa
 public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsTypeAdapterDash.Listener{
 
     private FloatingActionButton floatingActionButtonSend;
-    private static ArrayList<String> stringArrayList = new ArrayList<>();
+
 
     private RecyclerView recyclerViewSignalType;
     private TextView textViewRecyclerViewEmpty;
     private SignalsTypeAdapterDash signalsTypeAdapterDash;
     private EditText editTextSignalName;
+    private LinearLayout linearLayoutNewST;
+    private ImageButton imageViewBala;
+    private boolean  linearLayoutEditVisible = false;
 
     public SendNewSignalTypeFragment() {
         // Required empty public constructor
@@ -50,40 +52,32 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
 
     @Override
     public void initView() {
-        //stringArrayList = getTypeSignalsString();
+
         floatingActionButtonSend =rootView.findViewById(R.id.floatingActionButtonSend);
         recyclerViewSignalType = rootView.findViewById(R.id.recyclerViewSignalType);
         textViewRecyclerViewEmpty = rootView.findViewById(R.id.fragment_signal_not_found_textView);
         editTextSignalName = rootView.findViewById(R.id.editTextSignalName);
-        configureRecyclerView();
+        linearLayoutNewST = rootView.findViewById(R.id.linearLayoutNewST);
+        imageViewBala = rootView.findViewById(R.id.imageViewBala);
+        imageViewBala.setOnClickListener(v -> {
+            if(!linearLayoutEditVisible){
+                linearLayoutEditVisible = true;
+                imageViewBala.setImageResource(R.drawable.ic_baseline_arrow_drop_up_white_24);
+                linearLayoutNewST.setVisibility(View.VISIBLE);
+            }else{
+                linearLayoutEditVisible = false;
+                imageViewBala.setImageResource(R.drawable.ic_baseline_arrow_drop_down_white_24);
+                linearLayoutNewST.setVisibility(View.INVISIBLE);
+            }
+        });
         floatingActionButtonSend.setOnClickListener(v -> {
             onClickSendMessage();
         });
+        configureRecyclerView();
 
     }
 
-    private ArrayList<String> getTypeSignalsString(){
-        String TAG = "getTypeSignalsString()";
-        ArrayList<String> stringArrayList = new ArrayList<>();
-        SignalTypeListHelper.getAllSignalTypeSent().get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
 
-
-                    TypeSignals typeSignals = document.toObject(TypeSignals.class);
-                    stringArrayList.add(typeSignals.getName());
-                    //Log.d(TAG, document.getId() + " => " + document.getData());
-                }
-            } else {
-                stringArrayList.add("None");
-                //Log.d(TAG, "Error getting documents: ", task.getException());
-            }
-        });
-        if(stringArrayList.size()<=1){
-            stringArrayList.add("None");
-        }
-        return stringArrayList;
-    }
     private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
@@ -107,11 +101,9 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     }
     private void onClickSendMessage() {
         if( !editTextSignalName.getText().toString().isEmpty() && modelCurrentUser.getMentor()){
-            SignalTypeListHelper.createSignalType(
-                    modelCurrentUser.getUid(),
-                    modelCurrentUser.getUsername(),
-                    editTextSignalName.getText().toString()
+            SignalTypeListHelper.createSignalType( modelCurrentUser.getUid(), modelCurrentUser.getUsername(), editTextSignalName.getText().toString()
             ).addOnSuccessListener(documentReference -> {
+                signalsTypeAdapterDash.notifyDataSetChanged();
                 clearEditText();
             })
                     .addOnFailureListener(e -> {

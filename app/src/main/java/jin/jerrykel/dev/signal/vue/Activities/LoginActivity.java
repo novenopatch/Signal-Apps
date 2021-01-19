@@ -140,21 +140,25 @@ public class LoginActivity extends BaseActivity {
             // progressBarC.setVisibility(View.GONE);
             if(isLogin) {
 
-                if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
-                    buttonLogin.setEnabled(false);
-                    if(modelCurrentUser.getDisable()){
-                        this.buttonLogin.setText("We are sorry,Can not access  to server");
+                /*
+                    if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
+                        buttonLogin.setEnabled(false);
+                        if(modelCurrentUser.getDisable()){
+                            this.buttonLogin.setText("We are sorry,Can not access  to server");
 
+                        }else {
+                            modelCurrentUser.isDeleteAction();
+                            UserHelper.deleteAction(modelCurrentUser.getUid());
+                            AuthUI.getInstance().delete(this).addOnSuccessListener(aVoid ->
+                                    finish()
+                            );
+                        }
                     }else {
-                        modelCurrentUser.isDeleteAction();
-                        UserHelper.deleteAction(modelCurrentUser.getUid());
-                        AuthUI.getInstance().delete(this).addOnSuccessListener(aVoid ->
-                                finish()
-                        );
-                    }
-                }else {
                     startAppActivity();
                 }
+                 */
+                //TODO
+                startAppActivity();
 
             }else {
                 startSignInActivity();

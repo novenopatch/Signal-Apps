@@ -4,7 +4,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="createNewAccountString">No account yet ? Create one</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="button_login_text_logged">you are connected</string>
@@ -93,8 +93,8 @@
         <item>Buy</item>
     </string-array>
     <string-array name="configSpinnerStatut">
-        <item>Active</item>
         <item>Ready</item>
+        <item>Active</item>
 
     </string-array>
     <string-array name="configSpinnerType">

@@ -34,62 +34,93 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
             android:layout_marginBottom="6dp"
+            android:gravity="right"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editTextSignalName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:hint="@string/enter_signal_type_name"
-                android:textColor="@android:color/black" />
-
-
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/imageViewBala"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="create new Signal"
+                android:src="@drawable/ic_baseline_arrow_drop_down_white_24" />
 
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="1dp"
+            <LinearLayout
+                android:id="@+id/linearLayoutNewST"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:visibility="invisible">
-                <!-- ADD FILE BUTTON -->
 
-                <ImageButton
-                    android:id="@+id/ImageButtonAddFile"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <EditText
+                        android:id="@+id/editTextSignalName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_signal_type_name" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_add_circle_black_24px" />
 
-                <ImageView
-                    android:id="@+id/ImageViewPreview"
-                    android:layout_width="50dip"
-                    android:layout_height="50dip"
-                    android:layout_margin="@dimen/default_margin"
-                    android:visibility="invisible" />
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="1dp"
+                    android:visibility="invisible">
+                    <!-- ADD FILE BUTTON -->
+
+                    <ImageButton
+                        android:id="@+id/ImageButtonAddFile"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_add_circle_black_24px" />
+
+                    <ImageView
+                        android:id="@+id/ImageViewPreview"
+                        android:layout_width="50dip"
+                        android:layout_height="50dip"
+                        android:layout_margin="@dimen/default_margin"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButtonSend"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end|right"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="6dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_baseline_send_black_24"
+                        app:fabSize="auto" />
+                </LinearLayout>
             </LinearLayout>
+
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonSend"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end|right"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="6dp"
-            android:clickable="true"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_baseline_send_black_24"
-            app:fabSize="auto" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.core.widget.NestedScrollView>

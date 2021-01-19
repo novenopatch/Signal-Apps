@@ -44,7 +44,7 @@ public class SignalsTypeViewHolderDash extends RecyclerView.ViewHolder {
         this.textViewUserName = superView.findViewById(R.id.textViewUserName);
         this.textViewDateSend = superView.findViewById(R.id.textViewDateSend);
         this.textViewSignalName = superView.findViewById(R.id.textViewSignalName);
-        this.progressBar = superView.findViewById(R.id.progressBar);
+        this.progressBar = superView.findViewById(R.id.progressBarDelete);
         this.imageButtonDelete = superView.findViewById(R.id.imageButtonDelete);
 
 
@@ -53,12 +53,14 @@ public class SignalsTypeViewHolderDash extends RecyclerView.ViewHolder {
 
     }
 
-    public void updateWithMessage(final TypeSignals typeSignals, RequestManager glide){
-//        Log.e("TypeSignals",typeSignals.getName());
+    public void updateWithMessage( TypeSignals typeSignals, RequestManager glide){
 
+        if(typeSignals.getName()!=null){
+            this.textViewSignalName.setText(typeSignals.getName());
+        }
         this.textViewUserName.setText(typeSignals.getSenderName());
         this.textViewDateSend.setText(Utils.convertDateToString(typeSignals.getDateCreated()));
-        this.textViewSignalName.setText(typeSignals.getName());
+
         imageButtonDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")
@@ -76,6 +78,8 @@ public class SignalsTypeViewHolderDash extends RecyclerView.ViewHolder {
                     .create()
                     .show();
         });
+
+
 
     }
 

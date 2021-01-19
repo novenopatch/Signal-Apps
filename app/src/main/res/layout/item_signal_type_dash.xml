@@ -9,29 +9,32 @@
     android:orientation="vertical">
 
 
-    <!-- PROFILE CONTAINER -->
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@drawable/background_radius_error_color"
         android:elevation="5dp"
         app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#303030"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#FFF"
                     tools:text="Signal Name" />
 
                 <TextView
@@ -39,19 +42,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color/black" />
+                    android:textColor="#FFF" />
+
+                <ImageView
+                    android:id="@+id/imageViewEditName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_baseline_edit_white_24"
+                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#FFF"
                     tools:text="SenderName" />
 
                 <TextView
@@ -59,25 +73,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#FFF"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#FFF"
                     tools:text="Date send" />
 
                 <TextView
                     android:id="@+id/textViewDateSend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="#FFF" />
 
             </LinearLayout>
 
@@ -85,34 +104,39 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
                 <ImageButton
                     android:id="@+id/imageButtonDelete"
-                    tools:ignore="VectorDrawableCompat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_baseline_delete_forever_black_24" />
+                    app:srcCompat="@drawable/ic_baseline_delete_forever_white_24"
+                    tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
+
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progressBarDelete"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:visibility="invisible" />
+                android:layout_marginTop="3dp"
+                android:indeterminate="true"
+                android:padding="3dp"
+                android:visibility="invisible"
+                />
+
 
         </LinearLayout>
-
 
 
     </androidx.cardview.widget.CardView>
 
 
-    <!-- MESSAGE CONTAINER -->
 
-    <!-- DATE MESSAGE -->
 
 
 </LinearLayout>

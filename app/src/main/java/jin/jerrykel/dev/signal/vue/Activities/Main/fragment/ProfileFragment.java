@@ -1,29 +1,24 @@
 package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ProfileFragment extends BaseFragment {
 
    private EditText editTextUsername;
    private TextView textViewEmail;
    private Button buttonUpdate;
    private ProgressBar progressBar;
+    private String username;
+    private String email;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -57,9 +52,8 @@ public class ProfileFragment extends BaseFragment {
 
         if (getCurrentUser() != null){
 
-            String username = getCurrentUser().getDisplayName();
-            String email = getCurrentUser().getEmail();
-            Log.d("Tago",email);
+             username = getCurrentUser().getDisplayName();
+             email = getCurrentUser().getEmail();
 
             this.textViewEmail.setText(email);
 
@@ -68,19 +62,20 @@ public class ProfileFragment extends BaseFragment {
     }
     private void setButtonUpdate(){
         buttonUpdate.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            final String username = editTextUsername.getText().toString();
 
-
+            final String usernameN = editTextUsername.getText().toString();
             if (getCurrentUser() != null){
-                if (!username.isEmpty() &&  !username.equals(getString(R.string.info_no_username_found))){
-                    UserHelper.updateUsername(username,
+                if (
+                        !usernameN.isEmpty() && !usernameN.equals(username) && !usernameN.equals(getString(R.string.info_no_username_found))
+                ){
+                    progressBar.setVisibility(View.VISIBLE);
+                    UserHelper.updateUsername(usernameN,
                             getCurrentUser().getUid()).addOnFailureListener(
                             e -> {
                                 //TODO
                             }
                     ).addOnSuccessListener(aVoid -> {
-                        editTextUsername.setText(username);
+                        editTextUsername.setText(usernameN);
                         progressBar.setVisibility(View.INVISIBLE);
                     });
                 }

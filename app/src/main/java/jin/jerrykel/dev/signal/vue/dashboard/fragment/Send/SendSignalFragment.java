@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -60,6 +61,9 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     private EditText editTextEntryPrice;
     private EditText ediTextStopLoss;
     private EditText editTextTakeProfit;
+    private LinearLayout linearLayoutEdit;
+    private ImageButton imageViewCero;
+    private boolean  linearLayoutEditVisible = false;
 
 
     private SignalsAdapterDash signalsAdapterDash;
@@ -99,6 +103,19 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
         editTextEntryPrice = rootView.findViewById(R.id.editTextEntryPrice);
         ediTextStopLoss = rootView.findViewById(R.id. ediTextStopLoss);
         editTextTakeProfit  = rootView.findViewById(R.id.editTextTakeProfit);
+        linearLayoutEdit = rootView.findViewById(R.id.linearLayoutEdit);
+        imageViewCero = rootView.findViewById(R.id.imageViewCero);
+        imageViewCero.setOnClickListener(v -> {
+            if(!linearLayoutEditVisible){
+                linearLayoutEditVisible = true;
+                imageViewCero.setImageResource(R.drawable.ic_baseline_arrow_drop_up_white_24);
+                linearLayoutEdit.setVisibility(View.VISIBLE);
+            }else{
+                linearLayoutEditVisible = false;
+                imageViewCero.setImageResource(R.drawable.ic_baseline_arrow_drop_down_white_24);
+                linearLayoutEdit.setVisibility(View.INVISIBLE);
+            }
+        });
         initSpinner();
         configureRecyclerView();
         initListener();
