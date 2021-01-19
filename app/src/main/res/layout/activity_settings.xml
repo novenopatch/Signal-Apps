@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingTop="10dp"
             android:paddingRight="@dimen/dimen_20dp"

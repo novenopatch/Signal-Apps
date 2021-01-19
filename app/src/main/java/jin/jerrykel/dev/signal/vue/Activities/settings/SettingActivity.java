@@ -7,16 +7,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AboutActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.HelpActivity;
-import jin.jerrykel.dev.signal.vue.Activities.settings.road.ProfileActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 
@@ -26,7 +22,7 @@ public class SettingActivity extends BaseActivity {
 
     private TextView textInputEditTextUsername;
     private TextView textViewEmail;
-    private LinearLayout linearLayoutProfile;
+
     private LinearLayout linearLayoutAccount;
     private LinearLayout linearLayoutHelp;
     private LinearLayout linearLayoutAbout;
@@ -45,7 +41,7 @@ public class SettingActivity extends BaseActivity {
         textViewEmail = findViewById(R.id.profile_activity_text_view_email);
 
 
-        linearLayoutProfile = findViewById(R.id.linearLayoutProfile);
+
         linearLayoutAccount = findViewById(R.id.linearLayoutAccount);
         linearLayoutHelp = findViewById(R.id.linearLayoutHelp);
         linearLayoutAbout = findViewById(R.id.linearLayoutAbout);
@@ -64,13 +60,7 @@ public class SettingActivity extends BaseActivity {
 
         if (getCurrentUser() != null){
 
-            if (getCurrentUser().getPhotoUrl() != null) {
-                Glide.with(this)
-                        .load(getCurrentUser().getPhotoUrl())
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(imageViewProfile);
 
-            }
 
             String email = TextUtils.isEmpty(getCurrentUser().getEmail())
                     ? getString(R.string.info_no_email_found) : getCurrentUser().getEmail();
@@ -114,11 +104,6 @@ public class SettingActivity extends BaseActivity {
     }
     public  void linearLayoutOnclick(View view){
         switch (view.getId()){
-            case R.id.linearLayoutProfile:
-                ///
-                ///
-                startActivity(new Intent(this, ProfileActivity.class));
-                break;
             case R.id.linearLayoutAccount:
                 startActivity(new Intent(this, AccountActivity.class));
                 break;

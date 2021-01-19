@@ -46,10 +46,7 @@
             android:name=".vue.Activities.settings.road.HelpActivity"
             android:label="@string/help"
             android:parentActivityName=".vue.Activities.settings.SettingActivity" />
-        <activity
-            android:name=".vue.Activities.settings.road.ProfileActivity"
-            android:label="@string/profile"
-            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
+
         <activity
             android:name=".vue.dashboard.DashboardActivity"
             android:parentActivityName=".vue.Activities.settings.SettingActivity"
