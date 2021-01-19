@@ -87,6 +87,12 @@
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
+            <LinearLayout
+                android:id="@+id/pub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"></LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

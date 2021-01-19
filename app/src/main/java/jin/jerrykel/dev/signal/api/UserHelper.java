@@ -14,6 +14,7 @@ import jin.jerrykel.dev.signal.model.User;
 public class UserHelper {
 
     private static final String COLLECTION_NAME = "users";
+    private static boolean  isExist = false;
 
     // --- COLLECTION REFERENCE ---
 
@@ -38,6 +39,15 @@ public class UserHelper {
 
 
         return UserHelper.getUsersCollection().orderBy("dateCreated");
+    }
+    public static boolean ifUserIsExist(String ui){
+        getUser(ui).addOnSuccessListener(documentSnapshot -> {
+            User currentUser = documentSnapshot.toObject(User.class);
+            if(currentUser !=null){
+                isExist = true;
+            }
+        });
+        return isExist;
     }
 
     // --- UPDATE ---

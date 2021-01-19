@@ -55,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         removeAuthStateListener();
     }
 
+
     protected void addAuthStateListener(){
         authStateListener = firebaseAuth -> {
             FirebaseUser currentUser1 =firebaseAuth.getCurrentUser();
@@ -130,5 +131,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return isLogin;
     }
+
 
 }

@@ -71,8 +71,8 @@
     <string name="signal">Signals</string>
     <string name="alert">Alerts</string>
     <string name="profile">Profile</string>
-    <string name="share_app">share app</string>
-    <string name="tutorial">tutorial</string>
+    <string name="share_app">Share app</string>
+    <string name="tutorial">Tutorial</string>
     <string name="signal_not_found">we are sorry,\n empty select an other signal on oder view configuration</string>
     <string name="never_miss_a_trade">Never Miss A Trade!</string>
     <string name="get_premium">Get \n Premium</string>
