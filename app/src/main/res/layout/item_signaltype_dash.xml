@@ -26,6 +26,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFF"
+                    tools:text="SenderName" />
+
+                <TextView
+                    android:id="@+id/textViewUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFF"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal"
                 android:padding="3dp">
@@ -52,29 +74,6 @@
                     app:srcCompat="@drawable/ic_baseline_edit_white_24"
                     tools:ignore="VectorDrawableCompat" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="3dp"
-                android:orientation="horizontal"
-                android:padding="3dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="#FFF"
-                    tools:text="SenderName" />
-
-                <TextView
-                    android:id="@+id/textViewUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="#FFF"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout

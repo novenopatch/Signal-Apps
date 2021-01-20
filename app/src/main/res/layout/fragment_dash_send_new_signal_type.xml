@@ -63,7 +63,8 @@
                         android:id="@+id/editTextSignalName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/enter_signal_type_name" />
+                        android:hint="@string/enter_signal_type_name"
+                        android:textColor="#FFF" />
                 </LinearLayout>
 
                 <LinearLayout

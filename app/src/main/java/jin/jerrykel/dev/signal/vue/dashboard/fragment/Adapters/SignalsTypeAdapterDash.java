@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
@@ -28,11 +27,8 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
         void onDataChanged();
     }
 
-    //FOR DATA
-    private final RequestManager glide;
-    //private final String idCurrentUser;
 
-    //FOR COMMUNICATION
+    private final RequestManager glide;
     private Listener callback;
 
     public SignalsTypeAdapterDash(@NonNull FirestoreRecyclerOptions<TypeSignals> options, RequestManager glide, Listener callback) {
@@ -77,18 +73,17 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
 
 
         if(model.getName()!=null){
-            holder.textViewSignalName.setText(model.getName());
+
         }
         holder.textViewUserName.setText(model.getSenderName());
         holder.textViewDateSend.setText(Utils.convertDateToString(model.getDateCreated()));
-
+        holder.textViewSignalName.setText(model.getName());
         holder.imageButtonDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(holder.rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")
                     .setPositiveButton("YES", (dialog, which) -> {
                         holder.progressBar.setVisibility(View.VISIBLE);
                         deleteSignalsTypeFromFirebase(model.getUI(),holder.progressBar);
-                        // Perform Action & Dismiss dialog
                         dialog.dismiss();
 
                     })
@@ -107,7 +102,7 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
     @Override
     public SignalsTypeViewHolderDash onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SignalsTypeViewHolderDash(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_signal_type_dash, parent, false));
+                .inflate(R.layout.item_signaltype_dash, parent, false));
     }
 
     @Override
@@ -118,16 +113,6 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
 
 
     private void deleteSignalsTypeFromFirebase(String ui,ProgressBar progressBar) {
-        SignalTypeListHelper.deleteSignalType(ui).addOnCompleteListener(updateUIAfterRESTRequestsCompleted(progressBar));
-    }
-    private OnCompleteListener updateUIAfterRESTRequestsCompleted(ProgressBar progressBar) {
-        return o -> {
-            if(o.isSuccessful()){
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-            else {
-                //TODO
-            }
-        };
+        SignalTypeListHelper.deleteSignalType(ui).addOnSuccessListener(aVoid -> progressBar.setVisibility(View.INVISIBLE));
     }
 }

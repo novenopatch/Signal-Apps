@@ -1,5 +1,6 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +108,17 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
         }
         holder.textViewSignalName.setText(model.getTypeSignalsName());
         holder.textViewSignalStatut.setText(model.getSignalStatus());
+        if(model.getSignalStatus().equals("Active")){
+            holder.switchActiveOrReady.setText("Active");
+            holder.switchActiveOrReady.setTextColor(Color.GREEN);
+            holder.switchActiveOrReady.setChecked(true);
+            holder.textViewSignalName.setTextColor(Color.GREEN);
+        }else {
+            holder.switchActiveOrReady.setText("Ready");
+            holder.switchActiveOrReady.setTextColor(Color.RED);
+            holder.switchActiveOrReady.setChecked(false);
+            holder.textViewSignalName.setTextColor(Color.RED);
+        }
         holder.textViewSignalType.setText(model.getSellOrBuy());
         holder.buttonEntryPrice.setText(model.getEntryPrice());
         holder.buttonStopLoss.setText(model.getStopLoss());
