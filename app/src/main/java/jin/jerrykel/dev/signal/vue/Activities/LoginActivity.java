@@ -14,6 +14,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,8 +40,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //updateModelWhenCreating();
-        updateUIWhenCreatingBase();
+        updateModelWhenCreating();
     }
 
     @Override
@@ -59,15 +60,32 @@ public class LoginActivity extends BaseActivity {
         startAppropriateActivity();
         //checkIfEmailVerified();
     }
+    private boolean checkIfEmailVerified() {
+        if(isCurrentUserLogged()){
+            FirebaseUser user = getCurrentUser();
 
+            if (user.isEmailVerified()) {
+                getCurrentUser();
+                return true;
+            } else {
+                // email is not verified, so just prompt the message to the user and restart this activity.
+                // NOTE: don't forget to log out the user.
+                FirebaseAuth.getInstance().signOut();
+                return false;
+
+                //restart this activity
+
+            }
+        }
+       return false;
+    }
     public void startAppropriateActivity() {
+
+
             if(modelCurrentUser!=null ){
-                /*
                 if(!ifInternet()){
                     buttonLogin.setText("You are in offline.");
                 }
-
-                 */
                 if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
                     buttonLogin.setEnabled(false);
                     if(modelCurrentUser.getDisable()){
@@ -95,10 +113,10 @@ public class LoginActivity extends BaseActivity {
                     startAppActivity();
                 }
 
-
-            }else {
-            this.startSignInActivity();
             }
+        else {
+            this.startSignInActivity();
+        }
 
 
     }
@@ -111,9 +129,9 @@ public class LoginActivity extends BaseActivity {
     }
     private void startSignInActivity(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.EmailBuilder().build()
                 //new AuthUI.IdpConfig.PhoneBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build()
+                //new AuthUI.IdpConfig.GoogleBuilder().build()
                 //new AuthUI.IdpConfig.FacebookBuilder().build(),
                 //new AuthUI.IdpConfig.TwitterBuilder().build()
                 );
@@ -163,15 +181,29 @@ public class LoginActivity extends BaseActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // 2 - CREATE USER IN FIRESTORE
-                progressBarC.setVisibility(View.VISIBLE);
-                Runnable runnable = () -> {
-                    if(!UserHelper.ifUserIsExist(getCurrentUser().getUid())){
-                        this.createUserInFirestore();
-                    }
-                    progressBarC.setVisibility(View.GONE);
-                };
-                new Handler().postDelayed(runnable,milis *3);
+                if(!UserHelper.ifUserIsExist(getCurrentUser().getUid())){
+                    this.createUserInFirestore();
 
+                    getCurrentUser().sendEmailVerification().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // email sent
+                            FirebaseAuth.getInstance().signOut();
+                            //Toast.makeText(LoginActivity.this, "send Email Verification", Toast.LENGTH_LONG).show();
+                            showSnackBar(coordinatorLayout, "Verification Mail Send");
+                            finish();
+                        }
+                        else
+                        {
+                            // email not sent, so display message and restart the activity or do whatever you wish to do
+                            //restart this activity
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+
+                        }
+                    });
+                }
 
             }
             showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
