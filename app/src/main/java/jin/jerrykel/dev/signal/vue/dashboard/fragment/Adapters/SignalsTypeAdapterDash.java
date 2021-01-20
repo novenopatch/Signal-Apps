@@ -73,11 +73,10 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
 
 
         if(model.getName()!=null){
-
+            holder.textViewSignalName.setText(model.getName());
         }
         holder.textViewUserName.setText(model.getSenderName());
         holder.textViewDateSend.setText(Utils.convertDateToString(model.getDateCreated()));
-        holder.textViewSignalName.setText(model.getName());
         holder.imageButtonDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(holder.rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")

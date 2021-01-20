@@ -16,7 +16,6 @@ import com.google.firebase.firestore.Query;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
-import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.TypeSignals;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsTypeAdapterDash;
@@ -81,7 +80,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
-        this.signalsTypeAdapterDash = new SignalsTypeAdapterDash( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()) , Glide.with(this),this);
+        this.signalsTypeAdapterDash = new SignalsTypeAdapterDash( generateOptionsForAdapter(SignalTypeListHelper.getAllSignalTypeSent()) , Glide.with(this),this);
         signalsTypeAdapterDash.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
