@@ -19,7 +19,7 @@ import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
 import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.TypeSignals;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsType.SignalsTypeAdapterDash;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsTypeAdapterDash;
 
 
 public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsTypeAdapterDash.Listener{

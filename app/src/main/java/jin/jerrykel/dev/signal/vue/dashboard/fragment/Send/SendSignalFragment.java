@@ -32,7 +32,7 @@ import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.model.TypeSignals;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.Signals.SignalsAdapterDash;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsAdapterDash;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.app.Activity.RESULT_OK;

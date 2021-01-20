@@ -26,6 +26,7 @@ public abstract class BaseFragment extends Fragment {
     protected boolean isLogin;
     protected FirebaseAuth mAuth;
     protected FirebaseAuth.AuthStateListener authStateListener;
+    private int milis = 2000;
 
 
     @Override
@@ -86,6 +87,9 @@ public abstract class BaseFragment extends Fragment {
         mAuth  = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(authStateListener);
     }
+
+
+
     protected void removeAuthStateListener(){
         mAuth.removeAuthStateListener(authStateListener);
     }
@@ -109,5 +113,6 @@ public abstract class BaseFragment extends Fragment {
     private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
         // Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
+
 
 }

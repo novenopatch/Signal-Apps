@@ -14,7 +14,7 @@ import jin.jerrykel.dev.signal.model.TypeSignals;
  */
 public class SignalTypeListHelper {
 
-    private static final String COLLECTION_NAME = "SignalType";
+    private static final String COLLECTION_NAME = "signalType";
 
     // --- COLLECTION REFERENCE ---
 

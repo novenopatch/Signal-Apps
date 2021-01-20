@@ -68,20 +68,6 @@ public class SettingActivity extends BaseActivity {
             this.textViewEmail.setText(email);
             String username = getCurrentUser().getDisplayName();
             textInputEditTextUsername.setText(username);
-            /*
-
-            // 7 - Get additional data from Firestore (isMentor & Username)
-            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    User currentUser = documentSnapshot.toObject(User.class);
-                    String username = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.info_no_username_found) : currentUser.getUsername();
-                    //profileActivityCheckBoxIsMentor.setChecked(currentUser.getIsMentor());
-                    textInputEditTextUsername.setText(username);
-                }
-            });
-
-             */
             final ImageView  imageViewDashboard = findViewById(R.id.imageViewDashboard);
             UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
                 User currentUser = documentSnapshot.toObject(User.class);

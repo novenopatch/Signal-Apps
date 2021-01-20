@@ -10,7 +10,7 @@ import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.User.UserAdapterDash;
+import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.UserAdapterDash;
 
 public class ManageUsersFragment extends BaseFragment  implements UserAdapterDash.Listener{
 

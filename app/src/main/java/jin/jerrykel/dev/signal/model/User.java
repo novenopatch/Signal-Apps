@@ -14,11 +14,11 @@ public class User {
     private String uid;
     private String username;
     private String email;
-    private Boolean isMentor =false;
-    private Boolean isRoot = false;
-    private Boolean isDisable = false;
-    private Boolean isPremium = false;
-    private Boolean DeleteAction = false;
+    private Boolean mentor =false;
+    private Boolean root = false;
+    private Boolean disable = false;
+    private Boolean premium = false;
+    private Boolean deleteAction = false;
     private   Date dateCreated;
 
     @Nullable private String urlPicture;
@@ -51,12 +51,12 @@ public class User {
     public String getUid() { return uid; }
     public String getUsername() { return username; }
     public String getUrlPicture() { return urlPicture; }
-    public Boolean getMentor() { return isMentor; }
+    public Boolean getMentor() { return mentor; }
     public Boolean getRoot() {
-        return isRoot;
+        return root;
     }
     public Boolean getDisable() {
-        return isDisable;
+        return disable;
     }
     @ServerTimestamp
     public Date getDateCreated() { return dateCreated; }
@@ -65,20 +65,20 @@ public class User {
         return email;
     }
     public Boolean isDeleteAction() {
-        return DeleteAction;
+        return deleteAction;
     }
 
     // --- SETTERS ---
     public void setUsername(String username) { this.username = username; }
     public void setUid(String uid) { this.uid = uid; }
     public void setUrlPicture(String urlPicture) { this.urlPicture = urlPicture; }
-    public void setMentor(Boolean mentor) { isMentor = mentor; }
+    public void setMentor(Boolean mentor) { this.mentor = mentor; }
     public void setRoot(Boolean root) {
-        this.isRoot = root;
+        this.root = root;
     }
 
     public void setDisable(Boolean disable) {
-        isDisable = disable;
+        this.disable = disable;
     }
 
     public void setEmail(String email) {
@@ -86,11 +86,11 @@ public class User {
     }
 
     public Boolean getPremium() {
-        return isPremium;
+        return premium;
     }
 
     public void setPremium(Boolean premium) {
-        isPremium = premium;
+        this.premium = premium;
     }
 
 

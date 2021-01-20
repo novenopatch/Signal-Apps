@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -14,23 +15,28 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.ActionCodeSettings;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.Activities.Main.MainActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity {
 
     //FOR DATA
-    // 1 - Identifier for Sign-In Activity
     private static final int RC_SIGN_IN = 123;
     private CoordinatorLayout coordinatorLayout;
     private Button  buttonLogin;
     private int milis = 2000;
+    ProgressBar progressBarC;
+    private User modelCurrentUser;
 
 
     @Override
@@ -48,37 +54,108 @@ public class LoginActivity extends BaseActivity {
 
         coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
         buttonLogin =  findViewById(R.id.buttonLogin);
+        progressBarC = findViewById(R.id.progressBarC);
     }
 
     public void login(View v){
 
         startAppropriateActivity();
+        //checkIfEmailVerified();
+    }
+    private boolean checkIfEmailVerified() {
+        if(isCurrentUserLogged()){
+            FirebaseUser user = getCurrentUser();
+
+            if (user.isEmailVerified()) {
+                getCurrentUser();
+                updateModelWhenCreating();
+                return true;
+            } else {
+                // email is not verified, so just prompt the message to the user and restart this activity.
+                // NOTE: don't forget to log out the user.
+                FirebaseAuth.getInstance().signOut();
+                return false;
+
+                //restart this activity
+
+            }
+        }
+       return false;
     }
     public void startAppropriateActivity() {
-        // 4 - Start appropriate activity
-        if (isCurrentUserLogged()){
-            this.startAppActivity();
-        } else {
-            this.startSignInActivity();
+
+        if(checkIfEmailVerified()){
+            if(modelCurrentUser!=null ){
+                if(!ifInternet()){
+                    buttonLogin.setText("You are in offline.");
+                }
+                if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
+                    buttonLogin.setEnabled(false);
+                    if(modelCurrentUser.getDisable()){
+                        //TODO
+                        this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
+
+                    }else{
+                        this.buttonLogin.setText("your account was delete.");
+                        //TODO
+                    /*
+                        UserHelper.deleteAction(modelCurrentUser.getUid());
+                        AuthUI.getInstance().delete(this).addOnSuccessListener(aVoid ->{
+                            //finish();
+                            this.buttonLogin.setText("Can not access  to server");
+                        });
+                      */
+                    }
+                    Runnable runnable = () -> {
+
+                        progressBarC.setVisibility(View.GONE);
+                    };
+                    new Handler().postDelayed(runnable,milis *2);
+                }
+                else {
+                    startAppActivity();
+                }
+
+            }else {
+                progressBarC.setVisibility(View.VISIBLE);
+                updateModelWhenCreating();
+                Runnable runnable = () -> {
+
+                    startAppropriateActivity();
+                };
+                new Handler().postDelayed(runnable,milis *2);
+            }
+        }else {
+            buttonLogin.setError("EMail not verified ");
+            ActionCodeSettings actionCodeSettings =
+                    ActionCodeSettings . newBuilder ()
+                            . setUrl ( "https://www.Wtf.com/finishSignUp?cartId="+getCurrentUser().getUid() )
+                            . setHandleCodeInApp ( true )
+                            . setIOSBundleId ( "jin.jerrykel.dev.signal" )
+                            . setAndroidPackageName (
+                                    "jin.jerrykel.dev.signal" ,
+                                    true ,
+                                "12" )
+                            . build ();
+
+            getCurrentUser().sendEmailVerification(actionCodeSettings);
+            //this.startSignInActivity();
         }
+
 
     }
 
     private void startAppActivity(){
-        if(!ifInternet()){
-            buttonLogin.setText("You are in offline");
-        }
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }
-
-
     private void startSignInActivity(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build()
+                new AuthUI.IdpConfig.EmailBuilder().build(),
                 //new AuthUI.IdpConfig.PhoneBuilder().build(),
-                //new AuthUI.IdpConfig.GoogleBuilder().build()
+                new AuthUI.IdpConfig.GoogleBuilder().build()
                 //new AuthUI.IdpConfig.FacebookBuilder().build(),
                 //new AuthUI.IdpConfig.TwitterBuilder().build()
                 );
@@ -98,21 +175,75 @@ public class LoginActivity extends BaseActivity {
         // 4 - Handle SignIn Activity response on activity result
         this.handleResponseAfterSignIn(requestCode, resultCode, data);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 5 - Update UI when activity is resuming
+        this.updateUIWhenResuming();
+    }
+    private void updateUIWhenResuming(){
+        Runnable runnable = () -> {
+            this.buttonLogin.setText( isCurrentUserLogged()? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+            progressBarC.setVisibility(View.VISIBLE);
+            if(isCurrentUserLogged()) {
+                startAppropriateActivity();
+            }else {
+                progressBarC.setVisibility(View.GONE);
+
+            }
+        };
+        new Handler().postDelayed(runnable,milis);
+
+    }
+
 
     private void handleResponseAfterSignIn( int requestCode, int resultCode, Intent data){
 
         IdpResponse response = IdpResponse.fromResultIntent(data);
 
+
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // 2 - CREATE USER IN FIRESTORE
-                if(getCurrentUser()!= null && !UserHelper.ifUserIsExist(getCurrentUser().getUid())){
+                if(!UserHelper.ifUserIsExist(getCurrentUser().getUid())){
                     this.createUserInFirestore();
+                    ActionCodeSettings actionCodeSettings =
+                            ActionCodeSettings . newBuilder ()
+                                    . setUrl ( "https://www.Wtf.com/finishSignUp?cartId="+getCurrentUser().getUid() )
+                                    . setHandleCodeInApp ( true )
+                                    . setIOSBundleId ( "jin.jerrykel.dev.signal" )
+                                    . setAndroidPackageName (
+                                            "jin.jerrykel.dev.signal" ,
+                                            true ,
+                                            "12" )
+                                    . build ();
+
+                    getCurrentUser().sendEmailVerification(actionCodeSettings).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // email sent
+                          Log.d("Verification Mail Send","succes");
+                            //Toast.makeText(LoginActivity.this, "send Email Verification", Toast.LENGTH_LONG).show();
+                            showSnackBar(coordinatorLayout, "Verification Mail Send");
+                            FirebaseAuth.getInstance().signOut();
+                            startAppropriateActivity();
+                        }
+                        else
+                        {
+                            Log.d("Verification Mail Send","wront");
+                            // email not sent, so display message and restart the activity or do whatever you wish to do
+                            //restart this activity
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+
+                        };
+                    });
                 }
-                showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
-                startAppActivity();
 
-
+            }
+            showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
+            startAppropriateActivity();
             } else { // ERRORS
                 if (response == null) {
 
@@ -128,45 +259,9 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         }
-    }
-    // 2 - Update UI when activity is resuming
-    private void updateUIWhenResuming(){
 
-        boolean isLogin =isCurrentUserLogged();
-        this.buttonLogin.setText( isLogin? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
-        ProgressBar progressBarC = findViewById(R.id.progressBarC);
-        progressBarC.setVisibility(View.VISIBLE);
-        Runnable runnable = () -> {
-            // progressBarC.setVisibility(View.GONE);
-            if(isLogin) {
 
-                /*
-                    if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
-                        buttonLogin.setEnabled(false);
-                        if(modelCurrentUser.getDisable()){
-                            this.buttonLogin.setText("We are sorry,Can not access  to server");
 
-                        }else {
-                            modelCurrentUser.isDeleteAction();
-                            UserHelper.deleteAction(modelCurrentUser.getUid());
-                            AuthUI.getInstance().delete(this).addOnSuccessListener(aVoid ->
-                                    finish()
-                            );
-                        }
-                    }else {
-                    startAppActivity();
-                }
-                 */
-                //TODO
-                startAppActivity();
-
-            }else {
-                startSignInActivity();
-            }
-        };
-        new Handler().postDelayed(runnable,milis);
-
-    }
     private void createUserInFirestore(){
 
         if (getCurrentUser() != null){
@@ -182,37 +277,50 @@ public class LoginActivity extends BaseActivity {
                     );
         }
     }
-    private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
-    }
+
     // 1 - Http request that create user in firestore
 
 
+
+
+    private void updateModelWhenCreating(){
+
+
+        if (getCurrentUser() != null){
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                User currentUser = documentSnapshot.toObject(User.class);
+                modelCurrentUser = currentUser;
+
+                if(currentUser==null || currentUser.getEmail()==null || currentUser.getUsername()==null || currentUser.getDisable()){
+                    isLogin= false;
+                }else {
+                    isLogin =true;
+                }
+            });
+
+
+        }
+
+    }
     private boolean ifInternet(){
-        ConnectivityManager connec = (ConnectivityManager)getSystemService(LoginActivity.CONNECTIVITY_SERVICE);
+        ConnectivityManager connec = (ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
         if (connec != null &&
                 ((connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) || (connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED))
         ) {
             //You are connected, do something online.
             return true;
-            }
+        }
         else if (
                 connec != null &&
                         ( (connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.DISCONNECTED) || (connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.DISCONNECTED ))
         ) { //Not connected. Toast.makeText(getApplicationContext(), "You must be connected to the internet", Toast.LENGTH_LONG).show();
             return false;
-             }
+        }
         return false;
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // 5 - Update UI when activity is resuming
-        this.updateUIWhenResuming();
+    private void showSnackBar(CoordinatorLayout coordinatorLayout, String message){
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
-
-
-
 
 
 }

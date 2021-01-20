@@ -21,7 +21,6 @@ import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
 import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.model.TypeSignals;
-import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.Adapters.SignalsAdapter;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 

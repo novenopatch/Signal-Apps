@@ -56,21 +56,21 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("username", username);
     }
     public static Task<Void> updateUserDisableOrNot(String uid, boolean disable) {
-        return UserHelper.getUsersCollection().document(uid).update("isDisable", disable);
+        return UserHelper.getUsersCollection().document(uid).update("disable", disable);
     }
 
     public static Task<Void> updateIsMentor(String uid, boolean isMentor) {
-        return UserHelper.getUsersCollection().document(uid).update("isMentor", isMentor);
+        return UserHelper.getUsersCollection().document(uid).update("mentor", isMentor);
     }
     public static Task<Void> updateIsRoot(String uid,Boolean isMentor, Boolean isRoot) {
-        return UserHelper.getUsersCollection().document(uid).update("isRoot",isRoot);
+        return UserHelper.getUsersCollection().document(uid).update("root",isRoot);
     }
 
     // --- DELETE ---
 
     public static Task<Void> deleteUser(String uid) {
 
-        return UserHelper.getUsersCollection().document(uid).update("DeleteAction", true);
+        return UserHelper.getUsersCollection().document(uid).update("deleteAction", true);
     }
     public static Task<Void> deleteAction(String uid) {
         return UserHelper.getUsersCollection().document(uid).delete();

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,16 +28,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         addAuthStateListener();
-
+        if(isCurrentUserLogged()){
+            getCurrentUserFromFirestore();
+        }
 
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayout());
-        if(isCurrentUserLogged()){
-            getCurrentUserFromFirestore();
-        }
+
 
         this.initView();
 
@@ -95,10 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     protected abstract int getLayout();
     protected abstract void initView();
-    protected void configureToolbar(){
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-    }
 
 
 
@@ -112,25 +107,21 @@ public abstract class BaseActivity extends AppCompatActivity {
                 documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
         );
     }
-    protected boolean updateModelWhenCreating(){
+
+
+    protected User updateUIWhenCreatingBase(){
 
 
         if (getCurrentUser() != null){
-            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
-                User currentUser = documentSnapshot.toObject(User.class);
-                modelCurrentUser = currentUser;
 
-                if(currentUser==null || currentUser.getEmail()==null || currentUser.getUsername()==null || currentUser.getDisable()){
-                    isLogin= false;
-                }else {
-                    isLogin =true;
-                }
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                modelCurrentUser = documentSnapshot.toObject(User.class);
+
             });
 
 
         }
-        return isLogin;
+        return modelCurrentUser;
     }
-
 
 }
