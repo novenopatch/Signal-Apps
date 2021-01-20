@@ -15,6 +15,7 @@ public class UserHelper {
 
     private static final String COLLECTION_NAME = "users";
     private static boolean  isExist = false;
+    private static   User currentUser;
 
     // --- COLLECTION REFERENCE ---
 
@@ -44,6 +45,7 @@ public class UserHelper {
         getUser(ui).addOnSuccessListener(documentSnapshot -> {
             User currentUser = documentSnapshot.toObject(User.class);
             if(currentUser !=null){
+
                 isExist = true;
             }
         });

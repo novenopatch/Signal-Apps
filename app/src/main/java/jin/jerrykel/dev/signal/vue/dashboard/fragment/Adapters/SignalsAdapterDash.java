@@ -136,10 +136,10 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
                     .show();
         });
 
-
+        switchActiveOrReadyAction(holder,model);
 
     }
-    private void  witchActiveOrReadyAction(SignalsViewHolderDash holder, Signals model){
+    private void  switchActiveOrReadyAction(SignalsViewHolderDash holder, Signals model){
         holder.switchActiveOrReady.setOnClickListener(v -> {
 
             if(holder.switchActiveOrReady.isChecked()){
