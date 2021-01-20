@@ -15,7 +15,6 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,25 +59,7 @@ public class LoginActivity extends BaseActivity {
         startAppropriateActivity();
         //checkIfEmailVerified();
     }
-    private boolean checkIfEmailVerified() {
-        if(isCurrentUserLogged()){
-            FirebaseUser user = getCurrentUser();
 
-            if (user.isEmailVerified()) {
-                getCurrentUser();
-                return true;
-            } else {
-                // email is not verified, so just prompt the message to the user and restart this activity.
-                // NOTE: don't forget to log out the user.
-                FirebaseAuth.getInstance().signOut();
-                return false;
-
-                //restart this activity
-
-            }
-        }
-       return false;
-    }
     public void startAppropriateActivity() {
 
 
@@ -114,9 +95,9 @@ public class LoginActivity extends BaseActivity {
                 }
 
             }
-        else {
+            else {
             this.startSignInActivity();
-        }
+            }
 
 
     }
@@ -161,6 +142,7 @@ public class LoginActivity extends BaseActivity {
         Runnable runnable = () -> {
             this.buttonLogin.setText( isCurrentUserLogged()? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
             progressBarC.setVisibility(View.VISIBLE);
+
             if(isCurrentUserLogged()) {
                 startAppropriateActivity();
             }else {
@@ -168,7 +150,7 @@ public class LoginActivity extends BaseActivity {
 
             }
         };
-        new Handler().postDelayed(runnable,milis);
+        new Handler().postDelayed(runnable,milis*4);
 
     }
 
@@ -202,6 +184,8 @@ public class LoginActivity extends BaseActivity {
                             startActivity(getIntent());
 
                         }
+
+
                     });
                 }
 

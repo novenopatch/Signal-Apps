@@ -114,6 +114,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     }
     private void clearEditText(){
         editTextSignalName.setText("");
+        
 
     }
 
