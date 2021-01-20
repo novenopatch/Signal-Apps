@@ -14,7 +14,6 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 import java.util.List;
@@ -166,29 +165,8 @@ public class LoginActivity extends BaseActivity {
                 if(!UserHelper.ifUserIsExist(getCurrentUser().getUid())){
                     this.createUserInFirestore();
 
-                    getCurrentUser().sendEmailVerification().addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // email sent
-                            FirebaseAuth.getInstance().signOut();
-                            //Toast.makeText(LoginActivity.this, "send Email Verification", Toast.LENGTH_LONG).show();
-                            showSnackBar(coordinatorLayout, "Verification Mail Send");
-                            finish();
-                        }
-                        else
-                        {
-                            // email not sent, so display message and restart the activity or do whatever you wish to do
-                            //restart this activity
-                            overridePendingTransition(0, 0);
-                            finish();
-                            overridePendingTransition(0, 0);
-                            startActivity(getIntent());
-
-                        }
-
-
-                    });
+                    getCurrentUser().sendEmailVerification();
                 }
-
             }
             showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
             startAppropriateActivity();
