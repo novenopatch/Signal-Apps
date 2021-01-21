@@ -58,23 +58,21 @@ public class LoginActivity extends BaseActivity {
         startAppropriateActivity();
         //checkIfEmailVerified();
     }
+    private void testUsers(){
+        if(modelCurrentUser!=null ){
 
-    public void startAppropriateActivity() {
+            if(!ifInternet()){
+                buttonLogin.setText("You are in offline.");
+            }
+            if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
+                buttonLogin.setEnabled(false);
+                if(modelCurrentUser.getDisable()){
+                    //TODO
+                    this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
 
-
-            if(modelCurrentUser!=null ){
-                if(!ifInternet()){
-                    buttonLogin.setText("You are in offline.");
-                }
-                if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
-                    buttonLogin.setEnabled(false);
-                    if(modelCurrentUser.getDisable()){
-                        //TODO
-                        this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
-
-                    }else{
-                        this.buttonLogin.setText("your account was delete.");
-                        //TODO
+                }else{
+                    this.buttonLogin.setText("your account was delete.");
+                    //TODO
                     /*
                         UserHelper.deleteAction(modelCurrentUser.getUid());
                         AuthUI.getInstance().delete(this).addOnSuccessListener(aVoid ->{
@@ -82,22 +80,27 @@ public class LoginActivity extends BaseActivity {
                             this.buttonLogin.setText("Can not access  to server");
                         });
                       */
-                    }
-                    Runnable runnable = () -> {
-
-                        progressBarC.setVisibility(View.GONE);
-                    };
-                    new Handler().postDelayed(runnable,milis *2);
                 }
-                else {
-                    startAppActivity();
-                }
+                Runnable runnable = () -> {
 
+                    progressBarC.setVisibility(View.GONE);
+                };
+                new Handler().postDelayed(runnable,milis );
+            }else {
+                startAppActivity();
             }
-            else {
+
+
+        }
+
+    }
+    public void startAppropriateActivity() {
+        if (this.isCurrentUserLogged()){
+            testUsers();
+            //this.startAppActivity();
+        } else {
             this.startSignInActivity();
-            }
-
+        }
 
     }
 
@@ -139,9 +142,8 @@ public class LoginActivity extends BaseActivity {
     }
     private void updateUIWhenResuming(){
         Runnable runnable = () -> {
-            this.buttonLogin.setText( isCurrentUserLogged()? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
             progressBarC.setVisibility(View.VISIBLE);
-
+            this.buttonLogin.setText( isCurrentUserLogged()? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
             if(isCurrentUserLogged()) {
                 startAppropriateActivity();
             }else {
@@ -149,7 +151,7 @@ public class LoginActivity extends BaseActivity {
 
             }
         };
-        new Handler().postDelayed(runnable,milis*4);
+        new Handler().postDelayed(runnable,milis);
 
     }
 

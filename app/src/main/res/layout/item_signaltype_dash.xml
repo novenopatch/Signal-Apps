@@ -66,14 +66,6 @@
                     android:layout_weight="1"
                     android:textColor="#FFF" />
 
-                <ImageView
-                    android:id="@+id/imageViewEditName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    app:srcCompat="@drawable/ic_baseline_edit_white_24"
-                    tools:ignore="VectorDrawableCompat" />
-
             </LinearLayout>
 
             <LinearLayout
