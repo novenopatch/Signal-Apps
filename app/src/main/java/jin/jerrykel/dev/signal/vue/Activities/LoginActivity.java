@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity {
     private static final int RC_SIGN_IN = 123;
     private CoordinatorLayout coordinatorLayout;
     private Button  buttonLogin;
-    private int milis = 2000;
+    private final int millis = 2000;
     ProgressBar progressBarC;
     private User modelCurrentUser;
 
@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity {
     public void login(View v){
 
         startAppropriateActivity();
-        //checkIfEmailVerified();
+
     }
     private void testUsers(){
         if(modelCurrentUser!=null ){
@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity {
 
                     progressBarC.setVisibility(View.GONE);
                 };
-                new Handler().postDelayed(runnable,milis );
+               // new Handler().postDelayed(runnable, millis);
             }else {
                 startAppActivity();
             }
@@ -124,7 +124,7 @@ public class LoginActivity extends BaseActivity {
                         .setTheme(R.style.LoginTheme)
                         .setAvailableProviders(providers)
                         .setIsSmartLockEnabled(false,true)
-                        .setLogo(R.drawable.ic_baseline_account_circle_white_24)
+                        .setLogo(R.mipmap.img_icone)
                         .build(),
                 RC_SIGN_IN);
     }
@@ -151,7 +151,7 @@ public class LoginActivity extends BaseActivity {
 
             }
         };
-        new Handler().postDelayed(runnable,milis);
+        new Handler().postDelayed(runnable, millis);
 
     }
 

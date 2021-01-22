@@ -86,9 +86,11 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
         holder.textViewSignalName.setText(model.getTypeSignalsName());
         holder.textViewSignalStatut.setText(model.getSignalStatus());
         if(model.getSellOrBuy().equals("Sell")){
-            holder.textViewSignalType.setTextColor(Color.GREEN);
+            //holder.textViewSignalType.setTextColor(Color.GREEN);
+            holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
         }else {
-            holder.textViewSignalType.setTextColor(Color.RED);
+            //holder.textViewSignalType.setTextColor(Color.RED);
+            holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
         }
         holder.textViewSignalType.setText(model.getSellOrBuy());
         holder.buttonEntryPrice.setText(model.getEntryPrice());
