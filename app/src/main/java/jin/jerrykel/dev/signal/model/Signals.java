@@ -20,6 +20,7 @@ public class Signals {
     private  @ServerTimestamp Date dateCreated;
     private String urlImage;
     private boolean active = true;
+    private boolean premium = false;
 
     public Signals() {
 
@@ -27,7 +28,7 @@ public class Signals {
 
     public Signals(String ui,String senderUii,String senderName, String typeSignalsName,
                    String signalStatus, String sellOrBuy, String entryPrice,
-                   String stopLoss, String takeProfit, String urlImage) {
+                   String stopLoss, String takeProfit, String urlImage,Boolean forPro) {
         this.UI = ui;
         this.senderUi  =senderUii;
         this.senderName = senderName;
@@ -38,10 +39,11 @@ public class Signals {
         this.stopLoss = stopLoss;
         this.takeProfit = takeProfit;
         this.urlImage = urlImage;
+        this.premium = forPro;
     }
 
     public Signals(String ui,String senderUii,String senderName,String typeSignalsName,
-                   String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit) {
+                   String signalStatus, String sellOrBuy, String entryPrice, String stopLoss, String takeProfit,Boolean forPro) {
         this.UI = ui;
         this.senderUi  =senderUii;
         this.senderName = senderName;
@@ -51,6 +53,7 @@ public class Signals {
         this.entryPrice = entryPrice;
         this.stopLoss = stopLoss;
         this.takeProfit = takeProfit;
+        this.premium = forPro;
 
     }
 
@@ -92,7 +95,9 @@ public class Signals {
     public void setActive(boolean active) {
         this.active = active;
     }
-
+    public void setPremium(boolean forPro) {
+        this.premium = forPro;
+    }
     public void setSenderName(String senderName) {
         this.senderName = senderName;
     }
@@ -129,11 +134,15 @@ public class Signals {
     public boolean isActive() {
         return active;
     }
-
     public String getSenderName() {
         return senderName;
     }
     public String getUI() {
         return UI;
     }
+    public boolean isPremium() {
+        return premium;
+    }
+
+
 }

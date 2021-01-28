@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -16,10 +18,13 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.controler.Controler;
+import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.Activities.Main.MainActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
@@ -33,6 +38,10 @@ public class LoginActivity extends BaseActivity {
     private final int millis = 2000;
     ProgressBar progressBarC;
     private User modelCurrentUser;
+    private Controler controler;
+    public static InfomationAppUser infomationAppUser = new InfomationAppUser(new Date());
+
+
 
 
     @Override
@@ -47,10 +56,31 @@ public class LoginActivity extends BaseActivity {
     }
     @Override
     public void initView(){
+        LinearLayout linearLayout = findViewById(R.id.linearLayoutContent);
+
 
         coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
         buttonLogin =  findViewById(R.id.buttonLogin);
         progressBarC = findViewById(R.id.progressBarC);
+
+       controler = Controler.getInstance(this);
+       controler.getManager().insertInformation(infomationAppUser);
+       InfomationAppUser infomationAppUserR = controler.getManager().getInformation();
+       if(infomationAppUserR!=null && infomationAppUserR.isFirstLaunch()){
+           startLicenceActivity();
+       }
+
+        Runnable runnable = () -> {
+            linearLayout.setVisibility(View.VISIBLE);
+
+        };
+        new Handler().postDelayed(runnable, millis/3);
+    }
+
+    private void startLicenceActivity(){
+        Intent intent = new Intent(getApplicationContext(), LicenceAccepteActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void login(View v){
@@ -61,17 +91,16 @@ public class LoginActivity extends BaseActivity {
     private void testUsers(){
         if(modelCurrentUser!=null ){
 
-            if(!ifInternet()){
-                buttonLogin.setText("You are in offline.");
-            }
+
             if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
                 buttonLogin.setEnabled(false);
+                progressBarC.setVisibility(View.VISIBLE);
                 if(modelCurrentUser.getDisable()){
                     //TODO
-                    this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
+                    //this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
 
                 }else{
-                    this.buttonLogin.setText("your account was delete.");
+                    //this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
                     //TODO
                     /*
                         UserHelper.deleteAction(modelCurrentUser.getUid());
@@ -82,10 +111,10 @@ public class LoginActivity extends BaseActivity {
                       */
                 }
                 Runnable runnable = () -> {
-
                     progressBarC.setVisibility(View.GONE);
+                    this.buttonLogin.setText("We are sorry,Can not access  to WTG group server.");
                 };
-               // new Handler().postDelayed(runnable, millis);
+                new Handler().postDelayed(runnable, millis/2);
             }else {
                 startAppActivity();
             }
@@ -94,7 +123,8 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
-    public void startAppropriateActivity() {
+
+    private void startAppropriateActivity() {
         if (this.isCurrentUserLogged()){
             testUsers();
             //this.startAppActivity();
@@ -102,6 +132,9 @@ public class LoginActivity extends BaseActivity {
             this.startSignInActivity();
         }
 
+    }
+    private void startAppropriateActivity(Boolean bool) {
+        testUsers();
     }
 
     private void startAppActivity(){
@@ -142,15 +175,24 @@ public class LoginActivity extends BaseActivity {
     }
     private void updateUIWhenResuming(){
         Runnable runnable = () -> {
+
             progressBarC.setVisibility(View.VISIBLE);
-            this.buttonLogin.setText( isCurrentUserLogged()? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+            Log.d("progressBarC","2 OnResume(Visible)");
             if(isCurrentUserLogged()) {
-                startAppropriateActivity();
+                this.buttonLogin.setText(getString(R.string.button_login_text_logged));
+                if(!ifInternet()){
+                    buttonLogin.setText("You are in offline.");
+                }
+                progressBarC.setVisibility(View.GONE);
+                startAppropriateActivity(true);
             }else {
                 progressBarC.setVisibility(View.GONE);
+                Log.d("progressBarC"," OnResume(InVisible)");
+                this.buttonLogin.setText(getString(R.string.button_login_text_not_logged));
 
             }
         };
+
         new Handler().postDelayed(runnable, millis);
 
     }

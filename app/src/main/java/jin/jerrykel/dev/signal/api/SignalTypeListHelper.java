@@ -35,9 +35,9 @@ public class SignalTypeListHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createSignalType(String ui,String senderName,String name){
+    public static Task<Void> createSignalType(String ui,String senderName,String name,Boolean premium){
         String uuid = UUID.randomUUID().toString();
-        TypeSignals typeSignals = new TypeSignals(uuid,ui,senderName,name);
+        TypeSignals typeSignals = new TypeSignals(uuid,ui,senderName,name,premium);
 
         return getSignalTypeListCollection().document(uuid).set(typeSignals);
     }

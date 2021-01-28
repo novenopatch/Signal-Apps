@@ -11,45 +11,19 @@
     <string name="button_login_text_not_logged">you are not connected</string>
 
     <string name="error_unknown_error">"error unknown "</string>
-
-
-    <!-- LOGIN ACTIVITY -->
-    <string name="toolbar_title_login_activity">Votre Profil</string>
-    <string name="text_input_username">Nom d\'utilisateur</string>
-    <string name="text_view_email">Adresse email :</string>
-    <string name="button_update_account">Mettre à jour le nom d\'utilisateur</string>
-    <string name="button_delete_account">Supprimer mon compte</string>
-    <string name="button_sign_out_account">Déconnexion</string>
     <string name="info_no_email_found">email not found</string>
     <string name="info_no_username_found">username not found</string>
-    <string name="popup_message_confirmation_delete_account">Es-tu sûr(e) de vouloir supprimer ton compte ?</string>
     <string name="popup_message_choice_no">No</string>
     <string name="popup_message_choice_yes">Yes</string>
-    <string name="check_box_is_mentor">Etes-vous un mentor ?</string>
-
-
-    <!-- MENTOR_CHAT ACTIVITY -->
-    <string name="toolbar_title_mentor_chat_activity">Chats de discussions</string>
-    <string name="text_input_title_mentor_chat_activity">Composer votre message</string>
-    <string name="button_title_mentor_chat_activity">ENVOYER</string>
-    <string name="text_view_mentor_chat_error">Ce fil de discussion ne contient pour le moment aucun message&#8230;</string>
-    <string name="popup_title_permission_files_access">Cette application a besoin de permission pour fonctionner.</string>
-    <string name="toast_title_no_image_chosen">Aucune image choisie&#8230;</string>
-
-
-    <string name="chat_with_mentor">Discute avec un mentor</string>
-    <string name="login_activity_description">description de l\'application</string>
+    <string name="login_activity_description">Application description </string>
     <string name="error_authentication_canceled">cancel</string>
     <string name="SUCCESS">SUCCESS</string>
     <string name="error_no_internet">no connection</string>
     <string name="connection_succeed">connection succed</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="notification_title">"Vous avez reçu une notification"</string>
-    <string name="title_activity_main2">MainActivity</string>
+    <string name="notification_title">"You have receive new Signal "</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -59,13 +33,14 @@
     <string name="settings">Settings</string>
     <string name="account">Account</string>
     <string name="about">About</string>
-    <string name="Payement">Payement</string>
     <string name="Payment">Payment</string>
     <string name="theme">Theme</string>
     <string name="help">Help</string>
-    <string name="notification">Notificaation</string>
+    <string name="notification">Notification</string>
+    <string name="notificationWtf_group">You have new notification from WTF Group</string>
+    <string name="notificationW">You have new notification click to view in WTF Signal</string>
 
-    <string name="title_activity_m">MActivity</string>
+
 
     <string name="log_out">Log out</string>
     <string name="signal">Signals</string>
@@ -84,6 +59,15 @@
     <string name="name">Name</string>
     <string name="your_autentification_email">Your autentification email</string>
     <string name="enter_signal_type_name">enter Signal type name</string>
+    <string name="licence_bla_part1_1">Read our</string>
+    <string name="licence_bla_part1_2">Privacy Policy</string>
+    <string name="licence_bla_part1_3">Tap "Agree and continue" to</string>
+    <string name="licence_bla_part2_1">accept the</string>
+    <string name="licence_bla_part2_2">Terms of Service</string>
+    <string name="agree_and_continue">AGREE AND CONTINUE</string>
+    <string name="welcome_to_wtf_signals">Welcome to WTF Signals</string>
+    <string name="from_n_woezon_trade">From \n WOEZON TRADE</string>
+    <string name="popup_title_permission_files_access">up_title_permission_files_acces</string>
 
     <string-array name="configSpinner">
         <item>All</item>

@@ -20,8 +20,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="@dimen/default_large_margin"
-            android:background="@mipmap/img_icone" />
+            android:background="@mipmap/img_icone_round" />
 
         <!-- TITLE FIREBASE OC -->
         <TextView
@@ -47,12 +48,14 @@
 
         <!-- BUTTONS CONTAINER -->
         <LinearLayout
+            android:id="@+id/linearLayoutContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/default_large_margin"
             android:gravity="bottom"
             android:orientation="vertical"
-            android:textColor="#fff">
+            android:textColor="#fff"
+            android:visibility="invisible">
 
             <!-- BUTTON LOGIN -->
             <Button

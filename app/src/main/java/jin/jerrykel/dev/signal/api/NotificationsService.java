@@ -20,8 +20,8 @@ import jin.jerrykel.dev.signal.vue.Activities.LoginActivity;
  * Created by JerrykelDEV on 29/11/2020 10:31
  */
 public class NotificationsService   extends FirebaseMessagingService {
-    private final int NOTIFICATION_ID = 007;
-    private final String NOTIFICATION_TAG = "FIREBASEOC";
+    private final int NOTIFICATION_ID = 00731;
+    private final String NOTIFICATION_TAG = "OneSignal";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -64,7 +64,7 @@ public class NotificationsService   extends FirebaseMessagingService {
 
         // 6 - Support Version >= Android 8
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence channelName = "Message provenant de Firebase";
+            CharSequence channelName = getString(R.string.notificationWtf_group);
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(channelId, channelName, importance);
             notificationManager.createNotificationChannel(mChannel);

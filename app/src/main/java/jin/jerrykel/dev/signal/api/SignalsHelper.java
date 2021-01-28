@@ -42,15 +42,19 @@ public class SignalsHelper {
 
         return  getSignalCollection().whereEqualTo("sellOrBuy",config).orderBy("dateCreated");
     }
+    public static Query getAllSignalFreeOrPremium(Boolean config){
+
+        return  getSignalCollection().whereEqualTo("premium",config).orderBy("dateCreated");
+    }
 
 
     // --- CREATE ---
 
     public static Task<Void> createSignal(String ui,String name, String typeSignals, String signalStatus, String sellOrBuy, String entryPrice,
-                                                       String stopLoss, String takeProfit){
+                                                       String stopLoss, String takeProfit,Boolean premium){
         String uuid = UUID.randomUUID().toString();
 
-        Signals signals = new Signals(uuid,ui,name,typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit);
+        Signals signals = new Signals(uuid,ui,name,typeSignals,signalStatus,sellOrBuy,entryPrice,stopLoss,takeProfit,premium);
         return getSignalCollection().document(uuid).set(signals);
     }
     //Update

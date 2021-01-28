@@ -14,23 +14,25 @@ public class TypeSignals {
     private String name;
     private String urlImage;
     private   Date dateCreated;
+    private boolean premium = false;
 
     public TypeSignals() {
 
     }
-    public TypeSignals(String ui,String senderUii,String senderName,String name, String urlImage) {
+    public TypeSignals(String ui,String senderUii,String senderName,String name, String urlImage,Boolean forPro) {
         this.UI = ui;
         this.senderUi  =senderUii;
         this.senderName = senderName;
         this.name = name;
         this.urlImage = urlImage;
+        this.premium = forPro;
     }
-    public TypeSignals(String ui,String senderUii,String senderName,String name) {
+    public TypeSignals(String ui,String senderUii,String senderName,String name,Boolean forPro) {
         this.UI = ui;
         this.name = name;
         this.senderUi  =senderUii;
         this.senderName = senderName;
-
+        this.premium = forPro;
 
     }
 
@@ -52,7 +54,9 @@ public class TypeSignals {
     public String getSenderUi() {
         return senderUi;
     }
-
+    public boolean isPremium() {
+        return premium;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -69,6 +73,7 @@ public class TypeSignals {
     public void setSenderUi(String senderUi) {
         this.senderUi = senderUi;
     }
-
-
+    public void setPremium(boolean premium) {
+        this.premium = premium;
+    }
 }

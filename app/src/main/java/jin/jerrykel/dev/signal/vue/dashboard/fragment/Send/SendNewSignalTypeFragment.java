@@ -101,7 +101,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     private void onClickSendMessage() {
         if( !editTextSignalName.getText().toString().isEmpty() && modelCurrentUser.getMentor()){
             SignalTypeListHelper.createSignalType( modelCurrentUser.getUid(), modelCurrentUser.getUsername(), editTextSignalName.getText().toString()
-            ).addOnSuccessListener(documentReference -> {
+            ,false).addOnSuccessListener(documentReference -> {
                 signalsTypeAdapterDash.notifyDataSetChanged();
                 clearEditText();
             })

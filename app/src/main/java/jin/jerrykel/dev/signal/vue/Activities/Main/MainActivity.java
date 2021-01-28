@@ -27,7 +27,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.ServiceGetSignal;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.AlertFragment;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.ProfileFragment;
 import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.SignalFragment;
@@ -40,11 +42,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private TabLayout tabs;
     private ViewPager pager;
 
-    private SignalFragment signalFragment = SignalFragment.newInstance();
-    private AlertFragment alertFragment = AlertFragment.newInstance();
-    private ProfileFragment  profileFragment = ProfileFragment.newInstance();
+    private SignalFragment signalFragment ;
+    private AlertFragment alertFragment ;
+    private ProfileFragment  profileFragment ;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private   boolean connectionState;
+    private Controler controler;
 
 
 
@@ -57,10 +61,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
     @Override
     public void initView(){
+        connectionState = ifInternet();
+        controler = Controler.getInstance(this);
+        signalFragment = SignalFragment.newInstance(connectionState,controler);
+         alertFragment = AlertFragment.newInstance();
+         profileFragment = ProfileFragment.newInstance();
         configureDrawerLayout();
         configureNavigationView();
         configureToolbarButon();
         configureViewPagerAndTabs();
+        startService(new Intent(this, ServiceGetSignal.class));
 
     }
     //@Override

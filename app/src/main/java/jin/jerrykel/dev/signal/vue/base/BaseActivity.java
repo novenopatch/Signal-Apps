@@ -37,8 +37,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayout());
-
-
         this.initView();
 
     }
@@ -60,11 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             FirebaseUser currentUser1 =firebaseAuth.getCurrentUser();
             if(currentUser1 != null){
                 isLogin = true;
-                UserHelper.getUser(currentUser1.getUid()
-                ).addOnSuccessListener(
-                        documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
-                );
-
                 //updateUI(currentUser);
             }else {
                 isLogin = false;
@@ -92,6 +85,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return isLogin;
     }
+    protected void getCurrentUserFromFirestore(){
+        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(
+                documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
+        );
+    }
+    protected User getCurrentUserFromFirestoreReload(){
+        getCurrentUser().reload().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                if (getCurrentUser() != null){
+                    UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(
+                            documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
+                    );
+                }
+
+            }
+        });
+        return modelCurrentUser;
+    }
     protected abstract int getLayout();
     protected abstract void initView();
 
@@ -102,26 +113,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
     }
 
-    protected void getCurrentUserFromFirestore(){
-        UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(
-                documentSnapshot -> modelCurrentUser = documentSnapshot.toObject(User.class)
-        );
-    }
 
-
-    protected User updateUIWhenCreatingBase(){
-
-
-        if (getCurrentUser() != null){
-
-            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
-                modelCurrentUser = documentSnapshot.toObject(User.class);
-
-            });
-
-
-        }
-        return modelCurrentUser;
-    }
 
 }

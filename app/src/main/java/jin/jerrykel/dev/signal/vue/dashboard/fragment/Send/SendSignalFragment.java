@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -22,15 +23,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
 import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.Signals;
-import jin.jerrykel.dev.signal.model.TypeSignals;
+import jin.jerrykel.dev.signal.utils.Utils;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.Adapters.SignalsAdapterDash;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -64,6 +63,8 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     private LinearLayout linearLayoutEdit;
     private ImageButton imageViewCero;
     private boolean  linearLayoutEditVisible = false;
+    private boolean switchPremiumBool = false;
+    private Switch switchPremium;
 
 
     private SignalsAdapterDash signalsAdapterDash;
@@ -91,7 +92,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     @Override
     public void initView() {
        // this.getCurrentUserFromFirestore();
-        stringArrayList = getTypeSignalsString();
+        stringArrayList = Utils.getTypeSignalsString();
        recyclerViewSignal = rootView.findViewById(R.id.recyclerViewSignal);
         textViewRecyclerViewEmpty = rootView.findViewById(R.id.fragment_signal_not_found_textView);
         floatingActionButtonSend =rootView.findViewById(R.id.floatingActionButtonSend);
@@ -105,6 +106,17 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
         editTextTakeProfit  = rootView.findViewById(R.id.editTextTakeProfit);
         linearLayoutEdit = rootView.findViewById(R.id.linearLayoutEdit);
         imageViewCero = rootView.findViewById(R.id.imageViewCero);
+        switchPremium = rootView.findViewById(R.id.switchPremium);
+        switchPremium.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                switchPremiumBool= true;
+                buttonView.setText("Is Premium Signal");
+            }
+            else {
+                switchPremiumBool = false;
+                buttonView.setText("Is not Premium Signal");
+            }
+        });
         imageViewCero.setOnClickListener(v -> {
             if(!linearLayoutEditVisible){
                 linearLayoutEditVisible = true;
@@ -121,31 +133,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
         initListener();
     }
 
-    private ArrayList<String> getTypeSignalsString(){
-        String TAG = "getTypeSignalsString()";
-        ArrayList<String> stringArrayList = new ArrayList<>();
-        SignalTypeListHelper.getAllSignalTypeSent().get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
 
-
-                    TypeSignals typeSignals = document.toObject(TypeSignals.class);
-                    stringArrayList.add(typeSignals.getName());
-                    //Log.d(TAG, document.getId() + " => " + document.getData());
-                }
-            } else {
-                stringArrayList.add("type signal");
-                //Log.d(TAG, "Error getting documents: ", task.getException());
-            }
-        });
-
-        if(stringArrayList.size()<=1){
-            stringArrayList.add("type signal");
-        }
-
-
-        return stringArrayList;
-    }
     private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
@@ -201,7 +189,8 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
                     (String) spinnerSignalType.getSelectedItem(),
                     editTextEntryPrice.getText().toString(),
                     ediTextStopLoss.getText().toString(),
-                    editTextTakeProfit.getText().toString()
+                    editTextTakeProfit.getText().toString(),
+                    switchPremiumBool
             ).addOnSuccessListener(documentReference -> {
                 clearEditText();
             }).addOnFailureListener(this.onFailureListener(coordinatorLayout,"error"));

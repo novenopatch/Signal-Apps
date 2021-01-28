@@ -1,11 +1,8 @@
 package jin.jerrykel.dev.signal.controler;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.content.Context;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import jin.jerrykel.dev.signal.utils.DatabaseManager;
 
 /**
  * Created by JerrykelDEV on 23/11/2020 13:49
@@ -13,6 +10,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Controler {
     //intialise property
     private static Controler instance = null;
+    private static  DatabaseManager manager;
     private Controler(){
         super();
     }
@@ -20,17 +18,16 @@ public class Controler {
      * création de l'instance
      * @return Controler.instance
      */
-    public static Controler getInstance(){
+    public static Controler getInstance(Context context){
 
         if(Controler.instance == null){
             Controler.instance = new Controler();
+          manager = new  DatabaseManager(context);
         }
         return  Controler.instance;
     }
 
-
-
-
-
-
+    public  DatabaseManager getManager() {
+        return manager;
+    }
 }

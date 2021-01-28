@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
 import jin.jerrykel.dev.signal.api.SignalsHelper;
+import jin.jerrykel.dev.signal.controler.Controler;
+import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.Signals;
-import jin.jerrykel.dev.signal.model.TypeSignals;
+import jin.jerrykel.dev.signal.utils.DatabaseManager;
+import jin.jerrykel.dev.signal.utils.Utils;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 
@@ -38,6 +39,13 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
 
 
     private SignalsAdapter mentorChatAdapter;
+
+    private static int lastItemNbr =0;
+    private static Boolean connetionState;
+    private static  Controler localControler;
+    private static DatabaseManager manager;
+    private static InfomationAppUser infomationAppUser;
+
     
     
 
@@ -48,18 +56,28 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     }
 
 
-    public static SignalFragment newInstance() {
+    public static SignalFragment newInstance(boolean connectionStatep, Controler controler) {
         SignalFragment fragment = new SignalFragment();
+        connetionState = connectionStatep;
+        localControler = controler;
+        manager= localControler.getManager();
+        infomationAppUser = manager.getInformation();
+        lastItemNbr = infomationAppUser.getLastSignalNbr();
         return fragment;
     }
 
 
     @Override
     public void initView( ){
-        stringArrayList = getTypeSignalsString();
+        stringArrayList = Utils.getTypeSignalsString();
         recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
         textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.fragment_signal_not_found_textView);
-        this.configureRecyclerView();
+        if(infomationAppUser.getLastSignalName() ==null){
+            this.configureRecyclerView();
+        }else {
+            this.configureRecyclerView(infomationAppUser.getLastSignalName());
+        }
+
 
         initgraph();
 
@@ -70,7 +88,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     private void configureRecyclerView(){
 
         //Configure Adapter & RecyclerView
-        this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()), Glide.with(this), this);
+        this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()), Glide.with(this), this,modelCurrentUser);
         mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -83,7 +101,8 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     private void configureRecyclerViewSpinnerForName(String config){
 
         //Configure Adapter & RecyclerView
-        this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSignalName(config)), Glide.with(this), this);
+        infomationAppUser.setLastSignalName(config);
+        this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSignalName(config)), Glide.with(this), this,modelCurrentUser);
         mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -97,21 +116,21 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     private void configureRecyclerView(String config){
         switch (config){
             case "Active":
-                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this);
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this,modelCurrentUser);
                 break;
 
 
             case  "Ready":
-                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this);
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this,modelCurrentUser);
                 break;
             case  "Buy":
-                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSellOrBuy(config)), Glide.with(this), this);
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSellOrBuy(config)), Glide.with(this), this,modelCurrentUser);
                 break;
             case  "Sell":
-                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSellOrBuy(config)), Glide.with(this), this);
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSellOrBuy(config)), Glide.with(this), this,modelCurrentUser);
                 break;
             case "All":
-                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()), Glide.with(this), this);
+                this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()), Glide.with(this), this,modelCurrentUser);
                 break;
             default:
 
@@ -179,31 +198,6 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
             }
         });
     }
-    private   ArrayList<String> getTypeSignalsString(){
-        String TAG = "getTypeSignalsString()";
-        ArrayList<String> stringArrayList = new ArrayList<>();
-        SignalTypeListHelper.getAllSignalTypeSent().get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-
-
-                    TypeSignals typeSignals = document.toObject(TypeSignals.class);
-                    stringArrayList.add(typeSignals.getName());
-                    //Log.d(TAG, document.getId() + " => " + document.getData());
-                }
-            } else {
-                stringArrayList.add("type signal");
-                //Log.d(TAG, "Error getting documents: ", task.getException());
-            }
-        });
-
-        if(stringArrayList.size()<=1){
-            stringArrayList.add("type signal");
-        }
-
-
-        return stringArrayList;
-    }
 
 
 
@@ -218,7 +212,20 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     @Override
     public void onDataChanged() {
         textViewRecyclerViewEmpty.setVisibility(this.mentorChatAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if(connetionState){
+            if(lastItemNbr<mentorChatAdapter.getItemCount()){
+                lastItemNbr =mentorChatAdapter.getItemCount();
+                infomationAppUser.setLastSignalNbr(lastItemNbr);
+                Utils.sendVisualNotification("OneSignal",Utils.getString(R.string.notificationW,context),context);
+            }
+        }
+
+
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        manager.updateInformation(infomationAppUser);
+    }
 }

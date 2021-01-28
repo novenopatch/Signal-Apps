@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorPrimary"
    >
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
 
-        <LinearLayout
-            android:id="@+id/linearLayoutProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingBottom="10dp">
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:paddingLeft="62dp"
+            android:text="Main setting"
+            android:textColor="@color/grey_500" />
 
-            <ImageView
-                android:id="@+id/img_profile"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_baseline_account_box_white_24" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:id="@+id/profile_activity_edit_text_username"
-
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-
-                    android:id="@+id/profile_activity_text_view_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/divider"
+        <ProgressBar
+            android:id="@+id/progressBarAccount"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/buttonUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_perm_identity_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:onClick="linearLayoutOnclick"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Your Username"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/buttonEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_person_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:onClick="linearLayoutOnclick"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Your email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff" />
+
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:checked="true"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="62dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Notification"
+            android:textColor="#fff"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <LinearLayout
             android:id="@+id/linearLayoutAccount"
@@ -82,177 +83,35 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:onClick="linearLayoutOnclick"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
             android:paddingRight="@dimen/dimen_20dp"
             android:paddingBottom="10dp">
 
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_account_circle_white_24" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginTop="10dp"
-                    android:maxLines="1"
-                    android:text="Account"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="Privacy, Payement, Add"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <Button
+                android:id="@+id/buttonAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_baseline_account_circle_white_24"
+                android:drawablePadding="@dimen/dimen_20dp"
+                android:fontFamily="sans-serif"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/dimen_20dp"
+                android:paddingRight="@dimen/dimen_20dp"
+                android:text="Account"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#fff" />
+
+            <ImageView
+                android:id="@+id/imageViewDashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:gravity="right"
-                android:orientation="horizontal">
+                android:padding="5dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_baseline_dashboard_black_24"
+                tools:ignore="VectorDrawableCompat" />
 
-                <ImageView
-                    android:id="@+id/imageViewDashboard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:visibility="invisible"
-                    app:srcCompat="@drawable/ic_baseline_dashboard_black_24"
-                    tools:ignore="VectorDrawableCompat" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutHelp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:onClick="linearLayoutOnclick"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingBottom="10dp">
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_help_white_24" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:maxLines="1"
-                    android:text="Help"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="FAQ, contact us, privacy policy"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutAbout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:onClick="linearLayoutOnclick"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingBottom="10dp">
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_info_white_24" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:maxLines="1"
-                    android:text="About"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="Open sources library, licence"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-
-                <View
-
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="?android:attr/listDivider" />
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -262,71 +121,148 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-        <LinearLayout
-            android:id="@+id/linearLayoutInvite"
+
+        <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:paddingLeft="62dp"
+            android:text="Privacy"
+            android:textColor="@color/grey_500" />
+
+        <Button
+            android:id="@+id/buttonPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_assignment_privacy_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingRight="@dimen/dimen_20dp">
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Privacy policy"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff" />
 
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_share_white_24" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginLeft="10dp"
-
-
-                android:text="Invite a friend"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linearLayoutINC"
+        <Button
+            android:id="@+id/buttonTermsOfService"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_20dp"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_description_terms_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
             android:onClick="linearLayoutOnclick"
-            android:orientation="vertical"
-            android:paddingTop="10dp">
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Terms of service"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff" />
+        <View
+            android:id="@+id/dividero"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="From"
-                android:textColor="@android:color/white" />
+        <TextView
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="WOEZON TRADE"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:paddingLeft="62dp"
+            android:text="Others"
+            android:textColor="@color/grey_500" />
+
+        <Button
+            android:id="@+id/buttonRateApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_grade_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:onClick="linearLayoutOnclick"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Rate app"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/buttonInviteFriend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_share_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:onClick="linearLayoutOnclick"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Invite a friend"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/buttonOpenSourceLicence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_import_contacts_open_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:onClick="linearLayoutOnclick"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Open source licences"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/buttonVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_baseline_info_version_white_24"
+            android:drawablePadding="@dimen/dimen_20dp"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center_vertical"
+            android:onClick="linearLayoutOnclick"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text="Version"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#fff" />
+
+        <View
+            android:id="@+id/dividerop"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:background="@color/colorPrimary"
+            android:enabled="false"
+            android:onClick="linearLayoutOnclick"
+            android:text="From \n WOEZON TRADE"
+            android:textColor="#fff" />
+
     </LinearLayout>
 
+
+
+
 </ScrollView>
-
-
-</LinearLayout>

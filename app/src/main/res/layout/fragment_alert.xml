@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="10dp"
-                android:text="Choise your plan"
+                android:text="Choose your plan"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

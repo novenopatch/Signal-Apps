@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 
@@ -52,12 +53,18 @@ public class ProfileFragment extends BaseFragment {
 
         if (getCurrentUser() != null){
 
-             username = getCurrentUser().getDisplayName();
-             email = getCurrentUser().getEmail();
+            UserHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                User currentUser = documentSnapshot.toObject(User.class);
+                username = currentUser.getUsername();
+                email = currentUser.getEmail();
 
-            this.textViewEmail.setText(email);
+                this.textViewEmail.setText(email);
 
-            editTextUsername.setText(username);
+                editTextUsername.setText(username);
+
+            });
+
+
         }
     }
     private void setButtonUpdate(){
@@ -69,14 +76,17 @@ public class ProfileFragment extends BaseFragment {
                         !usernameN.isEmpty() && !usernameN.equals(username) && !usernameN.equals(getString(R.string.info_no_username_found))
                 ){
                     progressBar.setVisibility(View.VISIBLE);
+                    buttonUpdate.setEnabled(false);
                     UserHelper.updateUsername(usernameN,
                             getCurrentUser().getUid()).addOnFailureListener(
                             e -> {
                                 //TODO
                             }
                     ).addOnSuccessListener(aVoid -> {
+
                         editTextUsername.setText(usernameN);
                         progressBar.setVisibility(View.INVISIBLE);
+                        buttonUpdate.setEnabled(true);
                     });
                 }
             }
