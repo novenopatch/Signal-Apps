@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20dp"
             android:paddingLeft="62dp"
-            android:text="Main setting"
+            android:text="@string/main_setting"
             android:textColor="@color/grey_500" />
 
         <ProgressBar
@@ -42,7 +42,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Your Username"
+            android:text="@string/your_username"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff" />
 
@@ -58,7 +58,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Your email"
+            android:text="@string/your_email"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff" />
 
@@ -72,7 +72,7 @@
             android:fontFamily="sans-serif"
             android:paddingLeft="62dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Notification"
+            android:text="@string/notification"
             android:textColor="#fff"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -98,7 +98,7 @@
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/dimen_20dp"
                 android:paddingRight="@dimen/dimen_20dp"
-                android:text="Account"
+                android:text="@string/account"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#fff" />
 
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20dp"
             android:paddingLeft="62dp"
-            android:text="Privacy"
+            android:text="@string/privacy"
             android:textColor="@color/grey_500" />
 
         <Button
@@ -143,7 +143,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Privacy policy"
+            android:text="@string/privacy_policy"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff" />
 
@@ -159,7 +159,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Terms of service"
+            android:text="@string/terms_of_service"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff" />
         <View
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20dp"
             android:paddingLeft="62dp"
-            android:text="Others"
+            android:text="@string/others"
             android:textColor="@color/grey_500" />
 
         <Button
@@ -189,7 +189,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Rate app"
+            android:text="@string/rate_app"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff"
             android:textStyle="normal" />
@@ -206,7 +206,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Invite a friend"
+            android:text="@string/invite_a_friend"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff" />
 
@@ -222,7 +222,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Open source licences"
+            android:text="@string/open_source_licences"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff"
             android:textStyle="normal" />
@@ -239,7 +239,7 @@
             android:onClick="linearLayoutOnclick"
             android:paddingLeft="@dimen/dimen_20dp"
             android:paddingRight="@dimen/dimen_20dp"
-            android:text="Version"
+            android:text="@string/version"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff" />
 
@@ -257,7 +257,7 @@
             android:background="@color/colorPrimary"
             android:enabled="false"
             android:onClick="linearLayoutOnclick"
-            android:text="From \n WOEZON TRADE"
+            android:text="@string/from_n_woezon_trade"
             android:textColor="#fff" />
 
     </LinearLayout>

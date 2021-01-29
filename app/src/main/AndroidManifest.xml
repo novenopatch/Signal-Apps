@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".vue.Activities.LicenceAccepteActivity"></activity>
-        <activity android:name=".vue.Activities.OpenSourceActivity" />
+        <activity android:name=".vue.Activities.settings.road.OpenSourceActivity" />
         <activity
             android:name=".vue.Activities.LoginActivity"
             android:theme="@style/LoginTheme">
@@ -36,18 +36,6 @@
             android:label="@string/account"
             android:parentActivityName=".vue.Activities.settings.SettingActivity" />
         <activity
-            android:name=".vue.Activities.settings.road.AboutActivity"
-            android:label="@string/about"
-            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
-        <activity
-            android:name=".vue.Activities.settings.road.PayActivity"
-            android:label="@string/Payment"
-            android:parentActivityName=".vue.Activities.settings.road.AccountActivity" />
-        <activity
-            android:name=".vue.Activities.settings.road.HelpActivity"
-            android:label="@string/help"
-            android:parentActivityName=".vue.Activities.settings.SettingActivity" />
-        <activity
             android:name=".vue.dashboard.DashboardActivity"
             android:parentActivityName=".vue.Activities.settings.SettingActivity"
             android:theme="@style/MainTheme" />
@@ -59,7 +47,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:name=".api.ServiceGetSignal"
+            >
+        </service>
+        <receiver android:name=".api.ServerBroadcastReceiver">
 
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 

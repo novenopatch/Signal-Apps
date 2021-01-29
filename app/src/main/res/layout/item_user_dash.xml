@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Name:"
+                    android:text="@string/name"
                     android:textColor="#FFF"/>
 
                 <TextView
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Email:"
+                    android:text="@string/email"
                     android:textColor="#FFF"/>
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Date acount created"
+                    android:text="@string/date_account_created"
                     android:textColor="#FFF"/>
 
                 <TextView
@@ -100,8 +100,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="User enable"
-                    android:textColor="#FFF"/>
+                    android:text="@string/user_enable"
+                    android:textColor="#FFF"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <ImageButton
                     android:id="@+id/imageButtonDelete"
@@ -120,8 +121,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Make user Mentor"
-                android:textColor="#FFF"/>
+                android:text="@string/make_user_mentor"
+                android:textColor="#FFF"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

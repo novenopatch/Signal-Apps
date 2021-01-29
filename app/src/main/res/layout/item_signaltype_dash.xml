@@ -33,8 +33,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#FFF"
-                    tools:text="SenderName" />
+                    android:text="@string/sendername"
+                    android:textColor="#FFF" />
 
                 <TextView
                     android:id="@+id/textViewUserName"
@@ -56,8 +56,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#FFF"
-                    tools:text="Signal Name" />
+                    android:text="@string/signal_name"
+                    android:textColor="#FFF" />
 
                 <TextView
                     android:id="@+id/textViewSignalName"
@@ -79,8 +79,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#FFF"
-                    tools:text="Date send" />
+                    android:text="@string/date_send"
+                    android:textColor="#FFF" />
 
                 <TextView
                     android:id="@+id/textViewDateSend"
@@ -96,8 +96,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="3dp">
+
+                <Switch
+                    android:id="@+id/switchIsPremiumType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/is_not_premium_signal_type"
+                    android:textColor="#fff"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <ImageButton
                     android:id="@+id/imageButtonDelete"
@@ -106,7 +115,9 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/ic_baseline_delete_forever_white_24"
-                    tools:ignore="VectorDrawableCompat" />
+                    tools:ignore="VectorDrawableCompat"
+                    android:contentDescription="@string/delete" />
+
             </LinearLayout>
 
             <ProgressBar
@@ -117,8 +128,7 @@
                 android:layout_marginTop="3dp"
                 android:indeterminate="true"
                 android:padding="3dp"
-                android:visibility="invisible"
-                />
+                android:visibility="invisible" />
 
 
         </LinearLayout>

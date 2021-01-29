@@ -55,6 +55,7 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
         Button buttonTakeProfit;
         Button buttonReadMore;
         ImageView imageViewSend;
+        Switch switchIsPremiumType;
 
         Switch switchActiveOrReady;
         ImageButton imageButtonDelete;
@@ -81,6 +82,7 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
             this.imageButtonDelete = superView.findViewById(R.id.imageButtonDelete);
             this.switchActiveOrReady = superView.findViewById(R.id.switchActiveOrReady);
             this.progressBar = superView.findViewById(R.id.progressBar);
+            this.switchIsPremiumType = superView.findViewById(R.id.switchIsPremium);
 
 
 
@@ -123,6 +125,13 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
         holder.buttonEntryPrice.setText(model.getEntryPrice());
         holder.buttonStopLoss.setText(model.getStopLoss());
         holder.buttonTakeProfit.setText(model.getTakeProfit());
+        if(model.isPremium()){
+            holder.switchIsPremiumType.setText(Utils.getString(R.string.is_premium_signal,holder.imageButtonDelete.getContext()));
+        }
+        else {
+            holder.switchIsPremiumType.setText(Utils.getString(R.string.is_not_premium_signal,holder.imageButtonDelete.getContext()));
+
+        }
         if(model.getUrlImage()!=null){
             holder.buttonReadMore.setOnClickListener(v -> {
                 updateImageView(model,holder.imageViewSend,glide);
@@ -130,6 +139,18 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
 
             });
         }
+        holder.switchIsPremiumType.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if(isChecked){
+                holder.switchIsPremiumType.setText(Utils.getString(R.string.is_premium_signal,holder.imageButtonDelete.getContext()));
+            }
+            else {
+                holder.switchIsPremiumType.setText(Utils.getString(R.string.is_not_premium_signal,holder.imageButtonDelete.getContext()));
+
+            }
+            SignalsHelper.updatePremiumOrNot(model.getUI(),isChecked);
+
+        });
         holder.imageButtonDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(holder.rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")

@@ -47,7 +47,12 @@ public class SignalTypeListHelper {
     public static Task<Void> updateSignalTypeName(String uid, String name) {
         return getSignalTypeListCollection().document(uid).update("name", name);
     }
+    public static Task<Void> updatePremiumOrNot(String uid, boolean state) {
 
+            return getSignalTypeListCollection().document(uid).update("premium",state);
+
+
+    }
     // --- DELETE ---
 
     public static Task<Void> deleteSignalType(String uid) {

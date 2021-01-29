@@ -41,7 +41,7 @@
                 android:id="@+id/imageViewBala"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="create new Signal"
+                android:contentDescription="@string/create_new_signal"
                 android:src="@drawable/ic_baseline_arrow_drop_down_white_24" />
 
             <LinearLayout
@@ -49,14 +49,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="invisible">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:background="@color/colorPrimaryDark"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:padding="5dp">
 
                     <EditText
@@ -65,6 +65,13 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/enter_signal_type_name"
                         android:textColor="#FFF" />
+
+                    <Switch
+                        android:id="@+id/switchIsPremiumSignal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/is_not_premium_signal_type"
+                        android:textColor="#fff" />
                 </LinearLayout>
 
                 <LinearLayout

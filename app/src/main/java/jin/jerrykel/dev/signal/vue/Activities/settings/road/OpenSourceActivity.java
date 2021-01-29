@@ -3,17 +3,17 @@ package jin.jerrykel.dev.signal.vue.Activities.settings.road;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
-public class AboutActivity extends BaseActivity {
+public class OpenSourceActivity extends BaseActivity {
 
 
 
     @Override
-    public int getLayout() {
-        return R.layout.activity_about;
+    protected int getLayout() {
+        return R.layout.activity_open_source;
     }
 
     @Override
-    public void initView() {
+    protected void initView() {
 
     }
 }

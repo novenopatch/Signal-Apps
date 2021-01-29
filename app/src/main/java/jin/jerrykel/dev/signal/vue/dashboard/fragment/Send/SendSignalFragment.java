@@ -93,7 +93,7 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
     public void initView() {
        // this.getCurrentUserFromFirestore();
         stringArrayList = Utils.getTypeSignalsString();
-       recyclerViewSignal = rootView.findViewById(R.id.recyclerViewSignal);
+        recyclerViewSignal = rootView.findViewById(R.id.recyclerViewSignal);
         textViewRecyclerViewEmpty = rootView.findViewById(R.id.fragment_signal_not_found_textView);
         floatingActionButtonSend =rootView.findViewById(R.id.floatingActionButtonSend);
         ImageViewPreview =rootView.findViewById(R.id.ImageViewPreview);
@@ -110,11 +110,11 @@ public class SendSignalFragment extends BaseFragment implements SignalsAdapterDa
         switchPremium.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
                 switchPremiumBool= true;
-                buttonView.setText("Is Premium Signal");
+                switchPremium.setText(getString(R.string.is_premium_signal));
             }
             else {
                 switchPremiumBool = false;
-                buttonView.setText("Is not Premium Signal");
+                switchPremium.setText(getString(R.string.is_not_premium_signal));
             }
         });
         imageViewCero.setOnClickListener(v -> {

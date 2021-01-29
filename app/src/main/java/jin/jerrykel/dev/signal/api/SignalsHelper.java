@@ -67,6 +67,12 @@ public class SignalsHelper {
         }
 
     }
+    public static Task<Void> updatePremiumOrNot(String uid, boolean state) {
+
+        return getSignalCollection().document(uid).update("premium",state);
+
+
+    }
     // --- DELETE ---
 
     public static Task<Void> deleteSignal(String uid) {

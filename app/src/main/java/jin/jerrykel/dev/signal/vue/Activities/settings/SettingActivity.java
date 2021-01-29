@@ -11,9 +11,8 @@ import jin.jerrykel.dev.signal.BuildConfig;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.Activities.OpenSourceActivity;
-import jin.jerrykel.dev.signal.vue.Activities.settings.road.AboutActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.road.OpenSourceActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
 
@@ -104,7 +103,7 @@ public class SettingActivity extends BaseActivity {
             case R.id.buttonVersion:
                 ///
                 ///
-                startActivity(new Intent(this, AboutActivity.class));
+                //startActivity(new Intent(this, AboutActivity.class));
                 break;
             case  R.id.buttonInviteFriend:
                 ///

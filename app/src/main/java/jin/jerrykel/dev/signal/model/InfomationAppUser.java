@@ -21,6 +21,7 @@ public class InfomationAppUser {
     @DatabaseField
     private int lastSignalNbr=0;
 
+
     public InfomationAppUser() {
 
     }
@@ -28,6 +29,10 @@ public class InfomationAppUser {
     public InfomationAppUser(boolean firstLaunch, String lastSignalName, Date when) {
         this.firstLaunch = firstLaunch;
         LastSignalName = lastSignalName;
+        this.when = when;
+    }
+    public InfomationAppUser(boolean firstLaunch, Date when) {
+        this.firstLaunch = firstLaunch;
         this.when = when;
     }
     public InfomationAppUser( Date when) {
@@ -75,4 +80,6 @@ public class InfomationAppUser {
     public void setLastSignalNbr(int lastSignalNbr) {
         this.lastSignalNbr = lastSignalNbr;
     }
+
+
 }

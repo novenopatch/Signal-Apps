@@ -26,8 +26,8 @@ public class LicenceAccepteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_licence_acepte);
         TextView textView1Licence = findViewById(R.id.textView1Licence);
         TextView textView2Licence = findViewById(R.id.textView2Licence);
-        String htmlStr = getString(R.string.licence_bla_part1_1) + " <u><b>"+getString(R.string.licence_bla_part1_2)+"</b></u>. "+getString(R.string.licence_bla_part1_3);
-        String htmlStr1 = getString(R.string.licence_bla_part2_1)+" <u><b>"+getString(R.string.licence_bla_part2_2)+"</b></u>. ";
+        String htmlStr = getString(R.string.licence_bla_part1_1) + " <b>"+getString(R.string.licence_bla_part1_2)+"</b>. "+getString(R.string.licence_bla_part1_3);
+        String htmlStr1 = getString(R.string.licence_bla_part2_1)+" <b>"+getString(R.string.licence_bla_part2_2)+"</b>. ";
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             textView1Licence.setText(Html.fromHtml(htmlStr, Html.FROM_HTML_MODE_LEGACY));
             textView2Licence.setText(Html.fromHtml(htmlStr1, Html.FROM_HTML_MODE_LEGACY));

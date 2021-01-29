@@ -86,7 +86,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Entry Price"
+                        android:text="@string/entry_price"
                         android:textColor="@android:color/black" />
 
                     <Button
@@ -111,7 +111,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Stop loss"
+                        android:text="@string/stop_loss"
                         android:textColor="@android:color/black" />
 
                     <Button
@@ -136,7 +136,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Take Profit"
+                        android:text="@string/take_profit"
                         android:textColor="@android:color/black" />
 
                     <Button
@@ -164,7 +164,7 @@
                 android:enabled="false"
                 android:fontFamily="sans-serif"
                 android:gravity="left|center"
-                android:text="Read More"
+                android:text="@string/read_more"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorAccent"
                 android:textStyle="normal"

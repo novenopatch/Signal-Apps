@@ -3,6 +3,7 @@ package jin.jerrykel.dev.signal.vue.dashboard;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,13 +12,7 @@ import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.HomeDashboardFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.Send.SendNewSignalTypeFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.Send.SendSignalFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.Send.UpdatePubImgFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser.AddAccountFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser.AdminSettingsFragment;
 import jin.jerrykel.dev.signal.vue.dashboard.fragment.managementUser.ManageUsersFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.other.BugFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.other.TimelineFragment;
-import jin.jerrykel.dev.signal.vue.dashboard.fragment.other.UsageFragment;
 
 public class DashboardActivity extends BaseActivity implements  HomeDashboardFragment.OnButtonClickedListener {
     private FrameLayout frameLayoutContent;
@@ -50,32 +45,39 @@ public class DashboardActivity extends BaseActivity implements  HomeDashboardFra
                 fragment = new SendNewSignalTypeFragment();
                 ///
                 break;
-            case R.id.linearLayoutUpdateImagePub:
-                fragment = new UpdatePubImgFragment();
-                ///
-                break;
-            case R.id.linearLayoutRootTimeLine:
-                fragment = new TimelineFragment();
-                ///
-                break;
             case R.id.linearLayoutManageUser:
                 fragment = new ManageUsersFragment();
                 ///
                 break;
+            case R.id.linearLayoutUpdateImagePub:
+                //fragment = new UpdatePubImgFragment();
+                makeNote();
+                ///
+                break;
+            case R.id.linearLayoutRootTimeLine:
+                makeNote();
+                // fragment = new TimelineFragment();
+                ///
+                break;
+
             case R.id.linearLayoutAddProAccount:
-                fragment = new AddAccountFragment();
+                //fragment = new AddAccountFragment();
+                makeNote();
                 ///
                 break;
             case R.id.linearLayoutGetGraphicUsage:
-                fragment = new UsageFragment();
+                //fragment = new UsageFragment();
+                makeNote();
                 ///
                 break;
             case R.id.LinearLayoutAdminSettings:
-                fragment = new AdminSettingsFragment();
+                //fragment = new AdminSettingsFragment();
+                makeNote();
                 ///
                 break;
             case R.id.linearLayoutSendBugReport:
-                fragment = new BugFragment();
+                //fragment = new BugFragment();
+                makeNote();
                 ///
                 break;
 
@@ -108,8 +110,27 @@ public class DashboardActivity extends BaseActivity implements  HomeDashboardFra
         }
     }
 
+
     @Override
     public void onButtonClicked(View view) {
         initContentView(view);
+    }
+    private void makeNote(){
+        new AlertDialog.Builder(this).setTitle("Dev Message ?")
+                .setMessage("Cette option est en cours de construction. \n" +
+                        " veillez contater le programmeur pour assistance.\n" +
+                        " Contacter?")
+                .setPositiveButton("YES", (dialog, which) -> {
+
+                    // Perform Action & Dismiss dialog
+                    dialog.dismiss();
+
+                })
+                .setNegativeButton("NO", (dialog, which) -> {
+                    // Do nothing
+                    dialog.dismiss();
+                })
+                .create()
+                .show();
     }
 }

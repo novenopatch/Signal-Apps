@@ -72,6 +72,7 @@ public class LoginActivity extends BaseActivity {
 
         Runnable runnable = () -> {
             linearLayout.setVisibility(View.VISIBLE);
+            //startAppropriateActivity();
 
         };
         new Handler().postDelayed(runnable, millis/3);
@@ -90,8 +91,6 @@ public class LoginActivity extends BaseActivity {
     }
     private void testUsers(){
         if(modelCurrentUser!=null ){
-
-
             if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
                 buttonLogin.setEnabled(false);
                 progressBarC.setVisibility(View.VISIBLE);
@@ -127,7 +126,7 @@ public class LoginActivity extends BaseActivity {
     private void startAppropriateActivity() {
         if (this.isCurrentUserLogged()){
             testUsers();
-            //this.startAppActivity();
+
         } else {
             this.startSignInActivity();
         }

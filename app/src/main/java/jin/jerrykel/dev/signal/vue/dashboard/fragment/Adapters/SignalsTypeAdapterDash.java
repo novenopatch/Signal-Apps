@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,7 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
         ImageButton imageButtonDelete;
         ProgressBar progressBar;
         View rootView;
+        Switch switchIsPremiumType;
 
         public SignalsTypeViewHolderDash(View itemView) {
             super(itemView);
@@ -59,7 +61,7 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
             this.textViewSignalName = superView.findViewById(R.id.textViewSignalName);
             this.progressBar = superView.findViewById(R.id.progressBarDelete);
             this.imageButtonDelete = superView.findViewById(R.id.imageButtonDelete);
-
+            this.switchIsPremiumType = superView.findViewById(R.id.switchIsPremiumType);
 
 
 
@@ -79,6 +81,13 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
         if(model.getDateCreated()!=null){
             holder.textViewDateSend.setText(Utils.convertDateToString(model.getDateCreated()));
         }
+        if(model.isPremium()){
+            holder.switchIsPremiumType.setText(Utils.getString(R.string.is_premium_signal_type,holder.imageButtonDelete.getContext()));
+        }
+        else {
+            holder.switchIsPremiumType.setText(Utils.getString(R.string.is_not_premium_signal_type,holder.imageButtonDelete.getContext()));
+
+        }
         holder.imageButtonDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(holder.rootView.getContext()).setTitle("Confirm ?")
                     .setMessage("Are you sure?")
@@ -95,7 +104,18 @@ public class SignalsTypeAdapterDash extends FirestoreRecyclerAdapter<TypeSignals
                     .create()
                     .show();
         });
+        holder.switchIsPremiumType.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
+            if(isChecked){
+                holder.switchIsPremiumType.setText(Utils.getString(R.string.is_premium_signal_type,holder.imageButtonDelete.getContext()));
+            }
+            else {
+                holder.switchIsPremiumType.setText(Utils.getString(R.string.is_not_premium_signal_type,holder.imageButtonDelete.getContext()));
+
+            }
+            SignalTypeListHelper.updatePremiumOrNot(model.getUI(),isChecked);
+
+        });
 
 
     }

@@ -14,6 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.SignalsHelper;
@@ -63,6 +64,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         manager= localControler.getManager();
         infomationAppUser = manager.getInformation();
         lastItemNbr = infomationAppUser.getLastSignalNbr();
+        infomationAppUser.setWhen(new Date());
         return fragment;
     }
 
@@ -226,6 +228,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     @Override
     public void onDestroy() {
         super.onDestroy();
+        infomationAppUser.setWhen(new Date());
         manager.updateInformation(infomationAppUser);
     }
 }

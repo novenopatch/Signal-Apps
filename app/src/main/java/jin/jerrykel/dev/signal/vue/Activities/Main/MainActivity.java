@@ -55,22 +55,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
 
+
     @Override
     public int getLayout() {
         return R.layout.activity_main;
     }
     @Override
     public void initView(){
+
         connectionState = ifInternet();
         controler = Controler.getInstance(this);
         signalFragment = SignalFragment.newInstance(connectionState,controler);
-         alertFragment = AlertFragment.newInstance();
-         profileFragment = ProfileFragment.newInstance();
+        alertFragment = AlertFragment.newInstance();
+        profileFragment = ProfileFragment.newInstance();
         configureDrawerLayout();
         configureNavigationView();
         configureToolbarButon();
         configureViewPagerAndTabs();
-        startService(new Intent(this, ServiceGetSignal.class));
+
+        Intent intent = new Intent(this, ServiceGetSignal.class);
+        startService(intent);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_ONE_SHOT);
+        //AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+       // manager.set(ELAPSED_REALTIME, System.currentTimeMillis(), pendingIntent);
+       // manager.setRepeating(ELAPSED_REALTIME,System.currentTimeMillis(),INTERVAL_FIFTEEN_MINUTES,pendingIntent);
+
 
     }
     //@Override

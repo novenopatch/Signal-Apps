@@ -1,9 +1,11 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment.Send;
 
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     private EditText editTextSignalName;
     private LinearLayout linearLayoutNewST;
     private ImageButton imageViewBala;
+    private Switch switchIsPremiumSignal;
     private boolean  linearLayoutEditVisible = false;
 
     public SendNewSignalTypeFragment() {
@@ -58,6 +61,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
         editTextSignalName = rootView.findViewById(R.id.editTextSignalName);
         linearLayoutNewST = rootView.findViewById(R.id.linearLayoutNewST);
         imageViewBala = rootView.findViewById(R.id.imageViewBala);
+        switchIsPremiumSignal = rootView.findViewById(R.id.switchIsPremiumSignal);
         imageViewBala.setOnClickListener(v -> {
             if(!linearLayoutEditVisible){
                 linearLayoutEditVisible = true;
@@ -71,6 +75,17 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
         });
         floatingActionButtonSend.setOnClickListener(v -> {
             onClickSendMessage();
+        });
+        switchIsPremiumSignal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switchIsPremiumSignal.setText(getString(R.string.is_premium_signal_type));
+                }else{
+                    switchIsPremiumSignal.setText(getString(R.string.is_not_premium_signal_type));
+
+                }
+            }
         });
         configureRecyclerView();
 
@@ -101,7 +116,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
     private void onClickSendMessage() {
         if( !editTextSignalName.getText().toString().isEmpty() && modelCurrentUser.getMentor()){
             SignalTypeListHelper.createSignalType( modelCurrentUser.getUid(), modelCurrentUser.getUsername(), editTextSignalName.getText().toString()
-            ,false).addOnSuccessListener(documentReference -> {
+            ,switchIsPremiumSignal.isChecked()).addOnSuccessListener(documentReference -> {
                 signalsTypeAdapterDash.notifyDataSetChanged();
                 clearEditText();
             })
