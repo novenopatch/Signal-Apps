@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">WTF signals</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="createNewAccountString">No account yet ? Create one</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="button_login_text_logged">you are connected</string>
+    <string name="button_login_text_not_logged">you are not connected</string>
+
+    <string name="error_unknown_error">"error unknown "</string>
+    <string name="info_no_email_found">email not found</string>
+    <string name="info_no_username_found">username not found</string>
+    <string name="popup_message_choice_no">No</string>
+    <string name="popup_message_choice_yes">Yes</string>
+    <string name="login_activity_description">Application description </string>
+    <string name="error_authentication_canceled">cancel</string>
+    <string name="SUCCESS">SUCCESS</string>
+    <string name="error_no_internet">no connection</string>
+    <string name="connection_succeed">connection succed</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="notification_title">"You have receive new Signal "</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="settings">Settings</string>
+
+    <string name="about">About</string>
+    <string name="Payment">Payment</string>
+    <string name="theme">Theme</string>
+    <string name="help">Help</string>
+
+    <string name="notificationWtf_group">You have new notification from WTF Group</string>
+    <string name="notificationW">You have new notification click to view in WTF Signal</string>
+
+
+
+    <string name="log_out">Log out</string>
+    <string name="signal">Signals</string>
+    <string name="alert">Alerts</string>
+    <string name="profile">Profile</string>
+    <string name="share_app">Share app</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="signal_not_found">we are sorry,\n empty select an other signal on oder view configuration</string>
+    <string name="never_miss_a_trade">Never Miss A Trade!</string>
+    <string name="get_premium">Get \n Premium</string>
+    <string name="get_live_notifications_n_no_ads">Get Live notifications \nNo ads</string>
+    <string name="hint_email">email</string>
+    <string name="hint_username">username</string>
+    <string name="update">Update</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="your_autentification_email">Your autentification email</string>
+    <string name="enter_signal_type_name">enter Signal type name</string>
+    <string name="licence_bla_part1_1">Read our</string>
+    <string name="licence_bla_part1_2">Privacy Policy</string>
+    <string name="licence_bla_part1_3">Tap "Agree and continue" to</string>
+    <string name="licence_bla_part2_1">accept the</string>
+    <string name="licence_bla_part2_2">Terms of Service</string>
+    <string name="agree_and_continue">AGREE AND CONTINUE</string>
+    <string name="welcome_to_wtf_signals">Welcome to WTF Signals</string>
+    <string name="from_n_woezon_trade">From \n WOEZON TRADE</string>
+    <string name="popup_title_permission_files_access">up_title_permission_files_acces</string>
+    <string name="sendername">SenderName</string>
+    <string name="signal_name">Signal Name</string>
+    <string name="date_send">Date send</string>
+    <string name="is_not_premium_signal_type">is not Premium Signal Type</string>
+    <string name="is_premium_signal_type">is  Premium Signal Type</string>
+    <string name="is_not_premium_signal">is not premium signal</string>
+    <string name="is_premium_signal">is premium signal</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="_9_items">9 items</string>
+    <string name="users_name">users name</string>
+    <string name="new_nsignal">New \nSignal</string>
+    <string name="add_n_new_nsignal_type">Add \n new \nSignal Type</string>
+    <string name="update_nimagepub">Update \nImagePUb</string>
+    <string name="message_ntimeline">Message \nTimeline</string>
+    <string name="manage_nuser">Manage \nUser</string>
+    <string name="pro_naccount">Pro \nAccount</string>
+    <string name="graphic_nusage">Graphic \nUsage</string>
+    <string name="admin_nsettings">Admin \nSettings</string>
+    <string name="send_nmessage_nbug">Send \nMessage \nBug</string>
+    <string name="application_version">Application Version:</string>
+    <string name="_0_1">0.1</string>
+    <string name="delete">delete</string>
+
+    <string name="entry_price">Entry Price</string>
+    <string name="version">Version</string>
+    <string name="open_source_licences">Open source licences</string>
+    <string name="invite_a_friend">Invite a friend</string>
+    <string name="rate_app">Rate app</string>
+    <string name="others">Others</string>
+    <string name="terms_of_service">Terms of service</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="privacy">Privacy</string>
+
+    <string name="your_email">Your email</string>
+    <string name="your_username">Your Username</string>
+    <string name="main_setting">Main setting</string>
+    <string name="premium_account">PREMIUM ACCOUNT</string>
+    <string name="never_miss_na_trade_again">NEVER MISS \nA TRADE AGAIN!</string>
+    <string name="todo">TODO</string>
+    <string name="list_user">List User</string>
+    <string name="create_new_signal">create new Signal</string>
+    <string name="entry_entry_price">entry Entry Price</string>
+    <string name="entry_stop_loss">entry Stop Loss</string>
+    <string name="entry_takeprofit">entry TakeProfit</string>
+    <string name="stop_loss">Stop loss</string>
+    <string name="take_profit">Take Profit</string>
+    <string name="read_more">Read More</string>
+    <string name="account">Account</string>
+    <string name="notification">Notification</string>
+    <string name="date_account_created">Date account created</string>
+    <string name="user_enable">User enable</string>
+    <string name="make_user_mentor">Make user Mentor</string>
+
+    <string-array name="configSpinner">
+        <item>All</item>
+        <item>Active</item>
+        <item>Ready</item>
+        <item>Sell</item>
+        <item>Buy</item>
+    </string-array>
+    <string-array name="configSpinnerStatut">
+        <item>Ready</item>
+        <item>Active</item>
+
+    </string-array>
+    <string-array name="configSpinnerType">
+        <item>Sell</item>
+        <item>Buy</item>
+    </string-array>
 
 </resources>

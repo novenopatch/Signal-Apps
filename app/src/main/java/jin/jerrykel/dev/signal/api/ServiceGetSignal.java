@@ -55,13 +55,17 @@ public class ServiceGetSignal extends IntentService {
 
     private void startEcout() {
         SignalsHelper.getAllSignalFreeOrPremium(false).addSnapshotListener((value, error) -> {
-            for (DocumentChange dc :value.getDocumentChanges()) {
-                switch (dc.getType()) {
-                    case ADDED:
-                        Utils.sendVisualNotification("OneSignal",getString(R.string.notificationW),this);
-                        break;
+            if(value !=null){
+                value.getDocumentChanges();
+                for (DocumentChange dc :value.getDocumentChanges()) {
+                    switch (dc.getType()) {
+                        case ADDED:
+                            Utils.sendVisualNotification("OneSignal",getString(R.string.notificationW),this);
+                            break;
+                    }
                 }
             }
+
 
         });
     }

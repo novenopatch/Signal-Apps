@@ -44,7 +44,6 @@ public class LicenceAccepteActivity extends AppCompatActivity {
         infomationAppUser.setWhen(new Date());
         infomationAppUser.setFirstLaunch(false);
         controler.getManager().updateInformation(infomationAppUser);
-
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
