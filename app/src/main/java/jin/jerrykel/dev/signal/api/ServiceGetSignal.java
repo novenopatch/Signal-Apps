@@ -1,6 +1,7 @@
 package jin.jerrykel.dev.signal.api;
 
-import android.app.IntentService;
+import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.utils.Utils;
@@ -16,13 +18,13 @@ import jin.jerrykel.dev.signal.utils.Utils;
 /**
  * Created by JerrykelDEV on 28/01/2021 05:33
  */
-public class ServiceGetSignal extends IntentService {
+public class ServiceGetSignal extends Service {
 
 
 
-    public ServiceGetSignal() {
-        super("ServiceGetSignal");
-    }
+    ListenerRegistration registration;
+
+
 
     @Nullable
     @Override
@@ -30,10 +32,7 @@ public class ServiceGetSignal extends IntentService {
         return null;
     }
 
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
 
-    }
 
     @Override
     public void onCreate() {
@@ -41,31 +40,33 @@ public class ServiceGetSignal extends IntentService {
 
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(ifInternet()){
-            startEcout();
+            startlisten();
         }
 
 
         //return super.onStartCommand(intent, flags, startId);
-        return  START_REDELIVER_INTENT;
+        return  super.onStartCommand(intent, START_REDELIVER_INTENT, startId);
     }
 
 
-    private void startEcout() {
-        SignalsHelper.getAllSignalFreeOrPremium(false).addSnapshotListener((value, error) -> {
-            if(value !=null){
-                value.getDocumentChanges();
-                for (DocumentChange dc :value.getDocumentChanges()) {
-                    switch (dc.getType()) {
-                        case ADDED:
-                            Utils.sendVisualNotification("OneSignal",getString(R.string.notificationW),this);
-                            break;
-                    }
+    private void startlisten() {
+        registration = SignalsHelper.getSignalCollection().addSnapshotListener((snapshots, e) -> {
+            if (e != null) {
+                //Log.w(TAG, "listen:error", e);
+                return;
+            }
+            for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                switch (dc.getType()) {
+                    case ADDED:
+                        Utils.sendVisualNotification("OneSignal",getString(R.string.notification),this);
+                        break;
+
                 }
             }
-
 
         });
     }
@@ -88,5 +89,6 @@ public class ServiceGetSignal extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        registration.remove();
     }
 }

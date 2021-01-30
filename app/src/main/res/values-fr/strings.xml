@@ -1,64 +1,52 @@
 <resources>
     <string name="app_name">WTF signals</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="createNewAccountString">No account yet ? Create one</string>
+    <string name="login">Connexion</string>
+    <string name="createNewAccountString">Pas de compte ? créer un</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="button_login_text_logged">you are connected</string>
+    <string name="button_login_text_logged">Vous êtes  connecté </string>
     <string name="button_login_text_not_logged">you are not connected</string>
 
-    <string name="error_unknown_error">"error unknown "</string>
-    <string name="info_no_email_found">email not found</string>
-    <string name="info_no_username_found">username not found</string>
-    <string name="popup_message_choice_no">No</string>
-    <string name="popup_message_choice_yes">Yes</string>
-    <string name="login_activity_description">Application description </string>
-    <string name="error_authentication_canceled">cancel</string>
+    <string name="error_unknown_error">Erreur inconnue </string>
+    <string name="info_no_email_found">email non trouver</string>
+    <string name="info_no_username_found">Nom d\'utilisateur non trouver</string>
+    <string name="popup_message_choice_no">Non</string>
+    <string name="popup_message_choice_yes">Oui</string>
+    <string name="login_activity_description">Description de l\'application </string>
+    <string name="error_authentication_canceled">sortir</string>
     <string name="SUCCESS">SUCCESS</string>
-    <string name="error_no_internet">no connection</string>
-    <string name="connection_succeed">connection succed</string>
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="notification_title">"You have receive new Signal "</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="error_no_internet">Pas de connexion</string>
+    <string name="connection_succeed">connexion réussie</string>
+    <string name="notification_title">"Vous avez reçue un nouveau Signal "</string>
+    <string name="action_settings">Paramètre</string>
+    <string name="settings">Paramètre</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="settings">Settings</string>
+    <string name="about">A propos </string>
+    <string name="help">Aide</string>
 
-    <string name="about">About</string>
-    <string name="Payment">Payment</string>
-    <string name="theme">Theme</string>
-    <string name="help">Help</string>
-
-    <string name="notificationWtf_group">You have new notification from WTF Group</string>
-    <string name="notificationW">You have new notification click to view in WTF Signal</string>
+    <string name="notificationWtf_group">Vous avez reçue un nouveau Signal de WTF Group</string>
 
 
 
-    <string name="log_out">Log out</string>
+    <string name="log_out">Se déconnecter </string>
     <string name="signal">Signals</string>
     <string name="alert">Alerts</string>
     <string name="profile">Profile</string>
-    <string name="share_app">Share app</string>
-    <string name="tutorial">Tutorial</string>
-    <string name="signal_not_found">we are sorry,\n empty select an other signal on oder view configuration</string>
+    <string name="share_app">Partager l’application </string>
+    <string name="tutorial">Tutoriel</string>
+    <string name="signal_not_found">Nous sommes désolé,\n sélectionner un autre signal dans une autre configuration ou passer à une offre payant</string>
     <string name="never_miss_a_trade">Never Miss A Trade!</string>
     <string name="get_premium">Get \n Premium</string>
-    <string name="get_live_notifications_n_no_ads">Get Live notifications \nNo ads</string>
-    <string name="hint_email">email</string>
-    <string name="hint_username">username</string>
-    <string name="update">Update</string>
-    <string name="username">Username</string>
-    <string name="name">Name</string>
-    <string name="your_autentification_email">Your autentification email</string>
-    <string name="enter_signal_type_name">enter Signal type name</string>
+    <string name="get_live_notifications_n_no_ads">Notification en direct \nPas de publicité</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_username">Nom d\'utilisateur</string>
+    <string name="update">Mettre à jour </string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="name">Nom</string>
+    <string name="your_autentification_email">Votre adresse mail de connexion</string>
+    <string name="enter_signal_type_name">enter le nom du signal</string>
     <string name="licence_bla_part1_1">Read our</string>
     <string name="licence_bla_part1_2">Privacy Policy</string>
     <string name="licence_bla_part1_3">Tap "Agree and continue" to</string>

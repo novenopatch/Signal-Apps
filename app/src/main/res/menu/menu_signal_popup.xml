@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_share_signal"
+        android:title="@string/share_signal"
+        android:icon="@drawable/ic_baseline_share_gray_24"/>
+    <item
+        android:id="@+id/menu_copy_entryPrice"
+        android:title="@string/copy_entryPrice"
+        android:icon="@drawable/ic_baseline_format_indent_increase_gray_24"/>
+    <item
+        android:id="@+id/menu_copy_stopLoss"
+        android:icon="@drawable/ic_baseline_stop_gray_24"
+        android:title="@string/copy_stopLoss_values" />
+    <item
+        android:id="@+id/menu_copy_takeProfite"
+        android:icon="@drawable/ic_baseline_format_indent_decrease_gray_24"
+        android:title="@string/copy_takeProfite_values" />
+
+</menu>

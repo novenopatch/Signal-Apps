@@ -1,11 +1,16 @@
 package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,9 +20,14 @@ import com.bumptech.glide.RequestManager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Objects;
+
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.model.User;
+import jin.jerrykel.dev.signal.utils.Utils;
 
 
 public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAdapter.SignalsViewHolder> {
@@ -52,6 +62,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
         Button buttonTakeProfit;
         Button buttonReadMore;
         ImageView imageViewSend;
+        ImageButton imageButtonMenu;
         
 
 
@@ -67,6 +78,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
             this.buttonTakeProfit    = superView.findViewById(R.id.buttonTakeProfit);
             this.buttonReadMore     = superView.findViewById(R.id.buttonReadMore);
             this.imageViewSend      = superView.findViewById(R.id.imageViewSend);
+            this.imageButtonMenu = itemView.findViewById(R.id.imageButtonMenu);
 
 
 
@@ -132,7 +144,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
 
       }
 
-
+      holder.imageButtonMenu.setOnClickListener(v -> makePopMenu( holder.imageButtonMenu.getContext(), holder.imageButtonMenu,position));
     }
 
     @Override
@@ -145,6 +157,51 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
     public void onDataChanged() {
         super.onDataChanged();
         this.callback.onDataChanged();
+    }
+    private void makePopMenu(Context context, ImageButton imageButtonMenu, int position){
+        PopupMenu popupMenu = new PopupMenu(context,imageButtonMenu);
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch(item.getItemId()){
+                case R.id.menu_share_signal:
+                    Intent intent = new Intent(Intent.ACTION_SEND);// Uri.parse(generatePasswordArrayList.get(position).getPassword()));
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_TEXT,getItem(position).toString());
+                    context.startActivity(Intent.createChooser(intent,"Share via"));
+                    return true;
+                case R.id.menu_copy_entryPrice:
+                    Utils.copyPasswordInclipBoard("Copy entryPrice",getItem(position).getEntryPrice(),context);
+                    return true;
+                case R.id.menu_copy_stopLoss:
+                    Utils.copyPasswordInclipBoard("Copy StopLoss",getItem(position).getStopLoss(),context);
+                    return true;
+                case R.id.menu_copy_takeProfite:
+                    Utils.copyPasswordInclipBoard("Copy TakeProfite",getItem(position).getTakeProfit(),context);
+                    return true;
+                default:
+                    return true;
+
+            }
+
+        });
+        popupMenu.inflate(R.menu.menu_signal_popup);
+        try {
+
+            Field field = popupMenu.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popupMenu);
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, new Object[]{true});
+
+
+        }catch (Exception e){
+            Log.d("popupMenu error", Objects.requireNonNull(e.getMessage()));
+        }finally {
+            popupMenu.show();
+        }
+
     }
     private void updateImageView(Signals signals,ImageView imageViewSend,RequestManager glide){
         if(click==false){

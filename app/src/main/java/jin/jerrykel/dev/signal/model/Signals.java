@@ -1,5 +1,7 @@
 package jin.jerrykel.dev.signal.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -57,6 +59,12 @@ public class Signals {
 
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        String toString = "Name :"+this.typeSignalsName +" \n"+"EntryPrice :"+entryPrice+" \n"+"StopLoss :"+stopLoss+" \n"+"TakeProfit :"+takeProfit;
+        return toString;
+    }
 
     public void setUI(String UI) {
         this.UI = UI;

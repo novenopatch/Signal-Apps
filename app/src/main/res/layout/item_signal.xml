@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
 
 
     android:orientation="vertical">
@@ -68,6 +69,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp" />
+                    <ImageButton
+                        android:id="@+id/imageButtonMenu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/myColorTransparent"
+                        app:srcCompat="@drawable/ic_baseline_arrow_drop_down_black_24"
+                        tools:ignore="VectorDrawableCompat" />
                 </LinearLayout>
 
             </LinearLayout>
