@@ -62,7 +62,7 @@ public class ServiceGetSignal extends Service {
             for (DocumentChange dc : snapshots.getDocumentChanges()) {
                 switch (dc.getType()) {
                     case ADDED:
-                        Utils.sendVisualNotification("OneSignal",getString(R.string.notification),this);
+                        Utils.sendVisualNotification("OneSignal",getString(R.string.notification),this,false);
                         break;
 
                 }

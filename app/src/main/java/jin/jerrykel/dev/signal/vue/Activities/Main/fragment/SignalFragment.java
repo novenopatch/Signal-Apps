@@ -216,9 +216,10 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         textViewRecyclerViewEmpty.setVisibility(this.mentorChatAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         if(connetionState){
             if(lastItemNbr<mentorChatAdapter.getItemCount()){
+                int dif =lastItemNbr- mentorChatAdapter.getItemCount();
                 lastItemNbr =mentorChatAdapter.getItemCount();
                 infomationAppUser.setLastSignalNbr(lastItemNbr);
-                Utils.sendVisualNotification("OneSignal",Utils.getString(R.string.notificationW,context),context);
+                Utils.sendVisualNotification("OneSignal",Utils.getString(R.string.notification,context) +"("+String.valueOf(dif)+")",context,true);
             }
         }
 

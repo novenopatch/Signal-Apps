@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
 
-
+    private Intent intent;
 
 
 
@@ -73,8 +73,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         configureToolbarButon();
         configureViewPagerAndTabs();
 
-        Intent intent = new Intent(this, ServiceGetSignal.class);
-        startService(intent);
+        intent = new Intent(this, ServiceGetSignal.class);
+
         //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_ONE_SHOT);
         //AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
        // manager.set(ELAPSED_REALTIME, System.currentTimeMillis(), pendingIntent);
@@ -325,4 +325,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return false;
     }
 
+    @Override
+    public void onStop() {
+        startService(intent);
+        super.onStop();
+    }
 }

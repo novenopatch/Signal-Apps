@@ -15,7 +15,7 @@ public class NotificationsService   extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             String message = remoteMessage.getNotification().getBody();
             // 8 - Show notification after received message
-            Utils.sendVisualNotification(message,this,false);
+            Utils.sendVisualNotification("OneSignal",message,this,false);
         }
     }
 
