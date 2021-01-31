@@ -47,27 +47,27 @@
     <string name="name">Nom</string>
     <string name="your_autentification_email">Votre adresse mail de connexion</string>
     <string name="enter_signal_type_name">enter le nom du signal</string>
-    <string name="licence_bla_part1_1">Read our</string>
-    <string name="licence_bla_part1_2">Privacy Policy</string>
-    <string name="licence_bla_part1_3">Tap "Agree and continue" to</string>
-    <string name="licence_bla_part2_1">accept the</string>
-    <string name="licence_bla_part2_2">Terms of Service</string>
-    <string name="agree_and_continue">AGREE AND CONTINUE</string>
-    <string name="welcome_to_wtf_signals">Welcome to WTF Signals</string>
+    <string name="licence_bla_part1_1">Veuillez lire notre</string>
+    <string name="licence_bla_part1_2">Politique de confidentialité.</string>
+    <string name="licence_bla_part1_3">Appuyer sur "Accepter et continuer" pour accepter</string>
+    <string name="licence_bla_part2_1">les</string>
+    <string name="licence_bla_part2_2">Condition d\'utilisation.</string>
+    <string name="agree_and_continue">ACCEPTER ET CONTINUER</string>
+    <string name="welcome_to_wtf_signals">Bienvenue sur WTF Signals</string>
     <string name="from_n_woezon_trade">From \n WOEZON TRADE</string>
     <string name="popup_title_permission_files_access">up_title_permission_files_acces</string>
     <string name="sendername">SenderName</string>
-    <string name="signal_name">Signal Name</string>
-    <string name="date_send">Date send</string>
+    <string name="signal_name">Nom du Signal</string>
+    <string name="date_send">Date d\'envoi</string>
     <string name="is_not_premium_signal_type">is not Premium Signal Type</string>
     <string name="is_premium_signal_type">is  Premium Signal Type</string>
     <string name="is_not_premium_signal">is not premium signal</string>
     <string name="is_premium_signal">is premium signal</string>
     <string name="dashboard">Dashboard</string>
     <string name="_9_items">9 items</string>
-    <string name="users_name">users name</string>
-    <string name="new_nsignal">New \nSignal</string>
-    <string name="add_n_new_nsignal_type">Add \n new \nSignal Type</string>
+    <string name="users_name">Nom d\'utilisateur</string>
+    <string name="new_nsignal">Nouveau \nSignal</string>
+    <string name="add_n_new_nsignal_type">Ajouter \nun nouveau \nType de Signal</string>
     <string name="update_nimagepub">Update \nImagePUb</string>
     <string name="message_ntimeline">Message \nTimeline</string>
     <string name="manage_nuser">Manage \nUser</string>
@@ -77,21 +77,21 @@
     <string name="send_nmessage_nbug">Send \nMessage \nBug</string>
     <string name="application_version">Application Version:</string>
     <string name="_0_1">0.1</string>
-    <string name="delete">delete</string>
+    <string name="delete">Supprimé</string>
 
     <string name="entry_price">Entry Price</string>
     <string name="version">Version</string>
     <string name="open_source_licences">Open source licences</string>
-    <string name="invite_a_friend">Invite a friend</string>
-    <string name="rate_app">Rate app</string>
-    <string name="others">Others</string>
-    <string name="terms_of_service">Terms of service</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="privacy">Privacy</string>
+    <string name="invite_a_friend">Inviter un ami</string>
+    <string name="rate_app">Noter l\'application</string>
+    <string name="others">Autres</string>
+    <string name="terms_of_service">Conditions d\'utilisation</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="privacy">Confidentialité</string>
 
-    <string name="your_email">Your email</string>
-    <string name="your_username">Your Username</string>
-    <string name="main_setting">Main setting</string>
+    <string name="your_email">Votre Email</string>
+    <string name="your_username">Votre Nom d\'utilisateur</string>
+    <string name="main_setting">Paramètre principaux</string>
     <string name="premium_account">PREMIUM ACCOUNT</string>
     <string name="never_miss_na_trade_again">NEVER MISS \nA TRADE AGAIN!</string>
     <string name="todo">TODO</string>
@@ -108,6 +108,19 @@
     <string name="date_account_created">Date account created</string>
     <string name="user_enable">User enable</string>
     <string name="make_user_mentor">Make user Mentor</string>
+
+
+    <string name="copy_stopLoss_values">Copier  stop loss</string>
+    <string name="copy_takeProfite_values">Copier  take profite</string>
+    <string name="copy_entryPrice">Copier  entryPrice values</string>
+    <string name="share_signal">Partager le Signal</string>
+    <string name="change_email">CHANGER l\'EMAIL</string>
+    <string name="your_actual_email_is">Votre email actuel est:</string>
+    <string name="musthave_new_signal">Vous avez peut-être reçu de nouveaux signal.</string>
+    <string name="user_offline">Notre service a besoin de la connexion internet pour fonctioner.</string>
+    <string name="set_close_signal">set close Signal</string>
+    <string name="enter_new_your_email">Entre votre nouveau Email</string>
+
 
     <string-array name="configSpinner">
         <item>All</item>

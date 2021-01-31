@@ -34,8 +34,6 @@
             android:name=".vue.Activities.settings.road.AccountActivity"
             android:label="@string/account"
             android:parentActivityName=".vue.Activities.settings.SettingActivity" />
-        <activity android:name=".vue.Activities.settings.road.ChangeMailInSettingsActivity"
-            android:theme="@style/MainTheme"/>
         <activity android:name=".vue.Activities.LicenceAccepteActivity" />
         <activity android:name=".vue.Activities.settings.road.OpenSourceActivity"
             android:theme="@style/MainTheme"/>

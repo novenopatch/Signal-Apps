@@ -14,7 +14,6 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -131,6 +130,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.activity_main_drawer_menu_settings:
                 startSettingActivity();
                 break;
+                /*
             case R.id.activity_main_drawer_menu_logout:
                 new AlertDialog.Builder(this).setTitle("Confirm ?")
                         .setMessage("Are you sure?")
@@ -148,11 +148,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         .show();
 
                 break;
+
+                 */
+
             case R.id.activity_main_drawer_recycler_tutorial:
-                startSettingActivity();
+                //TODO
+                //startSettingActivity();
                 break;
             case R.id.activity_main_drawer_recycler_share:
-            startSettingActivity();
+                //TODO
+            //startSettingActivity();
             break;
             default:
                 break;
@@ -201,6 +206,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         startActivity(intent);
 
     }
+
     private void configureDrawerLayout(){
         this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -332,5 +338,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startService(intent);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resumeBack();
+    }
+
+    public void resumeBack(){
+        boolean tag = getIntent().getBooleanExtra("profile",false);
+        if(tag){
+            tabs.getTabAt(2).select();
+
+        }
     }
 }

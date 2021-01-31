@@ -126,7 +126,7 @@ public class Utils {
 
         // 2 - Create a Style for the Notification
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-        inboxStyle.setBigContentTitle(getString(R.string.notification_title,context));
+        inboxStyle.setBigContentTitle(title);
         inboxStyle.addLine(messageBody);
 
         // 3 - Create a Channel (Android 8)
@@ -137,7 +137,7 @@ public class Utils {
                 new NotificationCompat.Builder(context, channelId)
                         .setSmallIcon(R.mipmap.img_icone)
                         .setContentTitle(title)
-                        .setContentText(getString(R.string.notification_title,context))
+                        .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                         .setContentIntent(pendingIntent)

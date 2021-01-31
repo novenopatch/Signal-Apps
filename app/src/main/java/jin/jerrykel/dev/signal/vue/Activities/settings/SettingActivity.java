@@ -16,8 +16,8 @@ import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.utils.DatabaseManager;
+import jin.jerrykel.dev.signal.vue.Activities.main.MainActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
-import jin.jerrykel.dev.signal.vue.Activities.settings.road.ChangeMailInSettingsActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.OpenSourceActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
@@ -107,7 +107,10 @@ public class SettingActivity extends BaseActivity {
     public  void SettingsOnclick(View view){
         switch (view.getId()){
             case R.id.buttonUsername:
-                startActivity(new Intent(this, ChangeMailInSettingsActivity.class));
+                Intent intent = new Intent(this, MainActivity.class);
+
+                intent.putExtra("profile",true);
+                startActivity(intent);
                 break;
             case R.id.linearLayoutAccount:
                 startActivity(new Intent(this, AccountActivity.class));
