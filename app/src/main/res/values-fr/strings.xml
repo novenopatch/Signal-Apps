@@ -116,7 +116,7 @@
     <string name="share_signal">Partager le Signal</string>
     <string name="change_email">CHANGER l\'EMAIL</string>
     <string name="your_actual_email_is">Votre email actuel est:</string>
-    <string name="musthave_new_signal">Vous avez peut-être reçu de nouveaux signal.</string>
+    <string name="musthave_new_signal">Vous avez peut-être reçu de nouveaux signaux.</string>
     <string name="user_offline">Notre service a besoin de la connexion internet pour fonctioner.</string>
     <string name="set_close_signal">set close Signal</string>
     <string name="enter_new_your_email">Entre votre nouveau Email</string>
