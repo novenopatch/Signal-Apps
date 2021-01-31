@@ -327,7 +327,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onStop() {
-        startService(intent);
         super.onStop();
+        if (this.getCurrentUser() != null) {
+            startService(intent);
+        }
+
     }
 }

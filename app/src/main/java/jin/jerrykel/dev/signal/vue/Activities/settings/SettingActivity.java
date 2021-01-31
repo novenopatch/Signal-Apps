@@ -1,16 +1,21 @@
 package jin.jerrykel.dev.signal.vue.Activities.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 
 import jin.jerrykel.dev.signal.BuildConfig;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.controler.Controler;
+import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
+import jin.jerrykel.dev.signal.utils.DatabaseManager;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.OpenSourceActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
@@ -26,6 +31,7 @@ public class SettingActivity extends BaseActivity {
     private String preUsername;
     private String preEmail;
 
+    Controler controler;
 
     private ProgressBar progressBarAccount;
 
@@ -35,22 +41,23 @@ public class SettingActivity extends BaseActivity {
     }
     @Override
     public void initView(){
-
+        DatabaseManager databaseManager;
+        controler = Controler.getInstance(this);
+        databaseManager = controler.getManager();
         buttonUsername = findViewById(R.id.buttonUsername);
         buttonEmail = findViewById(R.id.buttonEmail);
         buttonVersion = findViewById(R.id.buttonVersion);
         progressBarAccount = findViewById(R.id.progressBarAccount);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchNotification = findViewById(R.id.switchNotification);
         preEmail = buttonEmail.getText().toString();
         preUsername = buttonUsername.getText().toString();
 
-
-
-
-
-
-
-
         updateUIWhenCreating();
+        switchNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            InfomationAppUser infomationAppUser = databaseManager.getInformation();
+            infomationAppUser.setNotfication(isChecked);
+            databaseManager.updateInformation(infomationAppUser);;
+        });
 
     }
     private void updateUIWhenCreating(){
@@ -67,6 +74,7 @@ public class SettingActivity extends BaseActivity {
                 progressBarAccount.setVisibility(View.INVISIBLE);
                 User currentUser = documentSnapshot.toObject(User.class);
                 if(currentUser !=null){
+                    controler.setUser(currentUser);
                     String email = TextUtils.isEmpty(currentUser.getEmail()) ? getString(R.string.info_no_email_found) : getCurrentUser().getEmail();
                     String username = currentUser.getUsername();
                     this.buttonUsername.setText(preUsername.concat(" :").concat("\n").concat(username));
@@ -95,7 +103,7 @@ public class SettingActivity extends BaseActivity {
         startActivity(intent);
         //finish();
     }
-    public  void linearLayoutOnclick(View view){
+    public  void SettingsOnclick(View view){
         switch (view.getId()){
             case R.id.linearLayoutAccount:
                 startActivity(new Intent(this, AccountActivity.class));

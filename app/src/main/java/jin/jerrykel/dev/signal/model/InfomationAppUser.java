@@ -20,6 +20,8 @@ public class InfomationAppUser {
     private Date when;
     @DatabaseField
     private int lastSignalNbr=0;
+    @DatabaseField
+    private boolean notfication = true;
 
 
     public InfomationAppUser() {
@@ -81,5 +83,11 @@ public class InfomationAppUser {
         this.lastSignalNbr = lastSignalNbr;
     }
 
+    public boolean isNotfication() {
+        return notfication;
+    }
 
+    public void setNotfication(boolean notfication) {
+        this.notfication = notfication;
+    }
 }

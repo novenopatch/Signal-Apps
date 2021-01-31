@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/img_icone_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vue.Activities.LicenceAccepteActivity"></activity>
+        <activity android:name=".vue.Activities.settings.road.ChangeMailInSettingsActivity" />
+        <activity android:name=".vue.Activities.LicenceAccepteActivity" />
         <activity android:name=".vue.Activities.settings.road.OpenSourceActivity" />
         <activity
             android:name=".vue.Activities.LoginActivity"
@@ -49,15 +50,15 @@
         </service>
         <service
             android:name=".api.ServiceGetSignal"
-            >
-        </service>
-        <receiver android:name=".api.ServerBroadcastReceiver">
+            android:process="ServiceGetSignal" />
 
+        <receiver
+            android:name=".api.ServerBroadcastReceiver"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
     </application>
-
 
 </manifest>

@@ -37,8 +37,6 @@
     <string name="notificationWtf_group">You have new notification from WTF Group</string>
 
 
-
-
     <string name="log_out">Log out</string>
     <string name="signal">Signals</string>
     <string name="alert">Alerts</string>
@@ -121,6 +119,9 @@
     <string name="copy_takeProfite_values">copy take profite values</string>
     <string name="copy_entryPrice">copy entryPrice values</string>
     <string name="share_signal">Share signal</string>
+    <string name="change_email">CHANGE EMAIL</string>
+    <string name="note_currently_any_fraudulent_email_address_will_see_the_associated_account_deleted">Note: currently any fraudulent email address will see the associated account deleted.</string>
+    <string name="your_actual_email_is">Your actual email is:</string>
 
     <string-array name="configSpinner">
         <item>All</item>

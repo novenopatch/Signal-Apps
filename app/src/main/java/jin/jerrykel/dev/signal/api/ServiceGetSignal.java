@@ -34,12 +34,6 @@ public class ServiceGetSignal extends Service {
 
 
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-    }
-
     @SuppressLint("WrongConstant")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -49,7 +43,7 @@ public class ServiceGetSignal extends Service {
 
 
         //return super.onStartCommand(intent, flags, startId);
-        return  super.onStartCommand(intent, START_REDELIVER_INTENT, startId);
+        return START_REDELIVER_INTENT;
     }
 
 
