@@ -73,6 +73,12 @@ public class SignalsHelper {
 
 
     }
+    public static Task<Void> updateClose(String uid, boolean state) {
+
+        return getSignalCollection().document(uid).update("close",state);
+
+
+    }
     // --- DELETE ---
 
     public static Task<Void> deleteSignal(String uid) {

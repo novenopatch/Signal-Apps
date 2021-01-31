@@ -49,7 +49,7 @@ public class SendNewSignalTypeFragment extends BaseFragment  implements SignalsT
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_dash_send_new_signal_type;
+        return R.layout.fragment_dash_send_signal_type;
     }
 
     @Override

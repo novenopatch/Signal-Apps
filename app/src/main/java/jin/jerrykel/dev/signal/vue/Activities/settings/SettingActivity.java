@@ -17,6 +17,7 @@ import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.utils.DatabaseManager;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
+import jin.jerrykel.dev.signal.vue.Activities.settings.road.ChangeMailInSettingsActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.OpenSourceActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 import jin.jerrykel.dev.signal.vue.dashboard.DashboardActivity;
@@ -81,7 +82,7 @@ public class SettingActivity extends BaseActivity {
                     this.buttonEmail.setText(preEmail.concat(" :").concat("\n").concat(email));
                     //TODO
                     //DAsh
-                    if(currentUser.getMentor()){
+                    if(currentUser.getMentor()|| currentUser.getRoot()){
                         imageViewDashboard.setVisibility(View.VISIBLE);
                         imageViewDashboard.setOnClickListener(v -> startSuperActivity());
                     }else {
@@ -105,6 +106,9 @@ public class SettingActivity extends BaseActivity {
     }
     public  void SettingsOnclick(View view){
         switch (view.getId()){
+            case R.id.buttonUsername:
+                startActivity(new Intent(this, ChangeMailInSettingsActivity.class));
+                break;
             case R.id.linearLayoutAccount:
                 startActivity(new Intent(this, AccountActivity.class));
                 break;

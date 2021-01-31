@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".vue.Activities.Main.fragment.ProfileFragment">
+    tools:context=".vue.Activities.main.fragment.ProfileFragment">
 
     <LinearLayout
 

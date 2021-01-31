@@ -17,7 +17,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSignalType"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            style="@style/scrollbar_style"/>
 
         <TextView
             android:id="@+id/fragment_signal_not_found_textView"

@@ -69,11 +69,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp" />
+
                     <ImageButton
                         android:id="@+id/imageButtonMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/myColorTransparent"
+                        android:padding="5dp"
                         app:srcCompat="@drawable/ic_baseline_arrow_drop_down_black_24"
                         tools:ignore="VectorDrawableCompat" />
                 </LinearLayout>

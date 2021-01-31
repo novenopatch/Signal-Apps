@@ -122,6 +122,9 @@
     <string name="change_email">CHANGE EMAIL</string>
     <string name="note_currently_any_fraudulent_email_address_will_see_the_associated_account_deleted">Note: currently any fraudulent email address will see the associated account deleted.</string>
     <string name="your_actual_email_is">Your actual email is:</string>
+    <string name="musthave_new_signal">You may have received new signal</string>
+    <string name="user_offline">This service needs the internet connection to work</string>
+    <string name="set_close_signal">set close Signal</string>
 
     <string-array name="configSpinner">
         <item>All</item>

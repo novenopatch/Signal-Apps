@@ -7,15 +7,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:allowBackup="true"
+
         android:icon="@mipmap/img_icone"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/img_icone_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vue.Activities.settings.road.ChangeMailInSettingsActivity" />
-        <activity android:name=".vue.Activities.LicenceAccepteActivity" />
-        <activity android:name=".vue.Activities.settings.road.OpenSourceActivity" />
+
         <activity
             android:name=".vue.Activities.LoginActivity"
             android:theme="@style/LoginTheme">
@@ -26,16 +24,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".vue.Activities.Main.MainActivity"
-            android:label="WG SIGNALS" />
+            android:name=".vue.Activities.main.MainActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".vue.Activities.settings.SettingActivity"
             android:label="@string/settings"
-            android:parentActivityName=".vue.Activities.Main.MainActivity" />
+            android:parentActivityName=".vue.Activities.main.MainActivity" />
         <activity
             android:name=".vue.Activities.settings.road.AccountActivity"
             android:label="@string/account"
             android:parentActivityName=".vue.Activities.settings.SettingActivity" />
+        <activity android:name=".vue.Activities.settings.road.ChangeMailInSettingsActivity"
+            android:theme="@style/MainTheme"/>
+        <activity android:name=".vue.Activities.LicenceAccepteActivity" />
+        <activity android:name=".vue.Activities.settings.road.OpenSourceActivity"
+            android:theme="@style/MainTheme"/>
         <activity
             android:name=".vue.dashboard.DashboardActivity"
             android:parentActivityName=".vue.Activities.settings.SettingActivity"
@@ -43,14 +46,16 @@
 
         <service
             android:name=".api.NotificationsService"
-            tools:ignore="WrongManifestParent">
+            tools:ignore="WrongManifestParent"
+            >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
             android:name=".api.ServiceGetSignal"
-            android:process="ServiceGetSignal" />
+           >
+        </service>
 
         <receiver
             android:name=".api.ServerBroadcastReceiver"

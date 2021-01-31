@@ -1,5 +1,6 @@
-package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
+package jin.jerrykel.dev.signal.vue.Activities.main.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -95,17 +96,18 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
 
 
     }
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull SignalsViewHolder holder, int position, @NonNull Signals model) {
       if(!model.isPremium()){
           holder.textViewSignalName.setText(model.getTypeSignalsName());
           holder.textViewSignalStatut.setText(model.getSignalStatus());
           if(model.getSellOrBuy().equals("Sell")){
-              //holder.textViewSignalType.setTextColor(Color.GREEN);
-              holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
+              holder.textViewSignalType.setTextColor(Color.GREEN);
+              //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
           }else {
-              //holder.textViewSignalType.setTextColor(Color.RED);
-              holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
+              holder.textViewSignalType.setTextColor(Color.RED);
+             // holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
           }
           holder.textViewSignalType.setText(model.getSellOrBuy());
           holder.buttonEntryPrice.setText(model.getEntryPrice());
@@ -119,7 +121,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
               });
           }
       }else{
-          if(userC.getPremium()){
+          if(userC.getPremium()|| userC.getMentor()||userC.getRoot()){
               holder.textViewSignalName.setText(model.getTypeSignalsName());
               holder.textViewSignalStatut.setText(model.getSignalStatus());
               if(model.getSellOrBuy().equals("Sell")){
@@ -140,11 +142,15 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
 
                   });
               }
+              if(model.isClose()){
+                  holder.textViewSignalStatut.setText("Close");
+                  holder.textViewSignalStatut.setTextColor(Color.RED);
+              }
           }
 
       }
+        holder.imageButtonMenu.setOnClickListener(v -> makePopMenu( holder.imageButtonMenu.getContext(), holder.imageButtonMenu,position));
 
-      holder.imageButtonMenu.setOnClickListener(v -> makePopMenu( holder.imageButtonMenu.getContext(), holder.imageButtonMenu,position));
     }
 
     @Override

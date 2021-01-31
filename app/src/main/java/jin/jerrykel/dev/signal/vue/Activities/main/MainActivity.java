@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.Activities.Main;
+package jin.jerrykel.dev.signal.vue.Activities.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -30,9 +30,9 @@ import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.ServiceGetSignal;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
-import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.AlertFragment;
-import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.ProfileFragment;
-import jin.jerrykel.dev.signal.vue.Activities.Main.fragment.SignalFragment;
+import jin.jerrykel.dev.signal.vue.Activities.main.fragment.AlertFragment;
+import jin.jerrykel.dev.signal.vue.Activities.main.fragment.ProfileFragment;
+import jin.jerrykel.dev.signal.vue.Activities.main.fragment.SignalFragment;
 import jin.jerrykel.dev.signal.vue.Activities.settings.SettingActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 

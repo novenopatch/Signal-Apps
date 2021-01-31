@@ -29,7 +29,7 @@ import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
 import jin.jerrykel.dev.signal.model.TypeSignals;
 import jin.jerrykel.dev.signal.vue.Activities.LoginActivity;
-import jin.jerrykel.dev.signal.vue.Activities.Main.MainActivity;
+import jin.jerrykel.dev.signal.vue.Activities.main.MainActivity;
 
 /**
  * Created by JerrykelDEV on 26/12/2020 09:17
@@ -128,6 +128,52 @@ public class Utils {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle(getString(R.string.notification_title,context));
         inboxStyle.addLine(messageBody);
+
+        // 3 - Create a Channel (Android 8)
+        String channelId = getString(R.string.default_notification_channel_id,context);
+
+        // 4 - Build a Notification object
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(context, channelId)
+                        .setSmallIcon(R.mipmap.img_icone)
+                        .setContentTitle(title)
+                        .setContentText(getString(R.string.notification_title,context))
+                        .setAutoCancel(true)
+                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                        .setContentIntent(pendingIntent)
+                        .setStyle(inboxStyle);
+
+        // 5 - Add the Notification to the Notification Manager and show it.
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // 6 - Support Version >= Android 8
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence channelName = getString(R.string.app_name,context)+ " notification";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        // 7 - Show notification
+        notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notificationBuilder.build());
+    }
+    public static void sendVisualNotification(String title,Context context,boolean bool) {
+
+        // 1 - Create an Intent that will be shown when user will click on the Notification
+        Intent intent = null;
+        if(bool){
+            intent = new Intent(context, MainActivity.class);
+        }else {
+            intent = new Intent(context, LoginActivity.class);
+
+        }
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        // 2 - Create a Style for the Notification
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle(getString(R.string.notification_title,context));
+        //inboxStyle.addLine(messageBody);
 
         // 3 - Create a Channel (Android 8)
         String channelId = getString(R.string.default_notification_channel_id,context);

@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
+package jin.jerrykel.dev.signal.vue.Activities.main.fragment;
 
 import android.view.View;
 import android.widget.Button;

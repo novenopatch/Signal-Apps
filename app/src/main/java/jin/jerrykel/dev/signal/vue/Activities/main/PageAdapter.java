@@ -1,4 +1,4 @@
-package jin.jerrykel.dev.signal.vue.Activities.Main;
+package jin.jerrykel.dev.signal.vue.Activities.main;
 
 /**
  * Created by JerrykelDEV on 05/01/2021 23:57

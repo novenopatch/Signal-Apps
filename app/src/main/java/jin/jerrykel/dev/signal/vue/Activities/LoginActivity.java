@@ -26,7 +26,7 @@ import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
-import jin.jerrykel.dev.signal.vue.Activities.Main.MainActivity;
+import jin.jerrykel.dev.signal.vue.Activities.main.MainActivity;
 import jin.jerrykel.dev.signal.vue.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity {

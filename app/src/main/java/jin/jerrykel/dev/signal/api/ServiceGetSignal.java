@@ -22,7 +22,11 @@ public class ServiceGetSignal extends Service {
 
 
 
-    ListenerRegistration registration;
+    private ListenerRegistration registration;
+   // private Controler controler;
+    //private DatabaseManager  manager;
+    //private InfomationAppUser infomationAppUser;
+    //private int lastItemNbr;
 
 
 
@@ -37,8 +41,15 @@ public class ServiceGetSignal extends Service {
     @SuppressLint("WrongConstant")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+       // controler = Controler.getInstance(this);
+        //manager= controler.getManager();
+        //infomationAppUser = manager.getInformation();
+        //lastItemNbr = infomationAppUser.getLastSignalNbr();
         if(ifInternet()){
             startlisten();
+        }else{
+            Utils.sendVisualNotification("OneSignal",getString(R.string.user_offline),this,false);
+
         }
 
 
@@ -56,7 +67,7 @@ public class ServiceGetSignal extends Service {
             for (DocumentChange dc : snapshots.getDocumentChanges()) {
                 switch (dc.getType()) {
                     case ADDED:
-                        Utils.sendVisualNotification("OneSignal",getString(R.string.notification),this,false);
+                        Utils.sendVisualNotification("OneSignal",getString(R.string.musthave_new_signal),this,false);
                         break;
 
                 }

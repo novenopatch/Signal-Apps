@@ -1,5 +1,6 @@
-package jin.jerrykel.dev.signal.vue.Activities.Main.fragment;
+package jin.jerrykel.dev.signal.vue.Activities.main.fragment;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -74,21 +75,24 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         stringArrayList = Utils.getTypeSignalsString();
         recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
         textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.fragment_signal_not_found_textView);
+        initgraph();
         if(infomationAppUser.getLastSignalName() ==null){
             this.configureRecyclerView();
         }else {
-            this.configureRecyclerView(infomationAppUser.getLastSignalName());
+            Log.d("configureRecyclerViewSp","il passe");
+            this.configureRecyclerViewSpinnerForName(infomationAppUser.getLastSignalName());
         }
 
 
-        initgraph();
+
 
 
     }
 
 
-    private void configureRecyclerView(){
 
+    private void configureRecyclerView(){
+        this.configureRecyclerView();
         //Configure Adapter & RecyclerView
         this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()), Glide.with(this), this,modelCurrentUser);
         mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -103,7 +107,6 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     private void configureRecyclerViewSpinnerForName(String config){
 
         //Configure Adapter & RecyclerView
-        infomationAppUser.setLastSignalName(config);
         this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSignalName(config)), Glide.with(this), this,modelCurrentUser);
         mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -113,9 +116,10 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
         recyclerView.setAdapter(this.mentorChatAdapter);
+        infomationAppUser.setLastSignalName(config);
     }
     
-    private void configureRecyclerView(String config){
+    private void configureRecyclerViewSpinnerForState(String config){
         switch (config){
             case "Active":
                 this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this,modelCurrentUser);
@@ -189,7 +193,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         spinnerSignalState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                configureRecyclerView((String) spinnerSignalState.getSelectedItem());
+                configureRecyclerViewSpinnerForState((String) spinnerSignalState.getSelectedItem());
                 mentorChatAdapter.onDataChanged();
                 mentorChatAdapter.notifyDataSetChanged();
             }

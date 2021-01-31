@@ -185,7 +185,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="3dp">
 
                 <Switch
                     android:id="@+id/switchActiveOrReady"
@@ -197,12 +198,22 @@
                     android:textColor="#FFF"
                     tools:checked="false"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
+
                 <Switch
                     android:id="@+id/switchIsPremium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/is_not_premium_signal"
+                    android:textColor="#fff"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                <Switch
+                    android:id="@+id/switchClose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/set_close_signal"
                     android:textColor="#fff"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
