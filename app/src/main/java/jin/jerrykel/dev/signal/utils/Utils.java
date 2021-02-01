@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.SignalTypeListHelper;
@@ -57,7 +58,7 @@ public class Utils {
         ArrayList<String> stringArrayList = new ArrayList<>();
         SignalTypeListHelper.getAllSignalTypeSent().get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 
 
                     TypeSignals typeSignals = document.toObject(TypeSignals.class);
@@ -65,7 +66,7 @@ public class Utils {
                     //Log.d(TAG, document.getId() + " => " + document.getData());
                 }
             } else {
-                stringArrayList.add("type signal");
+                //////stringArrayList.add("type signal");
                 //Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });

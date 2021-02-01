@@ -1,12 +1,13 @@
 package jin.jerrykel.dev.signal.vue.Activities.main.fragment;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,9 +48,12 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     private static  Controler localControler;
     private static DatabaseManager manager;
     private static InfomationAppUser infomationAppUser;
+    private boolean grid = false;
+    private ImageButton imageButtonList;
+    private ImageButton imageButtonGrid;
 
-    
-    
+
+
 
 
 
@@ -73,49 +77,78 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
     @Override
     public void initView( ){
         stringArrayList = Utils.getTypeSignalsString();
-        recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
-        textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.fragment_signal_not_found_textView);
+
         initgraph();
         if(infomationAppUser.getLastSignalName() ==null){
             this.configureRecyclerView();
         }else {
-            Log.d("configureRecyclerViewSp","il passe");
             this.configureRecyclerViewSpinnerForName(infomationAppUser.getLastSignalName());
         }
+        updateImageButtonImG();
+        imageButtonGrid.setOnClickListener(v -> {
+            if(!grid){
+                grid = true;
+                configureRecyclerLayout();
+
+            }
+        });
+        imageButtonList.setOnClickListener(v -> {
+            if(grid){
+                grid = false;
+                configureRecyclerLayout();
+
+            }
+        });
 
 
 
 
+    }
+    private void initgraph(){
+        recyclerView = this.rootView.findViewById(R.id.recyclerViewSignal);
+        textViewRecyclerViewEmpty = this.rootView.findViewById(R.id.fragment_signal_not_found_textView);
+        imageButtonGrid = this.rootView.findViewById(R.id.imageButtonGrid);
+        imageButtonList = this.rootView.findViewById(R.id.imageButtonList);
+        spinnerSignalsName = this.rootView.findViewById(R.id.spinner1);
+        spinnerSignalState = this.rootView.findViewById(R.id.spinner2);
+        ArrayAdapter<String> spinnerAdapters = new ArrayAdapter<>(this.context,R.layout.item_spinner, stringArrayList);//stringArrayList);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.context, R.array.configSpinner, R.layout.item_spinner);
 
+        spinnerAdapters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        spinnerSignalsName.setAdapter(spinnerAdapters);
+        spinnerSignalState.setAdapter(adapter);
+
+
+
+        spinnerListener();
+    }
+    private void updateImageButtonImG(){
+        if(grid){
+            imageButtonGrid.setImageResource(R.drawable.ic_baseline_apps_grid_white_24);
+            imageButtonList.setImageResource(R.drawable.ic_baseline_format_list_bulleted_gray_24);
+        }else{
+            imageButtonGrid.setImageResource(R.drawable.ic_baseline_apps_grid_gray_24);
+            imageButtonList.setImageResource(   R.drawable.ic_baseline_format_list_bulleted_white_24);
+        }
     }
 
 
 
     private void configureRecyclerView(){
-        this.configureRecyclerView();
+
         //Configure Adapter & RecyclerView
         this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSent()), Glide.with(this), this,modelCurrentUser);
-        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
-        recyclerView.setAdapter(this.mentorChatAdapter);
+        configureRecyclerLayout();
+
     }
     private void configureRecyclerViewSpinnerForName(String config){
 
         //Configure Adapter & RecyclerView
         this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentSignalName(config)), Glide.with(this), this,modelCurrentUser);
-        mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
-        recyclerView.setAdapter(this.mentorChatAdapter);
+        configureRecyclerLayout();
         infomationAppUser.setLastSignalName(config);
     }
     
@@ -143,14 +176,27 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         }
         //Configure Adapter & RecyclerView
 
+        configureRecyclerLayout();
+    }
+    private void configureRecyclerLayout(){
         mentorChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 recyclerView.smoothScrollToPosition(mentorChatAdapter.getItemCount()); // Scroll to bottom on new messages
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
+        if(grid){
+
+            recyclerView.setLayoutManager( new GridLayoutManager(this.context,2,RecyclerView.VERTICAL,false));
+
+
+
+        }else{
+            recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
+        }
+        updateImageButtonImG();
         recyclerView.setAdapter(this.mentorChatAdapter);
+
     }
     private FirestoreRecyclerOptions<Signals> generateOptionsForAdapter(Query query){
 
@@ -160,23 +206,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
                 .build();
 
     }
-    private void initgraph(){
 
-        spinnerSignalsName = this.rootView.findViewById(R.id.spinner1);
-        spinnerSignalState = this.rootView.findViewById(R.id.spinner2);
-        ArrayAdapter<String> spinnerAdapters = new ArrayAdapter<>(this.context,R.layout.item_spinner, stringArrayList);//stringArrayList);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.context, R.array.configSpinner, R.layout.item_spinner);
-
-        spinnerAdapters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-        spinnerSignalsName.setAdapter(spinnerAdapters);
-        spinnerSignalState.setAdapter(adapter);
-
-
-        spinnerListener();
-    }
     private void spinnerListener(){
         spinnerSignalsName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -214,13 +244,18 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         return R.layout.fragment_signal;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateImageButtonImG();
+    }
 
     @Override
     public void onDataChanged() {
         textViewRecyclerViewEmpty.setVisibility(this.mentorChatAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         if(connetionState){
             if(lastItemNbr<mentorChatAdapter.getItemCount()){
-                int dif =lastItemNbr- mentorChatAdapter.getItemCount();
+                int dif =mentorChatAdapter.getItemCount()-lastItemNbr;
                 lastItemNbr =mentorChatAdapter.getItemCount();
                 infomationAppUser.setLastSignalNbr(lastItemNbr);
                 Utils.sendVisualNotification("OneSignal",Utils.getString(R.string.notification,context) +"("+String.valueOf(dif)+")",context,true);

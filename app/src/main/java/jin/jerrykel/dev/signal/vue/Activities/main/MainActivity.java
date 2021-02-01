@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -24,11 +25,16 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.Objects;
+
+import jin.jerrykel.dev.signal.BuildConfig;
 import jin.jerrykel.dev.signal.R;
-import jin.jerrykel.dev.signal.api.ServiceGetSignal;
+import jin.jerrykel.dev.signal.api.AppInfoHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
+import jin.jerrykel.dev.signal.model.AppInfo;
 import jin.jerrykel.dev.signal.vue.Activities.main.fragment.AlertFragment;
 import jin.jerrykel.dev.signal.vue.Activities.main.fragment.ProfileFragment;
 import jin.jerrykel.dev.signal.vue.Activities.main.fragment.SignalFragment;
@@ -51,7 +57,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
 
-    private Intent intent;
+  //  private Intent intent;
 
 
 
@@ -72,13 +78,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         configureToolbarButon();
         configureViewPagerAndTabs();
 
-        intent = new Intent(this, ServiceGetSignal.class);
+       // intent = new Intent(this, ServiceGetSignal.class);
 
         //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_ONE_SHOT);
         //AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
        // manager.set(ELAPSED_REALTIME, System.currentTimeMillis(), pendingIntent);
        // manager.setRepeating(ELAPSED_REALTIME,System.currentTimeMillis(),INTERVAL_FIFTEEN_MINUTES,pendingIntent);
-
+        checkVersion();
 
     }
     //@Override
@@ -330,13 +336,48 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         return false;
     }
+    private void checkVersion(){
+
+        AppInfoHelper.getAppInfo().get().addOnCompleteListener(task -> {
+
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+
+
+                    AppInfo appInfo = document.toObject(AppInfo.class);
+                    if(appInfo.getVersion()> BuildConfig.VERSION_CODE){
+                        new AlertDialog.Builder(this).setTitle("Confirm ?")
+                                .setMessage(getString(R.string.old_version_update))
+                                .setPositiveButton(getString(R.string.update), (dialog, which) -> {
+                                    //signOutUserFromFirebase();
+                                    // Perform Action & Dismiss dialog
+                                    dialog.dismiss();
+
+                                })
+                                .setNegativeButton(getString(R.string.quit), (dialog, which) -> {
+                                    finish();
+                                    dialog.dismiss();
+                                })
+                                .create()
+                                .show();
+                    }
+
+                }
+
+
+            }
+        });
+    }
 
     @Override
     public void onStop() {
         super.onStop();
+        /*
         if (this.getCurrentUser() != null) {
             startService(intent);
         }
+
+         */
 
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,75 +41,151 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_height="match_parent"
+        style="@style/scrollbar_style">
 
-        <TextView
-            android:id="@+id/textView_never_miss_trade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_large_margin"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="@dimen/default_large_margin"
-            android:layout_marginBottom="3dp"
-            android:text="@string/never_miss_a_trade"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView_premium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView_never_miss_trade"
-            android:layout_marginStart="@dimen/default_large_margin"
-            android:layout_marginEnd="@dimen/default_large_margin"
-            android:layout_marginBottom="3dp"
-            android:text="@string/get_live_notifications_n_no_ads"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/buttonPremium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/textView_premium"
-            android:layout_alignEnd="@id/textView_never_miss_trade"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="7dp"
-            android:layout_marginBottom="3dp"
-            android:background="@color/colorAccent"
-            android:padding="10dp"
-            android:text="@string/get_premium"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSignal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/scrollbar_style"/>
-        <TextView
-            android:id="@+id/fragment_signal_not_found_textView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_large_margin"
-            android:text="@string/signal_not_found"
-            android:layout_gravity="center|top"
-            android:textAlignment="center" />
+            android:orientation="vertical" >
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/live_signals"
+                    android:textColor="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/myColorTransparent"
+                    android:padding="3dp"
+                    app:srcCompat="@drawable/ic_baseline_format_list_bulleted_white_24"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/myColorTransparent"
+                    android:padding="3dp"
+                    app:srcCompat="@drawable/ic_baseline_apps_grid_gray_24"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:id="@+id/textView_never_miss_trade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_large_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/default_large_margin"
+                    android:layout_marginBottom="3dp"
+                    android:text="@string/never_miss_a_trade"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_premium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView_never_miss_trade"
+                    android:layout_marginStart="@dimen/default_large_margin"
+                    android:layout_marginEnd="@dimen/default_large_margin"
+                    android:layout_marginBottom="3dp"
+                    android:text="@string/get_live_notifications_n_no_ads"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/textView_premium"
+                    android:layout_alignEnd="@id/textView_never_miss_trade"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="@string/get_premium"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+                android:id="@+id/coordinatorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewSignal"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/fragment_signal_not_found_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_margin="@dimen/default_large_margin"
+                    android:text="@string/signal_not_found"
+                    android:textAlignment="center" />
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="DONT' WANT TO MISS ANY SIGNAL?"
+                    android:textColor="#000" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/myColorTransparent"
+                    android:text="Go Premium"
+                    android:textColor="#0091EA" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

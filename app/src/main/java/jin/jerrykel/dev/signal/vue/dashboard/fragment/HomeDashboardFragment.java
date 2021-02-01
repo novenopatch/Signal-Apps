@@ -8,10 +8,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Objects;
 
 import jin.jerrykel.dev.signal.BuildConfig;
 import jin.jerrykel.dev.signal.R;
+import jin.jerrykel.dev.signal.api.AppInfoHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.model.AppInfo;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
@@ -99,9 +104,28 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
 
     }
     private void initEnd(){
+        //BuildConfig.VERSION_CODE
         textViewAppVersion.setText(BuildConfig.VERSION_NAME);
+        updateVersion();
     }
+    private void updateVersion(){
 
+        AppInfoHelper.getAppInfo().get().addOnCompleteListener(task -> {
+            AppInfo  appInfo  = new AppInfo();
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+
+
+                     appInfo = document.toObject(AppInfo.class);
+
+                }
+                if(appInfo.getVersion()< BuildConfig.VERSION_CODE){
+                    AppInfoHelper.createAppInfo(BuildConfig.VERSION_CODE,BuildConfig.VERSION_NAME);
+                }
+
+            }
+        });
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
