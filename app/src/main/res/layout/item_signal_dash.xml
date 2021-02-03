@@ -208,15 +208,6 @@
                     android:textColor="#fff"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-                <Switch
-                    android:id="@+id/switchClose"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/set_close_signal"
-                    android:textColor="#fff"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
-
                 <ImageButton
                     android:id="@+id/imageButtonDelete"
                     android:layout_width="match_parent"
@@ -234,16 +225,15 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:visibility="invisible" />
+                android:indeterminate="true"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
 
-    <!-- MESSAGE CONTAINER -->
 
-    <!-- DATE MESSAGE -->
 
 
 </LinearLayout>

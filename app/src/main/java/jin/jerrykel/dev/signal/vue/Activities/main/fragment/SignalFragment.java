@@ -67,6 +67,7 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
         connetionState = connectionStatep;
         localControler = controler;
         manager= localControler.getManager();
+
         infomationAppUser = manager.getInformation();
         lastItemNbr = infomationAppUser.getLastSignalNbr();
         infomationAppUser.setWhen(new Date());
@@ -157,7 +158,6 @@ public class SignalFragment extends BaseFragment implements SignalsAdapter.Liste
             case "Active":
                 this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this,modelCurrentUser);
                 break;
-
 
             case  "Ready":
                 this.mentorChatAdapter = new SignalsAdapter( generateOptionsForAdapter(SignalsHelper.getAllSignalSentActiveOrReady(config)), Glide.with(this), this,modelCurrentUser);

@@ -10,7 +10,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import jin.jerrykel.dev.signal.model.InfomationAppUser;
 
@@ -35,11 +34,17 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+
         try{
+            /*
             InfomationAppUser infomationAppUser = new InfomationAppUser(false,new Date());
             TableUtils.dropTable(connectionSource, InfomationAppUser.class,true);
             onCreate(database,connectionSource);
             insertInformation(infomationAppUser);
+
+             */
+            TableUtils.createTable(connectionSource, InfomationAppUser.class);
+
         }catch (Exception e){
 
         }

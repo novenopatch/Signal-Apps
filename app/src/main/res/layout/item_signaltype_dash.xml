@@ -99,15 +99,6 @@
                 android:orientation="vertical"
                 android:padding="3dp">
 
-                <Switch
-                    android:id="@+id/switchIsPremiumType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/is_not_premium_signal_type"
-                    android:textColor="#fff"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
-
                 <ImageButton
                     android:id="@+id/imageButtonDelete"
                     android:layout_width="match_parent"

@@ -24,6 +24,7 @@ public class InfomationAppUser {
     private boolean notfication = true;
 
 
+
     public InfomationAppUser() {
 
     }
@@ -90,4 +91,6 @@ public class InfomationAppUser {
     public void setNotfication(boolean notfication) {
         this.notfication = notfication;
     }
+
+
 }

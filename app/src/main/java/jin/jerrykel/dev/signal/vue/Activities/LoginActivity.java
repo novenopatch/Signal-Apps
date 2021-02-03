@@ -38,7 +38,6 @@ public class LoginActivity extends BaseActivity {
     private final int millis = 2000;
     ProgressBar progressBarC;
     private User modelCurrentUser;
-    private Controler controler;
     public static InfomationAppUser infomationAppUser = new InfomationAppUser(new Date());
 
 
@@ -63,19 +62,38 @@ public class LoginActivity extends BaseActivity {
         buttonLogin =  findViewById(R.id.buttonLogin);
         progressBarC = findViewById(R.id.progressBarC);
 
-       controler = Controler.getInstance(this);
+        Controler controler = Controler.getInstance(this);
        controler.getManager().insertInformation(infomationAppUser);
        InfomationAppUser infomationAppUserR = controler.getManager().getInformation();
        if(infomationAppUserR!=null && infomationAppUserR.isFirstLaunch()){
            startLicenceActivity();
        }
-
+        progressBarC.setVisibility(View.VISIBLE);
         Runnable runnable = () -> {
             linearLayout.setVisibility(View.VISIBLE);
             //startAppropriateActivity();
 
+            if(isCurrentUserLogged()) {
+                this.buttonLogin.setText(getString(R.string.button_login_text_logged));
+                if(!ifInternet()){
+                    buttonLogin.setText("You are in offline.");
+                }
+                progressBarC.setVisibility(View.GONE);
+                startAppropriateActivity(true);
+            }else {
+                progressBarC.setVisibility(View.GONE);
+                this.buttonLogin.setText(getString(R.string.button_login_text_not_logged));
+
+            }
+
         };
-        new Handler().postDelayed(runnable, millis/3);
+        new Handler().postDelayed(runnable, millis);
+        Runnable runnable1 = () -> {
+
+
+        };
+
+        //new Handler().postDelayed(runnable1, millis);
     }
 
     private void startLicenceActivity(){
@@ -170,13 +188,12 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         // 5 - Update UI when activity is resuming
-        this.updateUIWhenResuming();
+        //this.updateUIWhenResuming();
     }
     private void updateUIWhenResuming(){
         Runnable runnable = () -> {
 
             progressBarC.setVisibility(View.VISIBLE);
-            Log.d("progressBarC","2 OnResume(Visible)");
             if(isCurrentUserLogged()) {
                 this.buttonLogin.setText(getString(R.string.button_login_text_logged));
                 if(!ifInternet()){

@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by JerrykelDEV on 23/11/2020 13:42
  */
-public class User {
+public class User  {
 
     private String uid;
     private String username;
@@ -92,6 +92,9 @@ public class User {
     public void setPremium(Boolean premium) {
         this.premium = premium;
     }
+
+
+
 
 
 }

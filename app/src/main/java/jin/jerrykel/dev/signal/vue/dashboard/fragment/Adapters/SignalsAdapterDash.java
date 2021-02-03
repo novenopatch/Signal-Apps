@@ -56,7 +56,6 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
         Button buttonReadMore;
         ImageView imageViewSend;
         Switch switchIsPremiumType;
-        Switch switchClose;
         Switch switchActiveOrReady;
         ImageButton imageButtonDelete;
         View rootView;
@@ -83,7 +82,7 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
             this.switchActiveOrReady = superView.findViewById(R.id.switchActiveOrReady);
             this.progressBar = superView.findViewById(R.id.progressBar);
             this.switchIsPremiumType = superView.findViewById(R.id.switchIsPremium);
-            this.switchClose = superView.findViewById(R.id.switchClose);
+
 
 
 
@@ -140,6 +139,14 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
 
             });
         }
+        if(model.isPremium()){
+            holder.switchIsPremiumType.setText(Utils.getString(R.string.is_premium_signal,holder.imageButtonDelete.getContext()));
+
+        }
+        else {
+            holder.switchIsPremiumType.setText(Utils.getString(R.string.is_not_premium_signal,holder.imageButtonDelete.getContext()));
+        }
+
         holder.switchIsPremiumType.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             if(isChecked){
@@ -169,7 +176,6 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
                     .create()
                     .show();
         });
-        holder.switchClose.setOnCheckedChangeListener((buttonView, isChecked) -> SignalsHelper.updateClose(model.getUI(),isChecked));
 
         switchActiveOrReadyAction(holder,model);
 

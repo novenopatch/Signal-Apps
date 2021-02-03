@@ -99,14 +99,15 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
     @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull SignalsViewHolder holder, int position, @NonNull Signals model) {
+
       if(!model.isPremium()){
           holder.textViewSignalName.setText(model.getTypeSignalsName());
           holder.textViewSignalStatut.setText(model.getSignalStatus());
           if(model.getSellOrBuy().equals("Sell")){
-              holder.textViewSignalType.setTextColor(Color.GREEN);
+              holder.textViewSignalType.setTextColor(Color.RED);
               //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
           }else {
-              holder.textViewSignalType.setTextColor(Color.RED);
+              holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
              // holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
           }
           holder.textViewSignalType.setText(model.getSellOrBuy());
@@ -121,31 +122,32 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
               });
           }
       }else{
-          if(userC.getPremium()|| userC.getMentor()||userC.getRoot()){
-              holder.textViewSignalName.setText(model.getTypeSignalsName());
-              holder.textViewSignalStatut.setText(model.getSignalStatus());
-              if(model.getSellOrBuy().equals("Sell")){
-                  holder.textViewSignalType.setTextColor(Color.GREEN);
-                  //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
-              }else {
-                  //holder.textViewSignalType.setTextColor(Color.RED);
-                  holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
-              }
-              holder.textViewSignalType.setText(model.getSellOrBuy());
-              holder.buttonEntryPrice.setText(model.getEntryPrice());
-              holder.buttonStopLoss.setText(model.getStopLoss());
-              holder.buttonTakeProfit.setText(model.getTakeProfit());
-              if(model.getUrlImage()!=null){
-                  holder.buttonReadMore.setOnClickListener(v -> {
-                      updateImageView(model,holder.imageViewSend,glide);
+          if(userC.getPremium()!=null ){
+              if(userC.getPremium() || userC.getMentor()||userC.getRoot()){
+                  holder.textViewSignalName.setText(model.getTypeSignalsName());
+                  holder.textViewSignalStatut.setText(model.getSignalStatus());
+                  if(model.getSellOrBuy().equals("Sell")){
+                      holder.textViewSignalType.setTextColor(Color.RED);
+                      //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
+                  }else {
+                      //holder.textViewSignalType.setTextColor(Color.RED);
+                      holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
+                  }
+                  holder.textViewSignalType.setText(model.getSellOrBuy());
+                  holder.buttonEntryPrice.setText(model.getEntryPrice());
+                  holder.buttonStopLoss.setText(model.getStopLoss());
+                  holder.buttonTakeProfit.setText(model.getTakeProfit());
+                  if(model.getUrlImage()!=null){
+                      holder.buttonReadMore.setOnClickListener(v -> {
+                          updateImageView(model,holder.imageViewSend,glide);
 
 
-                  });
+                      });
+                  }
+              }else{
+
               }
-              if(model.isClose()){
-                  holder.textViewSignalStatut.setText("Close");
-                  holder.textViewSignalStatut.setTextColor(Color.RED);
-              }
+
           }
 
       }

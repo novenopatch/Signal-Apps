@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.firebase.ui.auth.AuthUI;
@@ -168,11 +168,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             default:
                 break;
         }
+        /*
         if(fragment != null){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(pager.getId(), fragment);
             ft.commit();
         }
+
+         */
         this.drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
@@ -345,12 +348,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
                     AppInfo appInfo = document.toObject(AppInfo.class);
+                    Log.e("VersionApp",appInfo.getVersionName());
                     if(appInfo.getVersion()> BuildConfig.VERSION_CODE){
                         new AlertDialog.Builder(this).setTitle("Confirm ?")
                                 .setMessage(getString(R.string.old_version_update))
                                 .setPositiveButton(getString(R.string.update), (dialog, which) -> {
                                     //signOutUserFromFirebase();
                                     // Perform Action & Dismiss dialog
+                                    finish();
                                     dialog.dismiss();
 
                                 })

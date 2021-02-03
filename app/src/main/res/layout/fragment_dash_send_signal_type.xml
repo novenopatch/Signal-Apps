@@ -67,12 +67,6 @@
                         android:hint="@string/enter_signal_type_name"
                         android:textColor="#FFF" />
 
-                    <Switch
-                        android:id="@+id/switchIsPremiumSignal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/is_not_premium_signal_type"
-                        android:textColor="#fff" />
                 </LinearLayout>
 
                 <LinearLayout

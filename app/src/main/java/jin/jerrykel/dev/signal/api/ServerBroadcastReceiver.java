@@ -10,11 +10,14 @@ import android.content.Intent;
 public class ServerBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        /*
         if(context !=null && intent !=null){
             while (intent.getAction()== Intent.ACTION_BOOT_COMPLETED){
                 Intent intento = new Intent(context, ServiceGetSignal.class);
                 context.startService(intento);
             }
         }
+
+         */
     }
 }

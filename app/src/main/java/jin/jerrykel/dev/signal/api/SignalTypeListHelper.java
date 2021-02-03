@@ -35,9 +35,9 @@ public class SignalTypeListHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createSignalType(String ui,String senderName,String name,Boolean premium){
+    public static Task<Void> createSignalType(String ui,String senderName,String name){
         String uuid = UUID.randomUUID().toString();
-        TypeSignals typeSignals = new TypeSignals(uuid,ui,senderName,name,premium);
+        TypeSignals typeSignals = new TypeSignals(uuid,ui,senderName,name);
 
         return getSignalTypeListCollection().document(uuid).set(typeSignals);
     }
@@ -47,12 +47,7 @@ public class SignalTypeListHelper {
     public static Task<Void> updateSignalTypeName(String uid, String name) {
         return getSignalTypeListCollection().document(uid).update("name", name);
     }
-    public static Task<Void> updatePremiumOrNot(String uid, boolean state) {
 
-            return getSignalTypeListCollection().document(uid).update("premium",state);
-
-
-    }
     // --- DELETE ---
 
     public static Task<Void> deleteSignalType(String uid) {

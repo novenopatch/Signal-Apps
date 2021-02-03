@@ -1,6 +1,7 @@
 package jin.jerrykel.dev.signal.vue.dashboard.fragment;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -112,11 +113,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnClickL
 
         AppInfoHelper.getAppInfo().get().addOnCompleteListener(task -> {
             AppInfo  appInfo  = new AppInfo();
+
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 
 
                      appInfo = document.toObject(AppInfo.class);
+                    Log.e("VersionApp",appInfo.getVersionName());
 
                 }
                 if(appInfo.getVersion()< BuildConfig.VERSION_CODE){

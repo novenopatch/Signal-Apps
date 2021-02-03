@@ -7,7 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="button_login_text_logged">Vous êtes  connecté </string>
-    <string name="button_login_text_not_logged">you are not connected</string>
+    <string name="button_login_text_not_logged">"Vous n'êtes  connecté "</string>
 
     <string name="error_unknown_error">Erreur inconnue </string>
     <string name="info_no_email_found">email non trouver</string>
@@ -20,8 +20,8 @@
     <string name="error_no_internet">Pas de connexion</string>
     <string name="connection_succeed">connexion réussie</string>
     <string name="notification_title">"Vous avez reçue un nouveau Signal "</string>
-    <string name="action_settings">Paramètre</string>
-    <string name="settings">Paramètre</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="settings">Paramètres</string>
 
     <string name="about">A propos </string>
     <string name="help">Aide</string>
@@ -49,8 +49,8 @@
     <string name="enter_signal_type_name">enter le nom du signal</string>
     <string name="licence_bla_part1_1">Veuillez lire notre</string>
     <string name="licence_bla_part1_2">Politique de confidentialité.</string>
-    <string name="licence_bla_part1_3">Appuyer sur "Accepter et continuer" pour accepter</string>
-    <string name="licence_bla_part2_1">les</string>
+    <string name="licence_bla_part1_3">"Appuyer sur \"Accepter et continuer\" "</string>
+    <string name="licence_bla_part2_1">pour accepter les</string>
     <string name="licence_bla_part2_2">Condition d\'utilisation.</string>
     <string name="agree_and_continue">ACCEPTER ET CONTINUER</string>
     <string name="welcome_to_wtf_signals">Bienvenue sur WTF Signals</string>
@@ -87,11 +87,11 @@
     <string name="others">Autres</string>
     <string name="terms_of_service">Conditions d\'utilisation</string>
     <string name="privacy_policy">Politique de confidentialité</string>
-    <string name="privacy">Confidentialité</string>
+    <string name="privacy">Confidentialités</string>
 
     <string name="your_email">Votre Email</string>
     <string name="your_username">Votre Nom d\'utilisateur</string>
-    <string name="main_setting">Paramètre principaux</string>
+    <string name="main_setting">Paramètres principaux</string>
     <string name="premium_account">PREMIUM ACCOUNT</string>
     <string name="never_miss_na_trade_again">NEVER MISS \nA TRADE AGAIN!</string>
     <string name="todo">TODO</string>
@@ -138,5 +138,8 @@
         <item>Sell</item>
         <item>Buy</item>
     </string-array>
+    <string name="old_version_update">Vous utilisez une ancienne version de l\'application Veillez la mettre à jour</string>
+    <string name="quit">Quiter</string>
+    <string name="live_signals">Signaux en direct</string>
 
 </resources>

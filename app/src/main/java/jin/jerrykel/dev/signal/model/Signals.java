@@ -23,7 +23,7 @@ public class Signals {
     private String urlImage;
     private boolean active = true;
     private boolean premium = false;
-    private boolean close = false;
+
 
     public Signals() {
 
@@ -153,11 +153,5 @@ public class Signals {
         return premium;
     }
 
-    public boolean isClose() {
-        return close;
-    }
 
-    public void setClose(boolean close) {
-        this.close = close;
-    }
 }
