@@ -18,7 +18,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.firebase.ui.auth.AuthUI;
@@ -35,6 +34,8 @@ import jin.jerrykel.dev.signal.api.AppInfoHelper;
 import jin.jerrykel.dev.signal.api.UserHelper;
 import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.AppInfo;
+import jin.jerrykel.dev.signal.utils.Utils;
+import jin.jerrykel.dev.signal.vue.Activities.TutoActivity;
 import jin.jerrykel.dev.signal.vue.Activities.main.fragment.AlertFragment;
 import jin.jerrykel.dev.signal.vue.Activities.main.fragment.ProfileFragment;
 import jin.jerrykel.dev.signal.vue.Activities.main.fragment.SignalFragment;
@@ -54,10 +55,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private NavigationView navigationView;
     private   boolean connectionState;
     private Controler controler;
+    private String email ;
+    private String userName;
 
 
 
   //  private Intent intent;
+
 
 
 
@@ -67,12 +71,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
     @Override
     public void initView(){
+        email = getIntent().getStringExtra("email");
+        userName = getIntent().getStringExtra("userName");
+        boolean tag = getIntent().getBooleanExtra("login",false);
+        if(tag){
+            Utils.makeToast(getString(R.string.welcome)+"  "+userName,this);
+        }
+
 
         connectionState = ifInternet();
         controler = Controler.getInstance(this);
         signalFragment = SignalFragment.newInstance(connectionState,controler);
         alertFragment = AlertFragment.newInstance();
-        profileFragment = ProfileFragment.newInstance();
+        profileFragment = ProfileFragment.newInstance(email,userName,connectionState);
         configureDrawerLayout();
         configureNavigationView();
         configureToolbarButon();
@@ -120,7 +131,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         int id = item.getItemId();
 
         //open new fragment
-        Fragment fragment = null;
+        //Fragment fragment = null;
 
         switch (id){
             case R.id.activity_main_drawer_menu_profile :
@@ -158,12 +169,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                  */
 
             case R.id.activity_main_drawer_recycler_tutorial:
-                //TODO
-                //startSettingActivity();
+                if(connectionState){
+                   Utils.openTutorielPage(this);
+               }
+                else {
+                   Intent intent = new Intent(getApplicationContext(), TutoActivity.class);
+                   startActivity(intent);
+               }
                 break;
             case R.id.activity_main_drawer_recycler_share:
-                //TODO
-            //startSettingActivity();
+               Utils.shareApp(this);
             break;
             default:
                 break;
@@ -373,6 +388,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
     }
+
+
+
+
 
     @Override
     public void onStop() {

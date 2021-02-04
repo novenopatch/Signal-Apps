@@ -7,13 +7,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-
         android:icon="@mipmap/img_icone"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/img_icone_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".vue.Activities.TutoActivity"></activity>
         <activity
             android:name=".vue.Activities.LoginActivity"
             android:theme="@style/LoginTheme">
@@ -35,8 +34,9 @@
             android:label="@string/account"
             android:parentActivityName=".vue.Activities.settings.SettingActivity" />
         <activity android:name=".vue.Activities.LicenceAccepteActivity" />
-        <activity android:name=".vue.Activities.settings.road.OpenSourceActivity"
-            android:theme="@style/MainTheme"/>
+        <activity
+            android:name=".vue.Activities.settings.road.OpenSourceActivity"
+            android:theme="@style/MainTheme" />
         <activity
             android:name=".vue.dashboard.DashboardActivity"
             android:parentActivityName=".vue.Activities.settings.SettingActivity"
@@ -44,20 +44,14 @@
 
         <service
             android:name=".api.NotificationsService"
-            tools:ignore="WrongManifestParent"
-            >
+            tools:ignore="WrongManifestParent">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".api.ServiceGetSignal"
-           >
-        </service>
+        <service android:name=".api.ServiceGetSignal"></service>
 
-        <receiver
-            android:name=".api.ServerBroadcastReceiver"
-            >
+        <receiver android:name=".api.ServerBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

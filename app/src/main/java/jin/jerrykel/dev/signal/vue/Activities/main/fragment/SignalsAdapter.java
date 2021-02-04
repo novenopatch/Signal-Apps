@@ -96,7 +96,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
 
 
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     protected void onBindViewHolder(@NonNull SignalsViewHolder holder, int position, @NonNull Signals model) {
 
@@ -107,8 +107,9 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
               holder.textViewSignalType.setTextColor(Color.RED);
               //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
           }else {
-              holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
-             // holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
+
+              holder.textViewSignalType.setTextColor(Color.parseColor("#039BE5"));
+              //holder.textViewSignalType.setTextColor(Color.parseColor("#28557d"));
           }
           holder.textViewSignalType.setText(model.getSellOrBuy());
           holder.buttonEntryPrice.setText(model.getEntryPrice());

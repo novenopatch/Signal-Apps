@@ -129,6 +129,9 @@
     <string name="old_version_update">You uses olders version of this application Please update!!</string>
     <string name="quit">Cancel</string>
     <string name="live_signals">LIVE SIGNALS</string>
+    <string name="welcome">Welcome</string>
+    <string name="offline">You are in Offline</string>
+    <string name="share_via">Share with</string>
 
     <string-array name="configSpinner">
         <item>All</item>

@@ -7,8 +7,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
@@ -92,10 +92,10 @@ public class Utils {
         View toastView = toast.getView();
         TextView tv = (TextView) toastView.findViewById(android.R.id.message);
         tv.setTextSize(18);
-        tv.setTextColor(Color.parseColor("#000000"));
+        //tv.setTextColor(Color.parseColor("#000000"));
         tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_settings_blue_24,0,0,0);
         tv.setCompoundDrawablePadding(15);
-        toastView.setBackgroundColor(Color.parseColor("#00000000"));
+       // toastView.setBackgroundColor(Color.parseColor("#00000000"));
 
 
         toast.show();
@@ -111,7 +111,13 @@ public class Utils {
         return context.getString(resId);
     }
 
-
+    /**
+     * send notification from user
+     * @param title
+     * @param messageBody
+     * @param context
+     * @param bool
+     */
     public static void sendVisualNotification(String title,String messageBody,Context context,boolean bool) {
 
         // 1 - Create an Intent that will be shown when user will click on the Notification
@@ -203,6 +209,17 @@ public class Utils {
 
         // 7 - Show notification
         notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notificationBuilder.build());
+    }
+    public static void shareApp(Context context){
+        Intent intent = new Intent(Intent.ACTION_SEND);;
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,"http://wtf.signal.download.apk");
+        context.startActivity(Intent.createChooser(intent,getString(R.string.share_via,context)));
+    }
+    public static void openTutorielPage(Context context){
+        Uri uri = Uri.parse("http://wtf.com/tutoriel.html");
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        context.startActivity(intent);
     }
 
 }

@@ -60,7 +60,18 @@ public class SettingActivity extends BaseActivity {
             databaseManager.updateInformation(infomationAppUser);;
         });
 
+
+
+
+
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void updateUIWhenCreating(){
         String version = buttonVersion.getText().toString();
         buttonVersion.setText(version.concat(" :").concat("\n").concat(BuildConfig.VERSION_NAME));
@@ -76,6 +87,7 @@ public class SettingActivity extends BaseActivity {
                 User currentUser = documentSnapshot.toObject(User.class);
                 if(currentUser !=null){
                     controler.setUser(currentUser);
+
                     String email = TextUtils.isEmpty(currentUser.getEmail()) ? getString(R.string.info_no_email_found) : getCurrentUser().getEmail();
                     String username = currentUser.getUsername();
                     this.buttonUsername.setText(preUsername.concat(" :").concat("\n").concat(username));

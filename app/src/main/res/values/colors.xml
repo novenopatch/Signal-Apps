@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorAccenta">#03DAC5</color>
+
 
     <color name="loginScreenBackgroundColor">#126EA6</color>
     <color name="loginConnectBackgroundColor">#126EC1</color>

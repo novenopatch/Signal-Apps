@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
@@ -40,7 +41,7 @@ public class LoginActivity extends BaseActivity {
     private User modelCurrentUser;
     public static InfomationAppUser infomationAppUser = new InfomationAppUser(new Date());
 
-
+    private LinearLayout linearLayout;
 
 
     @Override
@@ -55,61 +56,58 @@ public class LoginActivity extends BaseActivity {
     }
     @Override
     public void initView(){
-        LinearLayout linearLayout = findViewById(R.id.linearLayoutContent);
+       linearLayout = findViewById(R.id.linearLayoutContent);
 
 
         coordinatorLayout = findViewById(R.id.main_activity_coordinator_layout);
         buttonLogin =  findViewById(R.id.buttonLogin);
         progressBarC = findViewById(R.id.progressBarC);
+        TextView textViewLineOrNot = findViewById(R.id.textViewLineOrNot);
 
-        Controler controler = Controler.getInstance(this);
-       controler.getManager().insertInformation(infomationAppUser);
-       InfomationAppUser infomationAppUserR = controler.getManager().getInformation();
-       if(infomationAppUserR!=null && infomationAppUserR.isFirstLaunch()){
-           startLicenceActivity();
-       }
-        progressBarC.setVisibility(View.VISIBLE);
-        Runnable runnable = () -> {
+
+        licenceCheck();
+
+        new Handler().postDelayed(() -> {
             linearLayout.setVisibility(View.VISIBLE);
-            //startAppropriateActivity();
+            progressBarC.setVisibility(View.VISIBLE);
+        }, millis / 3);
 
+        Runnable runnable = () -> {
             if(isCurrentUserLogged()) {
                 this.buttonLogin.setText(getString(R.string.button_login_text_logged));
                 if(!ifInternet()){
-                    buttonLogin.setText("You are in offline.");
+                    textViewLineOrNot.setText("You are in offline.");
                 }
-                progressBarC.setVisibility(View.GONE);
+
                 startAppropriateActivity(true);
             }else {
-                progressBarC.setVisibility(View.GONE);
                 this.buttonLogin.setText(getString(R.string.button_login_text_not_logged));
 
             }
-
+            progressBarC.setVisibility(View.GONE);
         };
         new Handler().postDelayed(runnable, millis);
-        Runnable runnable1 = () -> {
 
-
-        };
-
-        //new Handler().postDelayed(runnable1, millis);
     }
+    private void startAppropriateActivity(Boolean bool) {
+        if(bool){
+            testUsers();
+        }else {
+            if (this.isCurrentUserLogged()){
+                testUsers();
 
-    private void startLicenceActivity(){
-        Intent intent = new Intent(getApplicationContext(), LicenceAccepteActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void login(View v){
-
-        startAppropriateActivity();
+            } else {
+                this.startSignInActivity();
+            }
+        }
 
     }
     private void testUsers(){
         if(modelCurrentUser!=null ){
+            progressBarC.setVisibility(View.VISIBLE);
+
             if(modelCurrentUser.getDisable() || modelCurrentUser.isDeleteAction()){
+                Log.d("testUser","leIf");
                 buttonLogin.setEnabled(false);
                 progressBarC.setVisibility(View.VISIBLE);
                 if(modelCurrentUser.getDisable()){
@@ -133,6 +131,7 @@ public class LoginActivity extends BaseActivity {
                 };
                 new Handler().postDelayed(runnable, millis/2);
             }else {
+
                 startAppActivity();
             }
 
@@ -140,26 +139,41 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
-
-    private void startAppropriateActivity() {
-        if (this.isCurrentUserLogged()){
-            testUsers();
-
-        } else {
-            this.startSignInActivity();
-        }
-
-    }
-    private void startAppropriateActivity(Boolean bool) {
-        testUsers();
-    }
-
     private void startAppActivity(){
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("email",modelCurrentUser.getEmail());
+        intent.putExtra("userName",modelCurrentUser.getUsername());
+        intent.putExtra("login",true);
         startActivity(intent);
         finish();
     }
+    private void licenceCheck() {
+        Controler controler = Controler.getInstance(this);
+        controler.getManager().insertInformation(infomationAppUser);
+        InfomationAppUser infomationAppUserR = controler.getManager().getInformation();
+        if(infomationAppUserR!=null && infomationAppUserR.isFirstLaunch()){
+            startLicenceActivity();
+        }
+    }
+    private void startLicenceActivity(){
+        Intent intent = new Intent(getApplicationContext(), LicenceAccepteActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void login(View v){
+
+        startAppropriateActivity(false);
+
+    }
+
+
+
+
+
+
+
     private void startSignInActivity(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build()
@@ -229,7 +243,7 @@ public class LoginActivity extends BaseActivity {
                 }
             }
             showSnackBar(this.coordinatorLayout, getString(R.string.SUCCESS));
-            startAppropriateActivity();
+            startAppropriateActivity(true);
             } else { // ERRORS
                 if (response == null) {
 

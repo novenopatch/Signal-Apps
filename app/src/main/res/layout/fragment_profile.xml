@@ -1,226 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayoutProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:orientation="vertical"
+    android:layout_gravity="center|center_horizontal|center_vertical"
+    android:baselineAligned="false"
+    android:gravity="center|center_horizontal|center_vertical"
     tools:context=".vue.Activities.main.fragment.ProfileFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
 
-        android:id="@+id/linearLayoutContent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        >
 
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
 
 
         <LinearLayout
-            android:id="@+id/linearLayoutUsername"
+
+            android:id="@+id/linearLayoutContent"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingBottom="10dp">
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <ImageView
 
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayoutUsername"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="@dimen/dimen_20dp"
+                android:paddingBottom="10dp">
 
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_person_white_24" />
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:padding="@dimen/dimen_20dp"
+                    android:src="@drawable/ic_baseline_person_white_24" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+
+                        android:text="@string/name"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="16sp" />
+
+                    <EditText
+
+                        android:id="@+id/editTextUsername"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_marginLeft="10dp"
+
+                        android:layout_marginTop="10dp"
+                        android:drawableRight="@drawable/ic_baseline_edit_white_24"
+                        android:maxLines="1"
+                        android:textColor="#FFFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_weight="1"
+                        android:background="?android:attr/listDivider" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="@dimen/dimen_20dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:contentDescription="@string/your_autentification_email"
+                    android:padding="@dimen/dimen_20dp"
+                    android:src="@drawable/ic_baseline_email_white_24" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+
+                        android:text="@string/email"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="16sp" />
+
+                    <TextView
+
+                        android:id="@+id/textViewEmail"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:duplicateParentState="false"
+
+                        android:maxLines="1"
+                        android:textColor="#FFFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_weight="1"
+                        android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="@dimen/dimen_20dp"
+                android:paddingBottom="10dp">
 
-                <TextView
+                <ImageView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
 
-                    android:text="@string/name"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16sp" />
+                    android:padding="@dimen/dimen_20dp"
+                    android:src="@drawable/ic_baseline_person_white_24" />
 
-                <EditText
-
-                    android:id="@+id/editTextUsername"
+                <LinearLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <TextView
 
-                    android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
 
-                    android:layout_marginTop="10dp"
-                    android:drawableRight="@drawable/ic_baseline_edit_white_24"
-                    android:maxLines="1"
-                    android:textColor="#FFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                        android:text="@string/about"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:background="?android:attr/listDivider" />
+                    <TextView
+
+                        android:id="@+id/textViewAbout"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="1"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
             </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingBottom="10dp">
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_email_white_24"
-                android:contentDescription="@string/your_autentification_email" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    android:text="@string/email"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16sp" />
-
-                <TextView
-
-                    android:id="@+id/textViewEmail"
+                <Button
+                    android:id="@+id/buttonUpdate"
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_blue_hilo"
+                    android:text="@string/update"
+                    android:textColor="#FFF" />
 
-                    android:layout_marginLeft="10dp"
+                <ProgressBar
+                    android:id="@+id/progressBarFragmentProfile"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:duplicateParentState="false"
-
-                    android:maxLines="1"
-                    android:textColor="#FFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:background="?android:attr/listDivider" />
-
+                    android:indeterminate="true"
+                    android:visibility="invisible" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dimen_20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingBottom="10dp">
 
-            <ImageView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:padding="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_person_white_24" />
+    </androidx.core.widget.NestedScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    android:text="@string/about"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16sp" />
-
-                <TextView
-
-                    android:id="@+id/textViewAbout"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <Button
-                android:id="@+id/buttonUpdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_green_hilo"
-                android:text="@string/update"
-                android:textColor="#FFF" />
-
-            <ProgressBar
-                android:id="@+id/progressBarFragmentProfile"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:indeterminate="true"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

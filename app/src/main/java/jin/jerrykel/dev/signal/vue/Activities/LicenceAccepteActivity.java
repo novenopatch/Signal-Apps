@@ -1,6 +1,7 @@
 package jin.jerrykel.dev.signal.vue.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -35,6 +36,16 @@ public class LicenceAccepteActivity extends AppCompatActivity {
             textView1Licence.setText(Html.fromHtml(htmlStr));
             textView2Licence.setText(Html.fromHtml(htmlStr1));
         }
+        textView2Licence.setOnClickListener(v -> {
+            Uri uri = Uri.parse("http://wtf.com/termsofservice.html");
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent);
+        });
+        textView1Licence.setOnClickListener(v -> {
+            Uri uri = Uri.parse("http://wtf.com/privacy.html");
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent);
+        });
 
     }
 
