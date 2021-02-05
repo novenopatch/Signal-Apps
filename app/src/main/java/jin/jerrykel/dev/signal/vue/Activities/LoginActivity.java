@@ -19,7 +19,6 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import jin.jerrykel.dev.signal.R;
@@ -39,7 +38,7 @@ public class LoginActivity extends BaseActivity {
     private final int millis = 2000;
     ProgressBar progressBarC;
     private User modelCurrentUser;
-    public static InfomationAppUser infomationAppUser = new InfomationAppUser(new Date());
+    //public static InfomationAppUser infomationAppUser = new InfomationAppUser(new Date());
 
     private LinearLayout linearLayout;
 
@@ -88,6 +87,21 @@ public class LoginActivity extends BaseActivity {
         };
         new Handler().postDelayed(runnable, millis);
 
+    }
+    private void licenceCheck() {
+        Controler controler = Controler.getInstance(this);
+
+        InfomationAppUser infomationAppUserR = controler.getManager().getInformation();
+
+        if(infomationAppUserR!=null){
+            Log.d("infomationAppUser0",infomationAppUserR.toString());
+            if(infomationAppUserR.isFirstLaunch()){
+                startLicenceActivity();
+            }
+        }
+        else {
+            startLicenceActivity();
+        }
     }
     private void startAppropriateActivity(Boolean bool) {
         if(bool){
@@ -148,14 +162,7 @@ public class LoginActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
-    private void licenceCheck() {
-        Controler controler = Controler.getInstance(this);
-        controler.getManager().insertInformation(infomationAppUser);
-        InfomationAppUser infomationAppUserR = controler.getManager().getInformation();
-        if(infomationAppUserR!=null && infomationAppUserR.isFirstLaunch()){
-            startLicenceActivity();
-        }
-    }
+
     private void startLicenceActivity(){
         Intent intent = new Intent(getApplicationContext(), LicenceAccepteActivity.class);
         startActivity(intent);

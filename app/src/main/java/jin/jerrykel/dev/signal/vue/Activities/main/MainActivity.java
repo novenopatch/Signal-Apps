@@ -21,7 +21,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -83,18 +82,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         controler = Controler.getInstance(this);
         signalFragment = SignalFragment.newInstance(connectionState,controler);
         alertFragment = AlertFragment.newInstance();
-        profileFragment = ProfileFragment.newInstance(email,userName,connectionState);
+        profileFragment = ProfileFragment.newInstance(email,userName,connectionState,controler);
         configureDrawerLayout();
         configureNavigationView();
         configureToolbarButon();
         configureViewPagerAndTabs();
 
-       // intent = new Intent(this, ServiceGetSignal.class);
-
-        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_ONE_SHOT);
-        //AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-       // manager.set(ELAPSED_REALTIME, System.currentTimeMillis(), pendingIntent);
-       // manager.setRepeating(ELAPSED_REALTIME,System.currentTimeMillis(),INTERVAL_FIFTEEN_MINUTES,pendingIntent);
+       //
         checkVersion();
 
     }
@@ -198,7 +192,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void signOutUserFromFirebase(){
         AuthUI.getInstance()
                 .signOut(this)
-                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted());
+                .addOnSuccessListener(this, aVoid -> finish());
 
     }
     private void deleteUserFromFirebase(){
@@ -209,12 +203,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             AuthUI.getInstance()
                     .delete(this)
-                    .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted());
+                    .addOnSuccessListener(this, aVoid -> finish());
         }
     }
-    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(){
-        return aVoid -> finish();
-    }
+
     @Override
     public void onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {

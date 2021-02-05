@@ -221,5 +221,15 @@ public class Utils {
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
         context.startActivity(intent);
     }
+    public static void openPrivacyPage(Context context){
+        Uri uri = Uri.parse("http://wtf.com/privacy.html");
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        context.startActivity(intent);
+    }
+    public static void openTermsOfServicePage(Context context){
+        Uri uri = Uri.parse("http://wtf.com/termsofservice.html");
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        context.startActivity(intent);
+    }
 
 }

@@ -8,34 +8,47 @@ import android.widget.TextView;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.util.Date;
+
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.api.UserHelper;
+import jin.jerrykel.dev.signal.controler.Controler;
+import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
+import jin.jerrykel.dev.signal.utils.DatabaseManager;
 import jin.jerrykel.dev.signal.utils.Utils;
 import jin.jerrykel.dev.signal.vue.base.BaseFragment;
 
 
 public class ProfileFragment extends BaseFragment {
 
-   private EditText editTextUsername;
-   private TextView textViewEmail;
-   private Button buttonUpdate;
-   private ProgressBar progressBar;
-    private static String username;
-    private static String email;
-    private static boolean connectionStateBoolean;
-private SwipeRefreshLayout swipeRefreshLayoutProfile;
+         private EditText editTextUsername;
+         private TextView textViewAbout;
+        private TextView textViewEmail;
+       private Button buttonUpdate;
+       private ProgressBar progressBar;
+        private static String username;
+        private static String email;
+        private static boolean connectionStateBoolean;
+        private SwipeRefreshLayout swipeRefreshLayoutProfile;
+        private static Controler localControler;
+        private static DatabaseManager manager;
+        private static InfomationAppUser infomationAppUser;
     public ProfileFragment() {
         // Required empty public constructor
     }
 
 
-    public static ProfileFragment newInstance(String temail, String tuserName, boolean connectionState) {
+    public static ProfileFragment newInstance(String temail, String tuserName, boolean connectionState, Controler controler) {
         ProfileFragment fragment = new ProfileFragment();
 
         username = temail;
         email = tuserName;
         connectionStateBoolean = connectionState;
+        localControler = controler;
+        manager= localControler.getManager();
+
+        infomationAppUser = manager.getInformation();
         return fragment;
     }
 
@@ -49,6 +62,7 @@ private SwipeRefreshLayout swipeRefreshLayoutProfile;
     public void initView() {
         this.editTextUsername = rootView.findViewById(R.id.editTextUsername);
         this.textViewEmail = rootView.findViewById(R.id.textViewEmail);
+        this.textViewAbout = rootView.findViewById(R.id.textViewAbout);
         this.buttonUpdate = rootView.findViewById(R.id.buttonUpdate);
         this.progressBar = rootView.findViewById(R.id.progressBarFragmentProfile);
         this.swipeRefreshLayoutProfile = rootView.findViewById(R.id.swipeRefreshLayoutProfile);
@@ -60,6 +74,7 @@ private SwipeRefreshLayout swipeRefreshLayoutProfile;
 
 
         this.swipeRefreshLayoutProfile.setOnRefreshListener(this::updateListView);
+        this.textViewAbout.setText(Utils.convertDateToString(infomationAppUser.getWhen()));
     }
     public void updateListView(){
         this.swipeRefreshLayoutProfile.setRefreshing(false);
@@ -116,5 +131,11 @@ private SwipeRefreshLayout swipeRefreshLayoutProfile;
             }
 
         });
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        infomationAppUser.setWhen(new Date());
+        manager.updateInformation(infomationAppUser);
     }
 }

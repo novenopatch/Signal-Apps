@@ -91,6 +91,10 @@ public class DatabaseManager extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
             return null;
         }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
 
     }

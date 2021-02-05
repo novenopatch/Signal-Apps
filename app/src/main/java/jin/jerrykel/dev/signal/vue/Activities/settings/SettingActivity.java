@@ -16,6 +16,7 @@ import jin.jerrykel.dev.signal.controler.Controler;
 import jin.jerrykel.dev.signal.model.InfomationAppUser;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.utils.DatabaseManager;
+import jin.jerrykel.dev.signal.utils.Utils;
 import jin.jerrykel.dev.signal.vue.Activities.main.MainActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.AccountActivity;
 import jin.jerrykel.dev.signal.vue.Activities.settings.road.OpenSourceActivity;
@@ -127,6 +128,12 @@ public class SettingActivity extends BaseActivity {
             case R.id.linearLayoutAccount:
                 startActivity(new Intent(this, AccountActivity.class));
                 break;
+            case R.id.buttonPrivacyPolicy:
+                Utils.openPrivacyPage(this);
+                break;
+            case R.id.buttonTermsOfService:
+                Utils.openTermsOfServicePage(this);
+                break;
             case R.id.buttonVersion:
                 ///
                 ///
@@ -143,6 +150,8 @@ public class SettingActivity extends BaseActivity {
                 startActivity(new Intent(this, OpenSourceActivity.class));
 
                 break;
+
+
 
             default:
                 break;
