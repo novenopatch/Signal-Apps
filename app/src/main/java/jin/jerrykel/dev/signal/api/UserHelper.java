@@ -8,19 +8,27 @@ import com.google.firebase.firestore.Query;
 
 import jin.jerrykel.dev.signal.model.User;
 
+import static jin.jerrykel.dev.signal.utils.Values.COLLECTION_USER_NAME;
+import static jin.jerrykel.dev.signal.utils.Values.DATE_CREATED;
+import static jin.jerrykel.dev.signal.utils.Values.DELETE_ACTION;
+import static jin.jerrykel.dev.signal.utils.Values.DISABLE;
+import static jin.jerrykel.dev.signal.utils.Values.MENTOR;
+import static jin.jerrykel.dev.signal.utils.Values.ROOT;
+import static jin.jerrykel.dev.signal.utils.Values.USERNAME;
+
 /**
  * Created by JerrykelDEV on 25/11/2020 23:09
  */
 public class UserHelper {
 
-    private static final String COLLECTION_NAME = "users";
+
     private static boolean  isExist = false;
-    private static   User currentUser;
+
 
     // --- COLLECTION REFERENCE ---
 
     public static CollectionReference getUsersCollection(){
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
+        return FirebaseFirestore.getInstance().collection( COLLECTION_USER_NAME);
     }
 
 
@@ -39,7 +47,7 @@ public class UserHelper {
     public static Query getAllUsers(){
 
 
-        return UserHelper.getUsersCollection().orderBy("dateCreated");
+        return UserHelper.getUsersCollection().orderBy(DATE_CREATED);
     }
     public static boolean ifUserIsExist(String ui){
         getUser(ui).addOnSuccessListener(documentSnapshot -> {
@@ -55,24 +63,24 @@ public class UserHelper {
     // --- UPDATE ---
 
     public static Task<Void> updateUsername(String username, String uid) {
-        return UserHelper.getUsersCollection().document(uid).update("username", username);
+        return UserHelper.getUsersCollection().document(uid).update(USERNAME, username);
     }
     public static Task<Void> updateUserDisableOrNot(String uid, boolean disable) {
-        return UserHelper.getUsersCollection().document(uid).update("disable", disable);
+        return UserHelper.getUsersCollection().document(uid).update(DISABLE, disable);
     }
 
     public static Task<Void> updateIsMentor(String uid, boolean isMentor) {
-        return UserHelper.getUsersCollection().document(uid).update("mentor", isMentor);
+        return UserHelper.getUsersCollection().document(uid).update(MENTOR, isMentor);
     }
     public static Task<Void> updateIsRoot(String uid,Boolean isMentor, Boolean isRoot) {
-        return UserHelper.getUsersCollection().document(uid).update("root",isRoot);
+        return UserHelper.getUsersCollection().document(uid).update(ROOT,isRoot);
     }
 
     // --- DELETE ---
 
     public static Task<Void> deleteUser(String uid) {
 
-        return UserHelper.getUsersCollection().document(uid).update("deleteAction", true);
+        return UserHelper.getUsersCollection().document(uid).update(DELETE_ACTION, true);
     }
     public static Task<Void> deleteAction(String uid) {
         return UserHelper.getUsersCollection().document(uid).delete();

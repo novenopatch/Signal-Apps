@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "jin.jerrykel.dev.signal",
+  "variantName": "proRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 34,
+      "versionName": "1.1.1.4",
+      "enabled": true,
+      "outputFile": "app-pro-release.apk"
+    }
+  ]
+}

@@ -16,13 +16,15 @@ import com.google.firebase.messaging.RemoteMessage;
 import jin.jerrykel.dev.signal.R;
 import jin.jerrykel.dev.signal.vue.Activities.LoginActivity;
 
+import static jin.jerrykel.dev.signal.utils.Values.NOTIFICATION_ID;
+import static jin.jerrykel.dev.signal.utils.Values.NOTIFICATION_TAG;
+
 /**
  * Created by JerrykelDEV on 29/11/2020 10:31
  */
 public class NotificationsService   extends FirebaseMessagingService {
 
-    private final int NOTIFICATION_ID = 007;
-    private final String NOTIFICATION_TAG = "OneSignal";
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

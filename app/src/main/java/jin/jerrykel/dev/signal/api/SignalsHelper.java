@@ -9,18 +9,27 @@ import java.util.UUID;
 
 import jin.jerrykel.dev.signal.model.Signals;
 
+import static jin.jerrykel.dev.signal.utils.Values.ACTIVE;
+import static jin.jerrykel.dev.signal.utils.Values.COLLECTION_SIGNALS_NAME;
+import static jin.jerrykel.dev.signal.utils.Values.DATE_CREATED;
+import static jin.jerrykel.dev.signal.utils.Values.READY;
+import static jin.jerrykel.dev.signal.utils.Values.SIGNALS_PREMIUM_OR_NOT;
+import static jin.jerrykel.dev.signal.utils.Values.SIGNALS_SENT_ACTIVE_OR_READY;
+import static jin.jerrykel.dev.signal.utils.Values.SIGNALS_SENT_SELL_OR_BUY;
+import static jin.jerrykel.dev.signal.utils.Values.TYPE_SIGNALS_NAME;
+
 /**
  * Created by JerrykelDEV on 08/01/2021 10:15
  */
 public class SignalsHelper {
 
-    private static final String COLLECTION_NAME = "signal";
+
 
 
     // --- COLLECTION REFERENCE ---
 
     public static CollectionReference getSignalCollection(){
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
+        return FirebaseFirestore.getInstance().collection(COLLECTION_SIGNALS_NAME);
     }
 
     // --- GET ---
@@ -28,24 +37,21 @@ public class SignalsHelper {
     public static Query getAllSignalSent(){
 
 
-        return  getSignalCollection().orderBy("dateCreated");
+        return  getSignalCollection().orderBy(DATE_CREATED);
     }
     public static Query getAllSignalSentSignalName(String config){
 
-        return  getSignalCollection().whereEqualTo("typeSignalsName",config).orderBy("dateCreated");
+        return  getSignalCollection().whereEqualTo( TYPE_SIGNALS_NAME,config).orderBy(DATE_CREATED);
     }
     public static Query getAllSignalSentActiveOrReady(String config){
 
-        return  getSignalCollection().whereEqualTo("signalStatus",config).orderBy("dateCreated");
+        return  getSignalCollection().whereEqualTo(SIGNALS_SENT_ACTIVE_OR_READY,config).orderBy(DATE_CREATED);
     }
     public static Query getAllSignalSentSellOrBuy(String config){
 
-        return  getSignalCollection().whereEqualTo("sellOrBuy",config).orderBy("dateCreated");
+        return  getSignalCollection().whereEqualTo(SIGNALS_SENT_SELL_OR_BUY,config).orderBy(DATE_CREATED);
     }
-    public static Query getAllSignalFreeOrPremium(Boolean config){
 
-        return  getSignalCollection().whereEqualTo("premium",config).orderBy("dateCreated");
-    }
 
 
     // --- CREATE ---
@@ -61,15 +67,15 @@ public class SignalsHelper {
 
     public static Task<Void> updateStatut(String uid, boolean state) {
         if(state){
-            return getSignalCollection().document(uid).update("signalStatus","Active");
+            return getSignalCollection().document(uid).update(SIGNALS_SENT_ACTIVE_OR_READY,ACTIVE);
         }else {
-            return getSignalCollection().document(uid).update("signalStatus","Ready");
+            return getSignalCollection().document(uid).update(SIGNALS_SENT_ACTIVE_OR_READY,READY);
         }
 
     }
     public static Task<Void> updatePremiumOrNot(String uid, boolean state) {
 
-        return getSignalCollection().document(uid).update("premium",state);
+        return getSignalCollection().document(uid).update(SIGNALS_PREMIUM_OR_NOT,state);
 
 
     }

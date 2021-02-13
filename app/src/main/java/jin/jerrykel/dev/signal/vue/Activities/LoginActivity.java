@@ -16,6 +16,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
@@ -51,6 +52,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public int getLayout() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
         return R.layout.activity_login;
     }
     @Override

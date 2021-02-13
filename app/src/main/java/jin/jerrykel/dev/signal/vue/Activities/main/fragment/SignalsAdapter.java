@@ -30,6 +30,8 @@ import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.model.User;
 import jin.jerrykel.dev.signal.utils.Utils;
 
+import static jin.jerrykel.dev.signal.utils.Values.SELL;
+
 
 public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAdapter.SignalsViewHolder> {
 
@@ -103,7 +105,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
       if(!model.isPremium()){
           holder.textViewSignalName.setText(model.getTypeSignalsName());
           holder.textViewSignalStatut.setText(model.getSignalStatus());
-          if(model.getSellOrBuy().equals("Sell")){
+          if(model.getSellOrBuy().equals(SELL)){
               holder.textViewSignalType.setTextColor(Color.RED);
               //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
           }else {
@@ -127,7 +129,7 @@ public class SignalsAdapter extends FirestoreRecyclerAdapter<Signals, SignalsAda
               if(userC.getPremium() || userC.getMentor()||userC.getRoot()){
                   holder.textViewSignalName.setText(model.getTypeSignalsName());
                   holder.textViewSignalStatut.setText(model.getSignalStatus());
-                  if(model.getSellOrBuy().equals("Sell")){
+                  if(model.getSellOrBuy().equals(SELL)){
                       holder.textViewSignalType.setTextColor(Color.RED);
                       //holder.textViewSignalType.setTextColor(Color.parseColor("#c60c2b"));
                   }else {

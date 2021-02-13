@@ -8,24 +8,27 @@ import com.google.firebase.firestore.Query;
 import java.util.UUID;
 
 import jin.jerrykel.dev.signal.model.AppInfo;
+import jin.jerrykel.dev.signal.utils.Values;
+
+import static jin.jerrykel.dev.signal.utils.Values.DATE_CREATED;
 
 /**
  * Created by JerrykelDEV on 31/01/2021 20:43
  */
 public class AppInfoHelper {
-    private static final String COLLECTION_NAME = "appInfo";
 
-    // --- COLLECTION REFERENCE ---
+
+
 
     public static CollectionReference getAppInfoListCollection(){
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
+        return FirebaseFirestore.getInstance().collection(Values.COLLECTION_APP_INFO_NAME);
     }
 
     // --- GET ---
 
 
     public static Query getAppInfo(){
-        return getAppInfoListCollection().orderBy("dateCreated", Query.Direction.ASCENDING).limit(1);
+        return getAppInfoListCollection().orderBy(DATE_CREATED, Query.Direction.ASCENDING).limit(1);
     }
 
 

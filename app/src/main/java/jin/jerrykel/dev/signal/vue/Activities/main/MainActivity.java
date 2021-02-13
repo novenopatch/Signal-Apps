@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -66,6 +67,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public int getLayout() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
         return R.layout.activity_main;
     }
     @Override

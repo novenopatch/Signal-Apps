@@ -147,31 +147,25 @@
                         android:textSize="18sp" />
 
                 </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewSignal"
 
-                <androidx.coordinatorlayout.widget.CoordinatorLayout
-
-                    android:id="@+id/coordinatorLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp" />
+                <TextView
+                    android:id="@+id/fragment_signal_not_found_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_marginLeft="@dimen/default_large_margin"
+                    android:layout_marginRight="@dimen/default_large_margin"
+                    android:layout_marginTop="5dp"
+
+                    android:text="@string/signal_not_found"
+                    android:textAlignment="center" />
 
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewSignal"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                    <TextView
-                        android:id="@+id/fragment_signal_not_found_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|top"
-                        android:layout_margin="@dimen/default_large_margin"
-                        android:text="@string/signal_not_found"
-                        android:textAlignment="center" />
-
-
-                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -24,6 +24,9 @@ import jin.jerrykel.dev.signal.api.SignalsHelper;
 import jin.jerrykel.dev.signal.model.Signals;
 import jin.jerrykel.dev.signal.utils.Utils;
 
+import static jin.jerrykel.dev.signal.utils.Values.ACTIVE;
+import static jin.jerrykel.dev.signal.utils.Values.READY;
+
 
 public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, SignalsAdapterDash.SignalsViewHolderDash> {
 
@@ -110,13 +113,13 @@ public class SignalsAdapterDash extends FirestoreRecyclerAdapter<Signals, Signal
         }
         holder.textViewSignalName.setText(model.getTypeSignalsName());
         holder.textViewSignalStatut.setText(model.getSignalStatus());
-        if(model.getSignalStatus().equals("Active")){
-            holder.switchActiveOrReady.setText("Active");
+        if(model.getSignalStatus().equals(ACTIVE)){
+            holder.switchActiveOrReady.setText(ACTIVE);
             holder.switchActiveOrReady.setTextColor(Color.GREEN);
             holder.switchActiveOrReady.setChecked(true);
             holder.textViewSignalName.setTextColor(Color.GREEN);
         }else {
-            holder.switchActiveOrReady.setText("Ready");
+            holder.switchActiveOrReady.setText(READY);
             holder.switchActiveOrReady.setTextColor(Color.RED);
             holder.switchActiveOrReady.setChecked(false);
             holder.textViewSignalName.setTextColor(Color.RED);
